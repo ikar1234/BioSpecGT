@@ -1,0 +1,4 @@
+"""
+Function for generating graphs.
+"""
+
