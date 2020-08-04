@@ -18,14 +18,15 @@ def plot_degree(adj, bins=100):
 
 
 def weight_distr(adj, bins=100):
+    # TODO: weights are counted twice
     """
     Plot a histogram of the edge weight distribution.
-    :param adj: adjancency matrix
+    :param adj: adjacency matrix
     :param bins: number of bins
     :return:
     """
-    flatten = lambda l: [item for sublist in l for item in sublist]
-    plt.hist(flatten(adj), bins=bins)
+    weight_list = [adj[k].values() for k in adj.keys()]
+    plt.hist([item for sublist in weight_list for item in sublist], bins=bins)
     plt.title("Edge weight distribution")
     plt.xlabel('Weight')
     plt.show()
