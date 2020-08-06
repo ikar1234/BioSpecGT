@@ -1,31 +1,65 @@
 """
 Spectral graph theory
 """
+import numpy as np
+import scipy as sp
+from typing import List
+from warnings import warn
+
+from BioSpecGT.graph.base import Graph, Vertex
+
+__all__ = [
+    'laplacian_matrix',
+    'signed_laplacian_matrix',
+    'vLv',
+    'rw_laplacian_matrix',
+    'normalized_laplacian_matrix',
+    'bound_conductance',
+    'bound_isoparametric_number'
+]
 
 
+def laplacian_matrix(G: Graph) -> np.ndarray:
+    return np.diag([G.get_degree(v) for v in G.vertices]) - G.adjacency_matrix()
 
-def laplacian_matrix():
+
+def signed_laplacian_matrix(G: Graph) -> np.ndarray:
+    return np.diag([G.get_degree(v) for v in G.vertices]) + G.adjacency_matrix()
+
+
+def vLv(G: Graph, v: np.ndarray) -> float:
+    """
+    Efficiently compute the vector-matrix-vector product of the graph laplacian and a vector.
+    Uses the sum of quadratic terms representation of the product.
+    Runs in O(|E|). Optimal for sparse graphs.
+    # TODO: dense graphs?
+    :param G: undirected graph
+    :param v: the vector
+    :return: a real number
+    """
+    return sum([(v[e.out_vertex.index] - v[e.in_vertex.index]) ** 2 for e in G.edges if
+                e.out_vertex.label > e.in_vertex.label])
+
+
+def normalized_laplacian_matrix() -> np.ndarray:
     ...
 
 
-def normalized_laplacian_matrix():
-    ...
-
-
-
-def rw_laplacian_matrix():
+def rw_laplacian_matrix() -> np.ndarray:
     """
     Get Random-Walk Laplacian.
     :return:
     """
     ...
 
-def compute_l2():
+
+def compute_l2() -> float:
     """
     Compute l2 directly. Useful for small graphs.
     :return: exact value (up to a numerical error) of l2
     """
     ...
+    # TODO: MemoryError exception?
 
 
 def estimate_l2():
@@ -42,3 +76,62 @@ def bound_l2():
     :return: lower and upper bound of l2
     """
     ...
+
+
+def bound_l2_CBT(G: Graph, h: int = None, n: int = None):
+    """
+    Give a lower and upper bound on l2 for a complete binary tree.
+    Runs in O(1) since the bound are explicitly known.
+    :param G: complete binary tree
+    :param h: (optional) height of the tree
+    :param n: (optional) number of nodes in the tree
+    :return: lower and upper bound
+    """
+    # infer n from the graph
+    if h is None and n is None:
+        n = len(G.vertices)
+    elif h is not None:
+        n = 2 ** h - 1
+
+    return 1 / ((n - 1) * np.log2(n)), 2 / (n - 1)
+
+
+def bound_isoparametric_number(G: Graph, S: List[Vertex], l2: float = None) -> float:
+    """
+    Give a lower bound on the isoparametric number of a graph.
+    The isoparametric number is the smallest value of the isoparametric ratio of some set of vertices of a graph.
+    It tells us how close the graph is to being bipartite.
+    :param G: undirected graph
+    :param S: set of vertices
+    :param l2: (optional) smallest non-zero eigenvalue. Will be computed if not given.
+    :return: lower bound on the isoparametric number
+    """
+    # TODO l2
+    if l2 is None:
+        l2 = compute_l2()
+    return l2 * (1 - len(S) / len(G.vertices))
+
+
+def bound_conductance(G: Graph = None, d: int = None, l2: float = None):
+    """
+    Give a lower and an upper bound on the conductance of a d-regular graph.
+    The conductance is the smallest value of the isoparametric ratio of some set of vertices of a graph.
+    It tells us how close the graph is to being bipartite.
+    (This is Cheeger's inequality)
+    :param G: undirected graph
+    :param d: number of edges for each vertex
+    :param l2: (optional) smallest non-zero eigenvalue. Will be computed if not given.
+    :return: lower bound on the conductance
+    """
+    if G is None and d is None and l2 is None:
+        raise ValueError("You need to specify either the graph G or the parameters d and l2.")
+    # the only meaningful bound for an empty graph
+    if G is not None and len(G.vertices) == 0:
+        warn('An empty graph was given')
+        return 0, 0
+    if d is None:
+        d = G.get_degree(G.vertices[0])
+    # TODO l2
+    if l2 is None:
+        l2 = compute_l2()
+    return l2 / (2 * d), (2 * l2 / d) ** 0.5

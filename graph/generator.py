@@ -68,23 +68,57 @@ def complete_graph(n: int) -> Graph:
 
 
 def sparse_graph(n: int, perc: float = 0.05) -> Graph:
+    """
+    Create a random sparse graph.
+    :param n: number of vertices
+    :param perc: percentage of possible edges
+    :return:
+    """
     ...
 
 
 def dense_graph(n: int, perc: float = 0.85) -> Graph:
+    """
+    Create a random dense graph.
+    :param n: number of vertices
+    :param perc: percentage of possible edges
+    :return:
+    """
     ...
 
 
-def path_graph() -> Graph:
-    ...
+def euler_graph(n: int, cycle=True) -> Graph:
+    """
+    Create a random graph with an Euler path.
+    :param n: number of vertices
+    :param cycle: if True, there is also an Euler cycle in the graph.
+    :return:
+    """
+    # TODO
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
 
 
-def cycle_graph() -> Graph:
-    ...
+def path_graph(n: int) -> Graph:
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+    edges = [Edge(vertices[i], vertices[i + 1]) for i in range(n)]
+
+    return Graph(vertices, edges).make_undirected()
 
 
-def complete_binary_tree() -> Graph:
-    ...
+def cycle_graph(n: int) -> Graph:
+    p = path_graph(n)
+    edge = [Edge(p.vertices[-1], p.vertices[0])]
+    p.add_egdes(edge)
+    return p
+
+
+def complete_binary_tree(n: int, directed=False) -> Graph:
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+    edges = [Edge(vertices[i], vertices[2 * i + 1]) for i in range(n // 2)]
+    edges.extend([Edge(vertices[i], vertices[2 * i + 2]) for i in range(n // 2)])
+    if directed:
+        return Graph(vertices, edges)
+    return Graph(vertices, edges).make_undirected()
 
 
 def petersen_graph() -> Graph:
