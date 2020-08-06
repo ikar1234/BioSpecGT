@@ -1,4 +1,3 @@
 """
 Kernel functions (for graphs).
 """
-

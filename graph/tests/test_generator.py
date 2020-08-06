@@ -4,8 +4,8 @@ from ..generator import *
 
 class MyTestCase(unittest.TestCase):
     def test_k_regular_graph(self):
-        n = 1000
-        k = 1000
+        n = 5
+        k = 2
         graph = k_regular_graph(n, k)
         self.assertEqual(len(graph.vertices), n)
         self.assertEqual(len(graph.edges), n * k)

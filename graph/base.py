@@ -11,14 +11,22 @@ import scipy as sp
 class Vertex:
     # label of the vertex
     label: str
+    # index in the graph, starts from 0
+    index: int
     # meta-info about the vertex
     meta: Dict
 
-    def __init__(self, label: str, **meta):
+    def __init__(self, label: str, index: int, **meta):
         self.label = label
+        self.index = index
         self.meta = meta
 
     def __eq__(self, other):
+        """
+        Tests two vertices for equality. Index-invariant.
+        :param other:
+        :return:
+        """
         return self.label == other.label
 
 
@@ -46,7 +54,7 @@ class Edge:
         if self.has_weight:
             weight_str = f" with weight {self.weight}"
         else:
-            weight_str = " ."
+            weight_str = "."
         return f"An edge between {self.in_vertex.label} and {self.out_vertex.label}" + weight_str
 
 
@@ -59,14 +67,25 @@ class Graph:
         self.edges = edges
 
     def adjacency_matrix(self):
-        # TODO: vertex indexing
+        # TODO: vertex indexing check
         v = len(self.vertices)
         m = np.zeros((v, v))
         for e in self.edges:
-            m[e.in_vertex.label, e.out_vertex.label] = 1
+            m[e.in_vertex.index, e.out_vertex.index] = 1
 
     def add_egdes(self, edges: List[Edge]):
         self.edges.extend(edges)
+
+    def add_vertex(self, vertex: Vertex):
+        vertex.index = len(self.vertices)
+        self.vertices.append(vertex)
+
+    def add_vertices(self, vertices: List[Vertex]):
+        i = len(self.vertices)
+        for v in vertices:
+            v.index = i
+            i += 1
+        self.vertices.extend(vertices)
 
     def __str__(self):
         """

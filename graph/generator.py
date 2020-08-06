@@ -7,8 +7,28 @@ import itertools
 from typing import List, Dict
 from time import time
 
+__all__ = ['k_regular_graph',
+           'empty_graph',
+           'complete_graph',
+           'petersen_graph',
+           'morse_graph',
+           'sparse_graph',
+           'cycle_graph',
+           'dense_graph',
+           'path_graph',
+           'complete_binary_tree'
+           ]
 
-# from networkx.generators import complete_graph
+
+def empty_graph(n: int = 0) -> Graph:
+    """
+    Empty graph with or without vertices.
+    :param n: (optional) number of vertices
+    :return:
+    """
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+
+    return Graph(vertices, [])
 
 
 def k_regular_graph(n: int, k: int) -> Graph:
@@ -20,22 +40,28 @@ def k_regular_graph(n: int, k: int) -> Graph:
     :return: a Graph object
     """
     t1 = time()
-    vertices: List[Vertex] = [Vertex(label=f'{i}') for i in range(n)]
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
 
     t2 = time()
     print('Init: ', t2 - t1)
     rand_vert = np.random.choice(a=vertices, size=k)
+    # item for sublist in rand_vert for item in sublist
+    # TODO
     edges: List[Edge] = [Edge(out_vertex=v, in_vertex=i) for i in rand_vert for v in vertices]
 
     t3 = time()
     print('Loop: ', t3 - t2)
+
+    for i in range(len(edges)):
+        print(edges[i])
+
     return Graph(vertices=vertices, edges=edges)
 
 
 def complete_graph(n: int) -> Graph:
     t1 = time()
     # TODO: faster?
-    vertices: List[Vertex] = [Vertex(label=f'{i}') for i in range(n)]
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
     edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
     print(time() - t1)
     return Graph(vertices, edges)
