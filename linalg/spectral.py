@@ -3,6 +3,23 @@ Spectral graph theory
 """
 
 
+
+def laplacian_matrix():
+    ...
+
+
+def normalized_laplacian_matrix():
+    ...
+
+
+
+def rw_laplacian_matrix():
+    """
+    Get Random-Walk Laplacian.
+    :return:
+    """
+    ...
+
 def compute_l2():
     """
     Compute l2 directly. Useful for small graphs.
