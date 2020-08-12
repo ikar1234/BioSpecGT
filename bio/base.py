@@ -55,7 +55,7 @@ def connections(dct, k):
 
 def get_gene_info(gene):
     """
-    Get full info of a particular gene
+    Get full info of a particular gene.
     :param gene:
     :return:
     """

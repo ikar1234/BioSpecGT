@@ -64,17 +64,20 @@ class Edge:
 class Graph:
     vertices: List[Vertex]
     edges: List[Edge]
+    directed: bool
 
-    def __init__(self, vertices, edges):
+    def __init__(self, vertices, edges, directed=True):
         self.vertices = vertices
         self.edges = edges
+        self.directed = directed
 
-    def adjacency_matrix(self):
+    def adjacency_matrix(self, dtype=bool):
         # TODO: vertex indexing check
         v = len(self.vertices)
-        m = np.zeros((v, v), dtype=bool)
+        m = np.zeros((v, v), dtype=dtype)
         for e in self.edges:
             m[e.in_vertex.index, e.out_vertex.index] = 1
+        return m
 
     # TODO: compare runtime for different graphs and decide which to use
     # TODO: yield?
@@ -97,9 +100,19 @@ class Graph:
         vertex.index = len(self.vertices)
         self.vertices.append(vertex)
 
+    # def from_indices(self, inds: List[int]) -> List[Vertex]:
+    #     """
+    #     Given a list of indices, return the corresponding nodes in the graph.
+    #     :param inds: list of integer-values indices
+    #     :return:
+    #     """
+    #     # TODO: better?
+    #     inds.sort()
+    #     return [v for v in self.vertices if v.index in inds]
+
     def add_vertices(self, vertices: List[Vertex]):
         """
-        Add and label a set of vertices
+        Add and label a set of nodes
         :param vertices:
         :return:
         """
@@ -111,7 +124,7 @@ class Graph:
 
     def find_by_index(self, index: int):
         """
-        Find a vertex by its index.
+        Find a node by its index.
         :param index:
         :return:
         """

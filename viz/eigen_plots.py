@@ -28,3 +28,23 @@ def _eigen_proj(eig1, eig2, frm=2, eigval1=None, eigval2=None, lines=True, jitte
     if lines:
         plt.plot(eig1, eig2, 'r-')
     plt.show()
+
+
+def plot_spectrum(mat: np.ndarray = None, eigs=None, sym=True):
+    # TODO: test etc.
+    """
+    Plot the spectrum of a matrix, either by finding the eigenvalues from the matrix itself, or by giving them as a parameter.
+    :param mat: (optional) matrix
+    :param eigs: (optional) eigenvalues
+    :param sym: symmetric matrix
+    :return:
+    """
+    if mat is None and eigs is None:
+        raise ValueError('Either the matrix or the eigenvalues must be given')
+    if eigs is None:
+        if sym:
+            eigs = np.linalg.eigh(mat)[0]
+        else:
+            eigs = np.linalg.eig(mat)[0]
+    plt.plot(eigs)
+    plt.show()

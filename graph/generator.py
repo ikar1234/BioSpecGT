@@ -59,11 +59,11 @@ def k_regular_graph(n: int, k: int) -> Graph:
 
 
 def complete_graph(n: int) -> Graph:
-    t1 = time()
+    # t1 = time()
     # TODO: faster?
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
     edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
-    print(time() - t1)
+    # print(time() - t1)
     return Graph(vertices, edges)
 
 
@@ -113,7 +113,9 @@ def cycle_graph(n: int) -> Graph:
 
 
 def complete_binary_tree(n: int, directed=False) -> Graph:
+    # TODO: test that n is a Mersenne prime
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+    # TODO: extend?
     edges = [Edge(vertices[i], vertices[2 * i + 1]) for i in range(n // 2)]
     edges.extend([Edge(vertices[i], vertices[2 * i + 2]) for i in range(n // 2)])
     if directed:

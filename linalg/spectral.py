@@ -47,7 +47,7 @@ def normalized_laplacian_matrix() -> np.ndarray:
 
 def rw_laplacian_matrix() -> np.ndarray:
     """
-    Get Random-Walk Laplacian.
+    Get the Random-Walk Laplacian.
     :return:
     """
     ...
