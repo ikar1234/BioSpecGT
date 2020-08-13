@@ -11,7 +11,7 @@ import scipy as sp
 class Vertex:
     # label of the vertex
     label: str
-    # index in the graph, starts from 0
+    # index in the graph,unique for each node, starts from 0
     index: int
     # meta-info about the vertex
     meta: Dict
@@ -28,6 +28,9 @@ class Vertex:
         :return:
         """
         return self.label == other.label
+
+    def __hash__(self):
+        return hash(self.index)
 
     def __str__(self):
         return f"A vertex with label {self.label} and following info:\n{self.meta}"
@@ -53,6 +56,9 @@ class Edge:
     def __eq__(self, other):
         return self.out_vertex == other.out_vertex and self.in_vertex == other.in_vertex and self.weight == other.weight
 
+    def __hash__(self):
+        return hash((self.in_vertex.index, self.out_vertex.index))
+
     def __str__(self):
         if self.has_weight:
             weight_str = f" with weight {self.weight}"
@@ -66,28 +72,24 @@ class Graph:
     edges: List[Edge]
     directed: bool
 
-    def __init__(self, vertices, edges, directed=True):
+    def __init__(self, vertices, edges, directed=False):
+        # TODO: add optional argument for making the graph undirected
         self.vertices = vertices
         self.edges = edges
         self.directed = directed
 
     def adjacency_matrix(self, dtype=bool):
-        # TODO: vertex indexing check
         v = len(self.vertices)
         m = np.zeros((v, v), dtype=dtype)
         for e in self.edges:
             m[e.in_vertex.index, e.out_vertex.index] = 1
         return m
 
-    # TODO: compare runtime for different graphs and decide which to use
-    # TODO: yield?
     def get_neighbours(self, v: Vertex) -> List[Vertex]:
         return [e.in_vertex for e in self.edges if e.out_vertex == v]
 
-    # TODO: compare runtime for different graphs and decide which to use
-
     def get_degree(self, v: Vertex) -> int:
-        return sum(self.adjacency_matrix()[:, v.index])
+        return len(self.get_neighbours(v))
 
     def add_egdes(self, edges: List[Edge]):
         self.edges.extend(edges)
@@ -99,16 +101,6 @@ class Graph:
     def add_vertex(self, vertex: Vertex):
         vertex.index = len(self.vertices)
         self.vertices.append(vertex)
-
-    # def from_indices(self, inds: List[int]) -> List[Vertex]:
-    #     """
-    #     Given a list of indices, return the corresponding nodes in the graph.
-    #     :param inds: list of integer-values indices
-    #     :return:
-    #     """
-    #     # TODO: better?
-    #     inds.sort()
-    #     return [v for v in self.vertices if v.index in inds]
 
     def add_vertices(self, vertices: List[Vertex]):
         """
@@ -142,9 +134,10 @@ class Graph:
         Make a directed graph undirected by added edges in both ways
         :return:
         """
-        # TODO: detect cycles of length 2 in the graph to make this efficient
         self.add_egdes(
-            [Edge(e.in_vertex, e.out_vertex) for e in self.edges if Edge(e.in_vertex, e.out_vertex) not in self.edges])
+            [Edge(e.in_vertex, e.out_vertex) for e in self.edges])
+        self.edges = list(set(self.edges))
+        self.directed = False
         return self
 
     def make_unweighted(self):

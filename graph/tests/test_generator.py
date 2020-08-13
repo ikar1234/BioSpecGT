@@ -22,6 +22,16 @@ class MyTestCase(unittest.TestCase):
     def test_cycle_graph(self):
         ...
 
+    def test_sparse_graph(self):
+        n = 1000
+        p = 0.15
+        g = sparse_graph(n, p)
+        print(len(g.vertices))
+        print(len(g.edges))
+
+    def test_dense_graph(self):
+        ...
+
     def test_euler_graph(self):
         ...
 

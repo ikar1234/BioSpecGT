@@ -7,15 +7,15 @@ import numpy as np
 import heapq
 
 
-# wrapper for the C code
-def minimum_spanning_tree() -> Graph:
-    # TODO: finish
-    ...
+def minimum_spanning_tree(G: Graph) -> Graph:
+    # TODO: more?
+    return prim(G)
 
 
 def prim(G: Graph) -> Graph:
+    # TODO: Cython?
     """
-    Python version of Prim's algorithm.
+    Prim's algorithm for minimal spanning tree.
     :param G: graph
     :return: minimal spanning tree
     """
@@ -29,18 +29,19 @@ def prim(G: Graph) -> Graph:
         heapq.heappush(h, (ind, pi[ind]))
     while len(h) > 0:
         u = heapq.heappop(h)
+        # vertices in h
+        h_vert = [x[0] for x in h]
         for e in G.edges:
             w = e.in_vertex
             ind = w.index
             weight = e.weight
-            if ind in map(lambda x: x[0], h) and weight < pi[ind]:
+            # TODO: optimize searching the whole heap
+            if ind in h_vert and weight < pi[ind]:
                 pred[ind] = u[0]
                 pi[ind] = weight
                 heapq.heappush(h, (ind, pi[ind]))
-
     # sorted by their indices
     vertices = G.vertices
-    pred.sort()
     edges = [Edge(vertices[v.index], vertices[pred[v.index]]) for v in vertices if pred[v.index] != -1]
     if not G.directed:
         return Graph(vertices, edges).make_undirected()
@@ -55,8 +56,6 @@ def dijkstra(mat: np.ndarray):
     h = []
     heapq.heappush(h, (pi[0], 0))
     while len(h) > 0:
-        print(pred)
-        print(pi)
         v = heapq.heappop(h)
         # print(f'Minimum {v}')
         v_0 = v[1]

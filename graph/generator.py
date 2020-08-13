@@ -1,11 +1,12 @@
 """
 Function for generating graphs.
 """
+import random
+
 from BioSpecGT.graph.base import Graph, Vertex, Edge
 import numpy as np
 import itertools
-from typing import List, Dict
-from time import time
+from typing import List
 
 __all__ = ['k_regular_graph',
            'empty_graph',
@@ -39,31 +40,19 @@ def k_regular_graph(n: int, k: int) -> Graph:
     :param k: the degree of each vertex
     :return: a Graph object
     """
-    t1 = time()
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
 
-    t2 = time()
-    print('Init: ', t2 - t1)
     rand_vert = np.random.choice(a=vertices, size=k)
     # item for sublist in rand_vert for item in sublist
     # TODO
     edges: List[Edge] = [Edge(out_vertex=v, in_vertex=i) for i in rand_vert for v in vertices]
 
-    t3 = time()
-    print('Loop: ', t3 - t2)
-
-    for i in range(len(edges)):
-        print(edges[i])
-
     return Graph(vertices=vertices, edges=edges)
 
 
 def complete_graph(n: int) -> Graph:
-    # t1 = time()
-    # TODO: faster?
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
     edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
-    # print(time() - t1)
     return Graph(vertices, edges)
 
 
@@ -74,7 +63,15 @@ def sparse_graph(n: int, perc: float = 0.05) -> Graph:
     :param perc: percentage of possible edges
     :return:
     """
-    ...
+    return _graph_perc(n, perc)
+
+
+def _graph_perc(n: int, perc: float) -> Graph:
+    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+    v1 = random.choices(vertices, k=int(perc * n ** 2))
+    v2 = random.choices(vertices, k=int(perc * n ** 2))
+    edges = [Edge(v, i) for v, i in zip(v1, v2)]
+    return Graph(vertices, edges)
 
 
 def dense_graph(n: int, perc: float = 0.85) -> Graph:
@@ -84,7 +81,7 @@ def dense_graph(n: int, perc: float = 0.85) -> Graph:
     :param perc: percentage of possible edges
     :return:
     """
-    ...
+    return _graph_perc(n, perc)
 
 
 def euler_graph(n: int, cycle=True) -> Graph:
@@ -94,15 +91,18 @@ def euler_graph(n: int, cycle=True) -> Graph:
     :param cycle: if True, there is also an Euler cycle in the graph.
     :return:
     """
-    # TODO
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
+    v2 = random.choices(vertices, k=n)
+    edges = [Edge(v, i) for v, i in zip(vertices, v2)]
 
 
-def path_graph(n: int) -> Graph:
+def path_graph(n: int, directed=False) -> Graph:
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
-    edges = [Edge(vertices[i], vertices[i + 1]) for i in range(n)]
+    edges = [Edge(vertices[i], vertices[i + 1]) for i in range(n - 1)]
+    if not directed:
+        edges += [Edge(vertices[i], vertices[i - 1]) for i in range(1, n)]
 
-    return Graph(vertices, edges).make_undirected()
+    return Graph(vertices, edges, directed=directed)
 
 
 def cycle_graph(n: int) -> Graph:
@@ -117,10 +117,12 @@ def complete_binary_tree(n: int, directed=False) -> Graph:
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
     # TODO: extend?
     edges = [Edge(vertices[i], vertices[2 * i + 1]) for i in range(n // 2)]
-    edges.extend([Edge(vertices[i], vertices[2 * i + 2]) for i in range(n // 2)])
+    edges += [Edge(vertices[i], vertices[2 * i + 2]) for i in range(n // 2 - 1)]
     if directed:
-        return Graph(vertices, edges)
-    return Graph(vertices, edges).make_undirected()
+        return Graph(vertices, edges, directed=True)
+    edges += [Edge(vertices[2 * i + 1], vertices[i]) for i in range(n // 2)]
+    edges += [Edge(vertices[2 * i + 2], vertices[i]) for i in range(n // 2 - 1)]
+    return Graph(vertices, edges)
 
 
 def petersen_graph() -> Graph:

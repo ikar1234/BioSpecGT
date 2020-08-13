@@ -2,11 +2,12 @@
 Spectral graph theory
 """
 import numpy as np
-import scipy as sp
-from typing import List
+from typing import List, Tuple
 from warnings import warn
 
 from BioSpecGT.graph.base import Graph, Vertex
+from BioSpecGT.utils.graphutils import prim
+from BioSpecGT.utils.packages import is_installed
 
 __all__ = [
     'laplacian_matrix',
@@ -14,6 +15,10 @@ __all__ = [
     'vLv',
     'rw_laplacian_matrix',
     'normalized_laplacian_matrix',
+    'bound_l2',
+    'bound_l2_CBT',
+    'estimate_l2',
+    'compute_l2',
     'bound_conductance',
     'bound_isoparametric_number'
 ]
@@ -27,7 +32,7 @@ def signed_laplacian_matrix(G: Graph) -> np.ndarray:
     return np.diag([G.get_degree(v) for v in G.vertices]) + G.adjacency_matrix()
 
 
-def vLv(G: Graph, v: np.ndarray) -> float:
+def vLv(v: np.ndarray, G: Graph) -> float:
     """
     Efficiently compute the vector-matrix-vector product of the graph laplacian and a vector.
     Uses the sum of quadratic terms representation of the product.
@@ -53,16 +58,16 @@ def rw_laplacian_matrix() -> np.ndarray:
     ...
 
 
-def compute_l2() -> float:
+def compute_l2(G: Graph) -> float:
     """
     Compute l2 directly. Useful for small graphs.
     :return: exact value (up to a numerical error) of l2
     """
-    ...
-    # TODO: MemoryError exception?
+    # TODO: sparse
+    return np.linalg.eigh(laplacian_matrix(G))[0][1]
 
 
-def estimate_l2():
+def estimate_l2(G: Graph):
     """
     Estimate l2. Useful for middle-sized graphs.
     :return: estimate of l2
@@ -70,12 +75,26 @@ def estimate_l2():
     ...
 
 
-def bound_l2():
+def bound_l2(G: Graph):
     """
     Give a lower and an upper bound of l2. Useful for large graphs.
     :return: lower and upper bound of l2
     """
-    ...
+    span = prim(G)
+
+    # TODO: ok?
+    if is_installed('scipy'):
+        from scipy.optimize import minimize
+        cons = ({'type': 'eq',
+                 'fun': lambda x: np.array([np.sum(x) - 1])
+                 })
+        up = minimize(fun=vLv, args=(G), x0=np.random.normal(size=len(G.vertices)), method='BFGS',
+                      constraints=cons).fun
+    else:
+        up = ...
+    # lower bound is l2 of the spanning tree
+    lo = compute_l2(span)
+    return lo, up
 
 
 def bound_l2_CBT(G: Graph, h: int = None, n: int = None):
@@ -108,7 +127,7 @@ def bound_isoparametric_number(G: Graph, S: List[Vertex], l2: float = None) -> f
     """
     # TODO l2
     if l2 is None:
-        l2 = compute_l2()
+        l2 = compute_l2(G)
     return l2 * (1 - len(S) / len(G.vertices))
 
 
@@ -132,6 +151,6 @@ def bound_conductance(G: Graph = None, d: int = None, l2: float = None):
     if d is None:
         d = G.get_degree(G.vertices[0])
     # TODO l2
-    if l2 is None:
-        l2 = compute_l2()
+    if l2 is None and G is not None:
+        l2 = compute_l2(G)
     return l2 / (2 * d), (2 * l2 / d) ** 0.5

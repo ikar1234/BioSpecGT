@@ -24,5 +24,4 @@ def number_of_paths(G: Graph, i: int, j: int, n: int = None) -> int:
         print(matrix_power(A, n)[i, j])
         return matrix_power(A, n)[i, j]
     gg = inv(eye(N=A.shape[0]) - A)
-    print(gg)
     return gg[i, j]
