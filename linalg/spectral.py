@@ -26,7 +26,8 @@ __all__ = [
 
 
 def laplacian_matrix(G: Graph) -> np.ndarray:
-    return np.diag([G.get_degree(v) for v in G.vertices]) - G.adjacency_matrix()
+    g = G.adjacency_matrix()
+    return np.diag(g.sum(axis=1)) - G.adjacency_matrix()
 
 
 def signed_laplacian_matrix(G: Graph) -> np.ndarray:
@@ -86,11 +87,18 @@ def bound_l2(G: Graph):
     # TODO: ok?
     if is_installed('scipy'):
         from scipy.optimize import minimize
+
+        # TODO: better than the sum approach?
+        #       cythonize?
+
+        def jac(v, g):
+            return laplacian_matrix(g) @ v
+
         cons = ({'type': 'eq',
                  'fun': lambda x: np.array([np.sum(x) - 1])
                  })
-        up = minimize(fun=vLv, args=(G), x0=np.random.normal(size=len(G.vertices)), method='BFGS',
-                      constraints=cons).fun
+        up = minimize(fun=vLv, args=(G), x0=np.random.normal(size=len(G.vertices)), method='trust-constr',
+                      constraints=cons, jac=jac).fun
     else:
         up = ...
     # lower bound is l2 of the spanning tree
