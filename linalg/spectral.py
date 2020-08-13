@@ -6,7 +6,7 @@ from typing import List, Tuple
 from warnings import warn
 
 from BioSpecGT.graph.base import Graph, Vertex
-from BioSpecGT.utils.graphutils import prim
+from BioSpecGT.utils.graphutils import minimum_spanning_tree
 from BioSpecGT.utils.packages import is_installed
 
 __all__ = [
@@ -80,7 +80,7 @@ def bound_l2(G: Graph):
     Give a lower and an upper bound of l2. Useful for large graphs.
     :return: lower and upper bound of l2
     """
-    span = prim(G)
+    span = minimum_spanning_tree(G)
 
     # TODO: ok?
     if is_installed('scipy'):

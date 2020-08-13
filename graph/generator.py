@@ -50,10 +50,13 @@ def k_regular_graph(n: int, k: int) -> Graph:
     return Graph(vertices=vertices, edges=edges)
 
 
-def complete_graph(n: int) -> Graph:
+def complete_graph(n: int, directed=False) -> Graph:
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
-    edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
-    return Graph(vertices, edges)
+    if directed:
+        edges = [Edge(v, i) for v, i in itertools.combinations(vertices, 2)]
+    else:
+        edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
+    return Graph(vertices, edges,directed=directed)
 
 
 def sparse_graph(n: int, perc: float = 0.05) -> Graph:

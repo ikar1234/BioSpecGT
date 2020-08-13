@@ -5,6 +5,7 @@ from BioSpecGT.graph.base import Graph, Edge
 
 import numpy as np
 import heapq
+from .prim import prim
 
 
 def minimum_spanning_tree(G: Graph) -> Graph:
@@ -12,7 +13,7 @@ def minimum_spanning_tree(G: Graph) -> Graph:
     return prim(G)
 
 
-def prim(G: Graph) -> Graph:
+def prim1(G: Graph) -> Graph:
     # TODO: Cython?
     """
     Prim's algorithm for minimal spanning tree.

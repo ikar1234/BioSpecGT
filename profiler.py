@@ -6,13 +6,13 @@ Remove after deployment.
 import cProfile
 
 from BioSpecGT.graph.generator import complete_graph, complete_binary_tree, sparse_graph
-from BioSpecGT.utils.graphutils import prim
+from BioSpecGT.utils.graphutils import minimum_spanning_tree
 
 
 def profile_prim():
     n = 90
-    g = complete_graph(n)
-    cProfile.runctx('prim(g)', globals(), locals())
+    g = complete_graph(n, directed=True)
+    cProfile.runctx('minimum_spanning_tree(g)', globals(), locals())
 
 
 def profile_k_regular():
@@ -27,6 +27,6 @@ def profile_sparse():
 
 
 if __name__ == '__main__':
-    # profile_prim()
+    profile_prim()
     # profile_k_regular()
-    profile_sparse()
+    # profile_sparse()

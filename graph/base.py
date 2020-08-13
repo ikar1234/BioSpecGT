@@ -92,7 +92,7 @@ class Graph:
         return len(self.get_neighbours(v))
 
     def add_egdes(self, edges: List[Edge]):
-        self.edges.extend(edges)
+        self.edges += edges
 
     def remove_egdes(self, edges: List[Edge]):
         for e in edges:
