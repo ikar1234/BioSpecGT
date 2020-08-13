@@ -11,29 +11,29 @@ from BioSpecGT.utils.graphutils import minimum_spanning_tree
 
 
 def profile_prim():
-    n = 90
+    n = 400
     g = complete_graph(n, directed=True)
     cProfile.runctx('minimum_spanning_tree(g)', globals(), locals())
 
 
 def profile_k_regular():
     n = 160000
-    cProfile.runctx('g = complete_binary_tree(n)', globals(), locals())
+    cProfile.runctx('g = complete_binary_tree(n)', globals(), locals(), sort='tottime')
 
 
 def profile_sparse():
     n = 1000
     p = 0.15
-    cProfile.runctx('sparse_graph(n,p)', globals(), locals())
+    cProfile.runctx('sparse_graph(n,p)', globals(), locals(), sort='tottime')
 
 
 def profile_bound_l2():
-    g = complete_graph(n=60)
-    cProfile.runctx('bound_l2(g)', globals(), locals())
+    g = complete_graph(n=400, directed=False)
+    cProfile.runctx('bound_l2(g)', globals(), locals(), sort='tottime')
 
 
 if __name__ == '__main__':
-    # profile_prim()
+    profile_prim()
     # profile_k_regular()
     # profile_sparse()
-    profile_bound_l2()
+    # profile_bound_l2()

@@ -71,12 +71,17 @@ class Graph:
     vertices: List[Vertex]
     edges: List[Edge]
     directed: bool
+    weighted: bool
 
     def __init__(self, vertices, edges, directed=False):
         # TODO: add optional argument for making the graph undirected
         self.vertices = vertices
         self.edges = edges
         self.directed = directed
+        if len(self.edges) > 0:
+            self.weighted = self.edges[0].has_weight
+        else:
+            self.weighted = False
 
     def adjacency_matrix(self, dtype=bool):
         v = len(self.vertices)
@@ -84,6 +89,22 @@ class Graph:
         for e in self.edges:
             m[e.in_vertex.index, e.out_vertex.index] = 1
         return m
+
+    def adjacency_list(self, inds: bool = False):
+        """
+        Get the adjacency list of a graph.
+        :param inds: whether to use the indices of the nodes.
+        :return:
+        """
+        if inds:
+            d = {}.fromkeys((v.index for v in self.vertices), [])
+            for e in self.edges:
+                d[e.out_vertex.index].append(e.in_vertex.index)
+        else:
+            d = {}.fromkeys(self.vertices, [])
+            for e in self.edges:
+                d[e.out_vertex].append(e.in_vertex)
+        return d
 
     def get_neighbours(self, v: Vertex) -> List[Vertex]:
         return [e.in_vertex for e in self.edges if e.out_vertex == v]

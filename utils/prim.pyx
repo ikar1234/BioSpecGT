@@ -2,6 +2,7 @@ from BioSpecGT.graph.base import Graph, Edge
 
 import numpy as np
 import heapq
+from collections import deque
 
 def prim(G: Graph) -> Graph:
     """
@@ -9,7 +10,9 @@ def prim(G: Graph) -> Graph:
     :param G: graph
     :return: minimal spanning tree
     """
-    cdef int vl
+    cdef int vl,w,ind
+    cdef double weight
+    cdef int[:] h_vert
     vl = len(G.vertices)
 
     pi = np.ones(vl) * np.inf
@@ -30,7 +33,40 @@ def prim(G: Graph) -> Graph:
                 pred[ind] = u[0]
                 pi[ind] = weight
                 heapq.heappush(h, (ind, pi[ind]))
-    # sorted by their indices
+
+    vertices = G.vertices
+    edges = [Edge(vertices[v.index], vertices[pred[v.index]]) for v in vertices if pred[v.index] != -1]
+    if not G.directed:
+        return Graph(vertices, edges).make_undirected()
+    return Graph(vertices, edges)
+
+def BFS(G: Graph) -> Graph:
+
+    cdef int vl, ind
+
+    st = deque([])
+    v0 = G.vertices[0]
+    st.append(v0)
+
+    vl = len(G.vertices)
+
+    pred = np.ones(vl, dtype=int) * (-1)
+
+    vis = np.zeros(vl, dtype=bool)
+
+    vis[v0.index] = True
+
+    adj_list = G.adjacency_list()
+
+    while len(st) > 0:
+        v = st.pop()
+        for w in adj_list[v]:
+            ind = w.index
+            if not vis[ind]:
+                st.append(w)
+                vis[ind] = True
+                pred[ind] = v.index
+
     vertices = G.vertices
     edges = [Edge(vertices[v.index], vertices[pred[v.index]]) for v in vertices if pred[v.index] != -1]
     if not G.directed:

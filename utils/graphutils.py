@@ -5,12 +5,15 @@ from BioSpecGT.graph.base import Graph, Edge
 
 import numpy as np
 import heapq
-from .prim import prim
+from .prim import prim, BFS
 
 
 def minimum_spanning_tree(G: Graph) -> Graph:
-    # TODO: more?
-    return prim(G)
+    if G.weighted:
+        return prim(G)
+    else:
+        # TODO: profile and optimize
+        return BFS(G)
 
 
 def dijkstra(mat: np.ndarray):
