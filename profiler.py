@@ -6,6 +6,7 @@ Remove after deployment.
 import cProfile
 
 from BioSpecGT.graph.generator import complete_graph, complete_binary_tree, sparse_graph
+from BioSpecGT.linalg.spectral import bound_l2
 from BioSpecGT.utils.graphutils import minimum_spanning_tree
 
 
@@ -26,7 +27,13 @@ def profile_sparse():
     cProfile.runctx('sparse_graph(n,p)', globals(), locals())
 
 
+def profile_bound_l2():
+    g = complete_graph(n=60)
+    cProfile.runctx('bound_l2(g)', globals(), locals())
+
+
 if __name__ == '__main__':
-    profile_prim()
+    # profile_prim()
     # profile_k_regular()
     # profile_sparse()
+    profile_bound_l2()
