@@ -11,6 +11,7 @@ Spectral graph theory for Biological network analysis
 
 ### Graph manipulation
  ```python
+from BioSpecGT.graph.generator import complete_graph
 g = complete_graph(n=100)
 ```
 

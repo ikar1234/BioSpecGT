@@ -31,7 +31,8 @@ def laplacian_matrix(G: Graph) -> np.ndarray:
 
 
 def signed_laplacian_matrix(G: Graph) -> np.ndarray:
-    return np.diag([G.get_degree(v) for v in G.vertices]) + G.adjacency_matrix()
+    g = G.adjacency_matrix()
+    return np.diag(g.sum(axis=1)) + G.adjacency_matrix()
 
 
 # def vLv(v: np.ndarray, G: Graph) -> float:

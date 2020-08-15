@@ -1,8 +1,12 @@
 from BioSpecGT.graph.base import Graph, Edge
 
 import numpy as np
+cimport numpy as np
 import heapq
+cimport cython
 from collections import deque
+
+np.import_array()
 
 def prim(G: Graph) -> Graph:
     """
@@ -40,35 +44,48 @@ def prim(G: Graph) -> Graph:
         return Graph(vertices, edges).make_undirected()
     return Graph(vertices, edges)
 
+DTYPE = np.int
+ctypedef np.int_t DTYPE_t
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
 def BFS(G: Graph) -> Graph:
 
-    cdef int vl, ind
+    cdef int vl, v0, i
+    cdef dict adj_list
+    cdef list w_neigh
+    cdef np.ndarray[DTYPE_t] pred, vis
 
     st = deque([])
-    v0 = G.vertices[0]
+
+    gvert = G.vertices
+    vl = len(gvert)
+    if vl == 0:
+        return Graph([],[])
+    v0 = gvert[0].index
     st.append(v0)
 
-    vl = len(G.vertices)
 
     pred = np.ones(vl, dtype=int) * (-1)
 
     vis = np.zeros(vl, dtype=bool)
 
-    vis[v0.index] = True
+    vis[v0] = True
 
-    adj_list = G.adjacency_list()
+    adj_list = G.adjacency_list(inds=True)
 
     while len(st) > 0:
         v = st.pop()
-        for w in adj_list[v]:
-            ind = w.index
-            if not vis[ind]:
+        w_neigh = adj_list[v]
+        for i in range(w_neigh):
+            w = w_neigh[i]
+            if not vis[w]:
                 st.append(w)
-                vis[ind] = True
-                pred[ind] = v.index
+                vis[w] = True
+                pred[w] = v
 
-    vertices = G.vertices
-    edges = [Edge(vertices[v.index], vertices[pred[v.index]]) for v in vertices if pred[v.index] != -1]
+
+    edges = [Edge(gvert[pred[v.index]], gvert[v.index]) for v in gvert if pred[v.index] != -1]
     if not G.directed:
-        return Graph(vertices, edges).make_undirected()
-    return Graph(vertices, edges)
+        return Graph(gvert, edges).make_undirected()
+    return Graph(gvert, edges)
