@@ -35,20 +35,6 @@ def signed_laplacian_matrix(G: Graph) -> np.ndarray:
     return np.diag(g.sum(axis=1)) + G.adjacency_matrix()
 
 
-# def vLv(v: np.ndarray, G: Graph) -> float:
-#     """
-#     Efficiently compute the vector-matrix-vector product of the graph laplacian and a vector.
-#     Uses the sum of quadratic terms representation of the product.
-#     Runs in O(|E|). Optimal for sparse graphs.
-#     # TODO: dense graphs?
-#     :param G: undirected graph
-#     :param v: the vector
-#     :return: a real number
-#     """
-#     return sum([(v[e.out_vertex.index] - v[e.in_vertex.index]) ** 2 for e in G.edges if
-#                 e.out_vertex.label > e.in_vertex.label])
-
-
 def normalized_laplacian_matrix() -> np.ndarray:
     ...
 
@@ -89,8 +75,6 @@ def bound_l2(G: Graph):
     if is_installed('scipy'):
         from scipy.optimize import minimize
 
-        # TODO: better than the sum approach?
-        #       cythonize?
 
         def jac(v, g):
             return laplacian_matrix(g) @ v
@@ -135,7 +119,6 @@ def bound_isoparametric_number(G: Graph, S: List[Vertex], l2: float = None) -> f
     :param l2: (optional) smallest non-zero eigenvalue. Will be computed if not given.
     :return: lower bound on the isoparametric number
     """
-    # TODO l2
     if l2 is None:
         l2 = compute_l2(G)
     return l2 * (1 - len(S) / len(G.vertices))
@@ -160,7 +143,7 @@ def bound_conductance(G: Graph = None, d: int = None, l2: float = None):
         return 0, 0
     if d is None:
         d = G.get_degree(G.vertices[0])
-    # TODO l2
+
     if l2 is None and G is not None:
         l2 = compute_l2(G)
     return l2 / (2 * d), (2 * l2 / d) ** 0.5

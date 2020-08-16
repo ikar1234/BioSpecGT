@@ -3,7 +3,7 @@ from Cython.Build import cythonize
 import numpy
 
 ext_modules = [
-    Extension("prim", ["prim.c"],
+    Extension("ccgenerator", ["ccgenerator.c"],
               include_dirs=[numpy.get_include()]),
 ]
 
@@ -14,7 +14,7 @@ setup(
 for e in ext_modules:
     e.cython_directives = {'language_level': "3"}  # all are Python-3
 
-setup(
-    ext_modules=cythonize("prim.pyx"),
-    include_dirs=[numpy.get_include()],
-)
+# setup(
+#     ext_modules=cythonize("ccgenerator.pyx"),
+#     include_dirs=[numpy.get_include()],
+# )

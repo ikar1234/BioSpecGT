@@ -10,7 +10,7 @@ from BioSpecGT.graph.base import Graph
 
 
 def number_of_paths(G: Graph, i: int, j: int, n: int = None) -> int:
-    # TODO: how to do for big/sparse graphs?
+    # TODO: scipy.sparse.csr_matrix.power
     """
     Gives the number of paths in an acyclic graph between two nodes.
     :param G: the graph

@@ -7,6 +7,7 @@ from BioSpecGT.graph.base import Graph, Vertex, Edge
 import numpy as np
 import itertools
 from typing import List
+from .ccgenerator import _k_regular_graph, _cgraph_perc
 
 __all__ = ['k_regular_graph',
            'empty_graph',
@@ -32,22 +33,8 @@ def empty_graph(n: int = 0) -> Graph:
     return Graph(vertices, [])
 
 
-def k_regular_graph(n: int, k: int) -> Graph:
-    # TODO: optimize
-    """
-    Generate a random k-regular graph (each vertex has degree k).
-    :param n: the number of vertices k
-    :param k: the degree of each vertex
-    :return: a Graph object
-    """
-    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
-
-    rand_vert = np.random.choice(a=vertices, size=k)
-    # item for sublist in rand_vert for item in sublist
-    # TODO
-    edges: List[Edge] = [Edge(out_vertex=v, in_vertex=i) for i in rand_vert for v in vertices]
-
-    return Graph(vertices=vertices, edges=edges)
+def k_regular_graph(n: int, k: int, selfloop: bool = True) -> Graph:
+    return _k_regular_graph(n, k, selfloop)
 
 
 def complete_graph(n: int, directed=False) -> Graph:
@@ -56,7 +43,7 @@ def complete_graph(n: int, directed=False) -> Graph:
         edges = [Edge(v, i) for v, i in itertools.combinations(vertices, 2)]
     else:
         edges = [Edge(v, i) for v, i in itertools.permutations(vertices, 2)]
-    return Graph(vertices, edges,directed=directed)
+    return Graph(vertices, edges, directed=directed)
 
 
 def sparse_graph(n: int, perc: float = 0.05) -> Graph:
@@ -70,11 +57,7 @@ def sparse_graph(n: int, perc: float = 0.05) -> Graph:
 
 
 def _graph_perc(n: int, perc: float) -> Graph:
-    vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
-    v1 = random.choices(vertices, k=int(perc * n ** 2))
-    v2 = random.choices(vertices, k=int(perc * n ** 2))
-    edges = [Edge(v, i) for v, i in zip(v1, v2)]
-    return Graph(vertices, edges)
+    return _cgraph_perc(n, perc)
 
 
 def dense_graph(n: int, perc: float = 0.85) -> Graph:
@@ -88,6 +71,7 @@ def dense_graph(n: int, perc: float = 0.85) -> Graph:
 
 
 def euler_graph(n: int, cycle=True) -> Graph:
+    # TODO
     """
     Create a random graph with an Euler path.
     :param n: number of vertices
@@ -115,10 +99,25 @@ def cycle_graph(n: int) -> Graph:
     return p
 
 
-def complete_binary_tree(n: int, directed=False) -> Graph:
-    # TODO: test that n is a Mersenne prime
+def complete_binary_tree(n: int = None, h: int = None, directed=False) -> Graph:
+    """
+    Construct a perfect binary tree with n nodes/height of h.
+    :param n: number of nodes
+    :param h: height
+    :param directed: directed edges
+    :return:
+    """
+    if n is None and h is None:
+        raise ValueError('One of n and h must be not-null.')
+    if n is None and h is not None:
+        n = 2 ** (h + 1) - 1
+    if n == 0:
+        return Graph([], [])
+    # check n+1 is a power of two - 1
+    if not (n & (n + 1)) == 0:
+        raise ValueError('Number of nodes not enough for a complete binary tree.')
     vertices: List[Vertex] = [Vertex(label=f'{i}', index=i) for i in range(n)]
-    # TODO: extend?
+
     edges = [Edge(vertices[i], vertices[2 * i + 1]) for i in range(n // 2)]
     edges += [Edge(vertices[i], vertices[2 * i + 2]) for i in range(n // 2 - 1)]
     if directed:

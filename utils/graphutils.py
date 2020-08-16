@@ -12,7 +12,6 @@ def minimum_spanning_tree(G: Graph) -> Graph:
     if G.weighted:
         return prim(G)
     else:
-        # TODO: profile and optimize
         return BFS(G)
 
 

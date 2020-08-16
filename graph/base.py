@@ -7,41 +7,21 @@ from typing import Dict, List
 import numpy as np
 import scipy as sp
 
+from BioSpecGT.graph.ccgenerator import CVertex
 
-class Vertex:
-    # label of the vertex
-    label: str
-    # index in the graph,unique for each node, starts from 0
-    index: int
-    # meta-info about the vertex
-    meta: Dict
 
-    def __init__(self, label: str, index: int, **meta):
-        self.label = label
-        self.index = index
-        self.meta = meta
-
-    def __eq__(self, other):
-        """
-        Tests two vertices for equality. Index-invariant.
-        :param other:
-        :return:
-        """
-        return self.label == other.label
-
-    def __hash__(self):
-        return hash(self.index)
-
-    def __str__(self):
-        return f"A vertex with label {self.label} and following info:\n{self.meta}"
+class Vertex(CVertex):
+    pass
 
 
 class Edge:
-    out_vertex: Vertex
-    in_vertex: Vertex
-    has_weight: bool
-    # default is 1
-    weight: float
+    # out_vertex: Vertex
+    # in_vertex: Vertex
+    # has_weight: bool
+    # # default is 1
+    # weight: float
+
+    __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
 
     def __init__(self, out_vertex: Vertex, in_vertex: Vertex, weight: int = None):
         self.out_vertex = out_vertex
@@ -68,13 +48,14 @@ class Edge:
 
 
 class Graph:
-    vertices: List[Vertex]
-    edges: List[Edge]
-    directed: bool
-    weighted: bool
+    # vertices: List[Vertex]
+    # edges: List[Edge]
+    # directed: bool
+    # weighted: bool
+
+    __slots__ = ['vertices', 'edges', 'directed', 'weighted']
 
     def __init__(self, vertices, edges, directed=False):
-        # TODO: add optional argument for making the graph undirected
         self.vertices = vertices
         self.edges = edges
         self.directed = directed

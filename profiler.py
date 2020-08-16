@@ -5,10 +5,12 @@ Remove after deployment.
 """
 import cProfile
 
-from BioSpecGT.graph.generator import complete_graph, complete_binary_tree, sparse_graph
+from BioSpecGT.graph.generator import complete_graph, complete_binary_tree, sparse_graph, k_regular_graph
 from BioSpecGT.linalg.spectral import bound_l2
 from BioSpecGT.utils.graphutils import minimum_spanning_tree
 from BioSpecGT.utils.graphutils import BFS
+
+from networkx.generators import random_regular_graph
 
 
 def profile_prim():
@@ -18,18 +20,20 @@ def profile_prim():
 
 
 def profile_k_regular():
-    n = 160000
-    cProfile.runctx('g = complete_binary_tree(n)', globals(), locals(), sort='tottime')
+    n = 3500
+    k = 650
+    cProfile.runctx('g = k_regular_graph(n, k)', globals(), locals(), sort='tottime')
+    # cProfile.runctx('g = random_regular_graph(k, n)', globals(), locals(), sort='tottime')
 
 
 def profile_sparse():
     n = 1000
-    p = 0.15
+    p = 0.85
     cProfile.runctx('sparse_graph(n,p)', globals(), locals(), sort='tottime')
 
 
 def profile_bintree():
-    n = 100000
+    n = 2**14-1
     cProfile.runctx('complete_binary_tree(n)', globals(), locals(), sort='tottime')
 
 
@@ -39,8 +43,8 @@ def profile_bound_l2():
 
 
 if __name__ == '__main__':
-    profile_prim()
-    # profile_k_regular()
+    # profile_prim()
+    profile_k_regular()
     # profile_sparse()
     # profile_bintree()
     # profile_bound_l2()
