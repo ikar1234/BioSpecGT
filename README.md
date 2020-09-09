@@ -8,6 +8,7 @@ Spectral graph theory for Biological network analysis
 
 
 ## Usage
+For the full documentation, see the [docs](https://requests.readthedocs.io/en/master/).
 
 ### Graph creation
  ```python
