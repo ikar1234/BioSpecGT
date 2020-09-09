@@ -25,6 +25,16 @@ g = complete_graph(n=100)
 msp = minimum_spanning_tree(g)
 ```
 
+### Co-expression networks
+```python
+from BioSpecGT.bio.coexpression import build_coexpr
+from BioSpecGT.bio.base import top10_genes
+
+c = build_coexpr(data)
+print('Top 10 co-expressed genes:')
+print('\n'.join(top10_genes(c)))
+```
+
 ### Spectral graph theory
 ```python
 from BioSpecGT.linalg.spectral import laplacian_matrix
