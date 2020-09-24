@@ -14,12 +14,21 @@ def graph_cartesian(g1: Graph, g2: Graph):
 
 
 def rw_kernel(g1: Graph, g2: Graph):
+    """
+        The random-walk kernel.
+        :param g1: first graph
+        :param g2: second graph
+        :return:
+        """
     ...
 
 
 def sp_kernel(g1: Graph, g2: Graph):
+    """
+    The shortest-path kernel.
+    :param g1: first graph
+    :param g2: second graph
+    :return:
+    """
     ...
 
-
-def sp_kernel(g1: Graph, g2: Graph):
-    ...

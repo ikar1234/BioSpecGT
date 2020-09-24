@@ -53,6 +53,9 @@ g = complete_graph(n=100)
 from BioSpecGT.bio.coexpression import build_coexpr
 from BioSpecGT.bio.base import top10_genes
 
+# gene expression matrix
+data = ...
+
 c = build_coexpr(data)
 print('Top 10 co-expressed genes:')
 print('\n'.join(top10_genes(c)))

@@ -16,7 +16,7 @@ cdef class CVertex:
     cdef public str label
     cdef readonly dict meta
 
-    def __cinit__(self, label: str, index: int, **meta):
+    def __init__(self, label: str, index: int, **meta):
         self.label = label
         self.index = index
         self.meta = meta
@@ -41,9 +41,9 @@ cdef class CEdge:
     cdef public bint has_weight
     cdef public float weight
 
-    __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
+    # __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
 
-    def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: int = None):
+    def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):
         self.out_vertex = out_vertex
         self.in_vertex = in_vertex
         if weight is None:
@@ -60,8 +60,12 @@ cdef class CEdge:
         return hash((self.in_vertex.index, self.out_vertex.index))
 
     def __str__(self):
+        cdef str weight_str
+
         if self.has_weight:
-            weight_str = f" with weight {self.weight}"
+            # TODO: compare
+            # weight_str = f" with weight {self.weight}"
+            weight_str = " with weight {}".format(self.weight)
         else:
             weight_str = "."
         return f"An edge between {self.in_vertex.label} and {self.out_vertex.label}" + weight_str
@@ -78,24 +82,32 @@ cdef class CGraph:
         self.vertices = vertices
         self.edges = edges
         self.directed = directed
-        if len(self.edges) > 0:
-            self.weighted = self.edges[0].has_weight
-        else:
-            self.weighted = False
+
+        cdef int l
+        l = len(self.edges)
+        # take info about weights from the first edge
+        # empty graphs are unweighted per default
+        self.weighted = l and self.edges[0].has_weight
 
     def adjacency_matrix(self, dtype=np.bool):
+        cdef int v
+        cdef CEdge e
+
         v = len(self.vertices)
         m = np.zeros((v, v), dtype=dtype)
         for e in self.edges:
-            m[e.in_vertex.index, e.out_vertex.index] = 1
+            m[e.in_vertex.index, e.out_vertex.index] = e.weight
         return m
 
-    def adjacency_list(self, inds=False):
+    cdef dict adjacency_list(self, inds=False):
         """
         Get the adjacency list of a graph.
         :param inds: whether to use the indices of the nodes.
         :return:
         """
+        cdef dict d
+        cdef CEdge e
+
         if inds:
             d = {}.fromkeys((v.index for v in self.vertices), [])
             for e in self.edges:
@@ -106,30 +118,34 @@ cdef class CGraph:
                 d[e.out_vertex].append(e.in_vertex)
         return d
 
-    def get_neighbours(self, v):
+    cdef list get_neighbours(self, v):
+        cdef CEdge e
         return [e.in_vertex for e in self.edges if e.out_vertex == v]
 
-    def get_degree(self, v) -> int:
+    cdef int get_degree(self, CVertex v):
         return len(self.get_neighbours(v))
 
-    def add_egdes(self, edges):
+    cdef void add_egdes(self, edges):
         self.edges += edges
 
-    def remove_egdes(self, edges):
+    cdef void remove_egdes(self, edges):
+        cdef CEdge e
         for e in edges:
             self.edges.remove(e)
 
-    def add_vertex(self, vertex):
+    cdef void add_vertex(self, vertex):
         vertex.index = len(self.vertices)
         self.vertices.append(vertex)
 
-    def add_vertices(self, vertices):
+    cdef void add_vertices(self, vertices):
         """
         Add and label a set of nodes
         :param vertices:
         :return:
         """
-        cdef Py_ssize_t i
+        cdef int i
+        cdef CVertex v
+
         i = len(self.vertices)
         for v in vertices:
             v.index = i
@@ -142,16 +158,17 @@ cdef class CGraph:
         :param index:
         :return:
         """
+        cdef CVertex v
         return [v for v in self.vertices if v.index == index]
 
-    def copy(self):
+    cdef CGraph copy(self):
         """
         Return a shallow copy of the graph
         :return:
         """
         return CGraph(self.vertices, self.edges)
 
-    def make_undirected(self):
+    cdef CGraph make_undirected(self):
         """
         Make a directed graph undirected by added edges in both ways
         :return:
@@ -162,7 +179,7 @@ cdef class CGraph:
         self.directed = False
         return self
 
-    def make_unweighted(self):
+    cdef CGraph make_unweighted(self):
         """
         Make the graph unweighted, by removing the edge weights.
         :return:
@@ -172,7 +189,7 @@ cdef class CGraph:
             e.weight = 1
         return self
 
-    def make_weighted(self, weights=None):
+    cdef CGraph make_weighted(self, weights=None):
         """
         Make the graph unweighted, by removing the edge weights.
         :return:

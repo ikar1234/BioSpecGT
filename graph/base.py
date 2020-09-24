@@ -1,8 +1,6 @@
 """
 Base classes and functions.
 """
-# TODO: abc?
-# import abc
 from typing import Dict, List
 import numpy as np
 import scipy as sp

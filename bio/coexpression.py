@@ -3,7 +3,7 @@ Functions connected to co-expression networks.
 """
 
 
-def build_coexp():
+def build_coexpr():
     """
     Construct the co-expression network from expression data.
     :return:
