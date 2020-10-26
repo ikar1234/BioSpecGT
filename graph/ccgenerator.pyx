@@ -1,5 +1,6 @@
 # cython: boundscheck=False
 # cython: wraparound=False
+from typing import Union, Hashable
 
 import numpy as np
 cimport numpy as np
@@ -16,7 +17,7 @@ cdef class CVertex:
     cdef public str label
     cdef readonly dict meta
 
-    def __init__(self, label: str, index: int, **meta):
+    def __init__(self, label: str, index: int = 0, **meta):
         self.label = label
         self.index = index
         self.meta = meta
@@ -43,7 +44,13 @@ cdef class CEdge:
 
     # __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
 
-    def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):
+    def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):
+        if type(out_vertex) != CVertex:
+            out_vertex = CVertex(out_vertex)
+
+        if type(in_vertex) != CVertex:
+            in_vertex = CVertex(in_vertex)
+
         self.out_vertex = out_vertex
         self.in_vertex = in_vertex
         if weight is None:
@@ -82,6 +89,13 @@ cdef class CGraph:
     def __init__(self, vertices, edges, directed=False, meta=None):
         self.vertices = vertices
         self.edges = edges
+
+        if self.vertices is None and self.edges is not None:
+            in_vert = {e.in_vertex for e in self.edges}
+            out_vert = {e.out_vertex for e in self.edges}
+
+            self.vertices = list(in_vert.union(out_vert))
+
         self.directed = directed
         self.meta = meta
 

@@ -2,7 +2,7 @@
 Spectral graph theory for Biological network analysis
 
 * Guarantees high-performance by using Cython
-* Friendly interface
+* Friendly interface, easy to use, verbose error messages
 * ???
 * Profit
 

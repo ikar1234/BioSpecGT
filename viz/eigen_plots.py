@@ -8,15 +8,28 @@ import numpy as np
 def _eigen_proj(eig1, eig2, frm=2, eigval1=None, eigval2=None, lines=True, jitter=False):
     """
     Plot the eigenvectors corresponding to the first and second non-negative eigenvalues.
-    :param eig1: first eigenvector
-    :param eig2: second eigenvector
-    :param frm: index of smallest nonnegative eigenvalue
-    :param eigval1: smallest nonnegative eigenvalue
-    :param eigval2: second-smallest nonnegative eigenvalue
-    :param lines: connect point to lines
-    :param jitter: jitter point (in case that they overlap)
-    :return: scatter plot
+    Parameters
+    ----------
+    eig1
+        First eigenvector
+    eig2
+        Second eigenvector
+    frm
+        The index of smallest nonnegative eigenvalue
+    eigval1
+        The smallest nonnegative eigenvalue
+    eigval2
+        The second-smallest nonnegative eigenvalue
+    lines: bool
+        Whether to connect point to lines
+    jitter: bool
+        Whether to jitter the points
+
+    Returns
+    -------
+
     """
+
     if jitter:
         eig1 += np.random.normal(0, 1e-2, size=eig1.shape)
         eig2 += np.random.normal(0, 1e-2, size=eig2.shape)

@@ -9,12 +9,20 @@ from BioSpecGT.graph.base import Graph
 from BioSpecGT.linalg import number_of_paths
 
 
-def plot_degree(G, bins=100):
+def plot_degree(G: Graph, bins: int = None):
     """
     Plot a histogram of the distribution of the node degrees.
-    :param adj: adjacency matrix
-    :param bins: number of bins
-    :return:
+
+    Parameters
+    ----------
+    G: Graph
+        Input graph
+    bins: int
+        Number of bins to plot
+
+    Returns
+    -------
+
     """
     adj_list = G.adjacency_list()
     plt.hist(adj_list.values(), bins=bins)
@@ -23,12 +31,20 @@ def plot_degree(G, bins=100):
     plt.show()
 
 
-def weight_distr(G, bins=100):
+def weight_distr(G: Graph, bins: int = None):
     """
     Plot a histogram of the edge weight distribution.
-    :param G: graph
-    :param bins: number of bins
-    :return:
+
+    Parameters
+    ----------
+    G: Graph
+        Input graph
+    bins: int
+        Number of bins to plot
+
+    Returns
+    -------
+
     """
     weight_list = [e.weight for e in G.edges]
     plt.hist(weight_list, bins=bins)
