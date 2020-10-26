@@ -75,13 +75,15 @@ cdef class CGraph:
     cdef public list edges
     cdef public bint directed
     cdef public bint weighted
+    cdef public dict meta
 
     # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
 
-    def __init__(self, vertices, edges, directed=False):
+    def __init__(self, vertices, edges, directed=False, meta=None):
         self.vertices = vertices
         self.edges = edges
         self.directed = directed
+        self.meta = meta
 
         cdef int l
         l = len(self.edges)

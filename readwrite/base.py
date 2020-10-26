@@ -1,13 +1,13 @@
 from typing import Union
 
-from BioSpecGT.graph.base import Graph
+# TODO: test
+
+from BioSpecGT.graph.base import Graph, Edge
 
 __all__ = [
     "write_edgelist",
-    "parse_edgelist",
+    "parse_edges_from_list",
     "read_edgelist",
-    "read_weighted_edgelist",
-    "write_weighted_edgelist",
 ]
 
 
@@ -19,16 +19,15 @@ def write_edgelist(G: Graph, path: str, sep: str = '\t', comments: list = None, 
     :param sep: separator
     :param comments: list of comments to be written at top to the file
     :param mark_comm: comment marker
-    # TODO: uncomment when meta is added
     :param write_meta: whether to write the meta data of the graph as a comment. meta data is distinguished
             from comments by having the marker written twice
         Example meta data line: ##source:kaggle
     :return:
     """
     header = ''
-    # if write_meta:
-    #     for k, v in G.meta.items():
-    #         header += f'{mark_comm}{mark_comm}{k}:{v}\n'
+    if write_meta:
+        for k, v in G.meta.items():
+            header += f'{mark_comm}{mark_comm}{k}:{v}\n'
     if comments is not None:
         for c in comments:
             header += f'{mark_comm}{c}\n'
@@ -83,7 +82,7 @@ def _convert_str(val: str, str_type: str) -> Union[str, int, float]:
             raise ValueError(f'Wrong key/value type or input. It seems that {val} cannot be converted to {str_type}.')
 
 
-def _parse_meta(meta: str, key_type: str, val_type: str) -> dict:
+def _parse_meta(meta: str, key_type: str = 'str', val_type: str = 'str') -> dict:
     """
     Parse the meta data to a dictionary.
     Parameters
@@ -111,16 +110,14 @@ def _parse_meta(meta: str, key_type: str, val_type: str) -> dict:
     return d
 
 
-def parse_edgelist(G: Graph, path: str, sep: str = '\t', comments: list = None, mark_comm: str = '#', parse_meta=False,
-                   meta_types: list = None):
+def read_edgelist(path: str, sep: str = '\t', comments: list = None, mark_comm: str = '#', parse_meta=False,
+                  meta_types: list = None):
     """
-    Parse a graph from an edge list in tsv format.
-    :param G: input graph
+    Parse an edge list in tsv format.
     :param path: path to write the graph
     :param sep: separator
     :param comments: list of comments to be written at top to the file
     :param mark_comm: comment marker
-    # TODO: uncomment when meta is added
     :param parse_meta: whether to parse the provided meta data. meta data is distinguished
             from comments by having the marker written twice
             Example meta data line: ##source:kaggle
@@ -129,7 +126,7 @@ def parse_edgelist(G: Graph, path: str, sep: str = '\t', comments: list = None, 
             string type - str,string
             int type - int, integer
             float type - float, decimal
-            Example: [('str','')]
+            Example: [('str','int')]
     :return:
     """
     G = Graph()
@@ -142,13 +139,79 @@ def parse_edgelist(G: Graph, path: str, sep: str = '\t', comments: list = None, 
                 meta += _parse_meta(line.strip())
 
 
-def read_edgelist():
-    ...
+def _parse_edge(e: str, default_weight=None) -> Edge:
+    """
+    Parse a string into an edge.
+    Parameters
+    ----------
+    e: str
+        String
+    default_weight
+        Default weight value for the missing weights.
+
+    Returns
+    -------
+
+    """
+    v1, v2, *weight = e.split(' ')
+    if default_weight is not None:
+        weight = default_weight
+    elif weight == []:
+        weight = None
+    return Edge(v1, v2, weight)
 
 
-def read_weighted_edgelist():
-    ...
+def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **meta):
+    """
+    Parse a list of edges into a graph.
+    Parameters
+    ----------
+    l: list
+        List of edges. Edges could be strings of the format 'node1 node2 (weight)' or tuples.
+    sep: str
+        Separator in case that edges are given by strings.
+    default_weight: int or float
+        If only some edges are weighted, use this value as default for the others.
+    meta: dict
+        Meta data of the graph
+
+    Returns
+    -------
+    g: Graph
+
+    Examples
+    -------
+    l1 = ['v1 v2 2', 'v1 v3 1']
+    g = parse_edges_from_list(l1)
 
 
-def write_weighted_edgelist():
-    ...
+    l2 = [('v1','v2', 2), ('v1','v3', 1)]
+    g = parse_edges_from_list(l2)
+
+    """
+    if l is None or len(l) == 0:
+        return Graph()
+    l_type = type(l[0])
+
+    if l_type == str:
+        edges = [_parse_edge(e, default_weight=default_weight) for e in l]
+    elif l_type == tuple or l_type == list:
+        # weighted graph with default edges
+        if default_weight is not None:
+            edges = [Edge(e[0], e[1], e[2]) if len(e) == 3 else Edge(e[0], e[1], default_weight) for e in l]
+
+        # weighted graph
+        elif len(l[0]) == 3:
+            try:
+                edges = [Edge(e[0], e[1], e[2]) for e in l]
+            except IndexError:
+                raise IndexError("It seems that not every edge is weighted. If this is on purpose, "
+                                 "use the default_weight argument to specify default weight for the missing weights.")
+
+        # unweighted graph
+        else:
+            edges = [Edge(e[0], e[1]) for e in l]
+    else:
+        raise ValueError('An edge must be represented either by a string or by a tuple or list.')
+
+    return Graph(edges=edges)
