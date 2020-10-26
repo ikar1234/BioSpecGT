@@ -32,3 +32,6 @@ def sp_kernel(g1: Graph, g2: Graph):
     """
     ...
 
+
+def weisfeiler_lehman(g1: Graph, g2: Graph):
+    ...

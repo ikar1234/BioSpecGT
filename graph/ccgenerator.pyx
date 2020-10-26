@@ -235,15 +235,17 @@ def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):
     cdef np.ndarray[DTYPE_t] rand_vert
     cdef Py_ssize_t i, j
     cdef int vt
+    cdef CVertex v_i
 
     vertices = [CVertex(label=f'{vt}', index=vt) for vt in range(n)]
     edges = []
     for i in range(n):
+        v_i = vertices[i]
         if selfloop:
             rand_vert = np.random.choice(a=range(n), size=k)
         else:
             rand_vert = np.random.choice(a=chain(range(i), range(i + 1, n)), size=k)
-        edges += [CEdge(vertices[i], vertices[j]) for j in rand_vert[i * k:(i + 1) * k]]
+        edges += [CEdge(vertices[i], vertices[j]) for j in rand_vert]
 
     return CGraph(vertices=vertices, edges=edges)
 
