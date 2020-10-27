@@ -1,7 +1,5 @@
 from typing import Union
 
-# TODO: test
-
 from BioSpecGT.graph.base import Graph, Edge
 from warnings import warn
 
@@ -111,6 +109,7 @@ def _parse_meta(meta: str, key_type: str = 'str', val_type: str = 'str') -> dict
     return d
 
 
+# TODO
 def read_edgelist(path: str, sep: str = '\t', comments: list = None, mark_comm: str = '#', parse_meta=False,
                   meta_types: list = None):
     """
@@ -174,7 +173,7 @@ def _parse_edge(e: str, sep: str = None, default_weight: Union[int, float] = Non
         weight = edge_type(weight)
     except ValueError:
         raise ValueError('You have specified int as an edge weight type but one of your edge weights if of type float.')
-    return Edge(v1, v2, edge_type(weight))
+    return Edge(v1, v2, weight)
 
 
 def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, edge_type=None,

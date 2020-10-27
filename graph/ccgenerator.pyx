@@ -36,15 +36,19 @@ cdef class CVertex:
     def __str__(self):
         return f"A vertex with label {self.label} and following info:\n{self.meta}"
 
+ctypedef fused edge_weight_type:
+    int
+    float
+
 cdef class CEdge:
     cdef public CVertex in_vertex
     cdef public CVertex out_vertex
     cdef public bint has_weight
-    cdef public float weight
+    cdef public edge_weight_type weight
 
     # __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
 
-    def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):
+    def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: edge_weight_type = None):
         if type(out_vertex) != CVertex:
             out_vertex = CVertex(out_vertex)
 
