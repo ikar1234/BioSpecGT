@@ -84,9 +84,7 @@ cdef class CGraph:
     cdef public bint weighted
     cdef public dict meta
 
-    # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
-
-    def __init__(self, vertices, edges, directed=False, meta=None):
+    def __init__(self, edges, vertices=None, directed=False, meta=None):
         self.vertices = vertices
         self.edges = edges
 
@@ -95,21 +93,24 @@ cdef class CGraph:
             out_vert = {e.out_vertex for e in self.edges}
 
             self.vertices = list(in_vert.union(out_vert))
+            cdef CVertex v
+            cdef int v_count = 0
+            for v in self.vertices:
+                v.index = v_count
+                v_count += 1
 
         self.directed = directed
         self.meta = meta
 
-        cdef int l
-        l = len(self.edges)
+        cdef int l = len(self.edges)
         # take info about weights from the first edge
         # empty graphs are unweighted per default
         self.weighted = l and self.edges[0].has_weight
 
     def adjacency_matrix(self, dtype=np.bool):
-        cdef int v
+        cdef int v = len(self.vertices)
         cdef CEdge e
 
-        v = len(self.vertices)
         m = np.zeros((v, v), dtype=dtype)
         for e in self.edges:
             m[e.in_vertex.index, e.out_vertex.index] = e.weight

@@ -1086,7 +1086,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "BioSpecGT/graph/ccgenerator.pyx":12
+/* "BioSpecGT/graph/ccgenerator.pyx":13
  * 
  * DTYPE = np.int
  * ctypedef np.int_t DTYPE_t             # <<<<<<<<<<<<<<
@@ -1164,7 +1164,7 @@ typedef npy_cdouble __pyx_t_5numpy_complex_t;
 struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list;
 struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_weighted;
 
-/* "BioSpecGT/graph/ccgenerator.pyx":102
+/* "BioSpecGT/graph/ccgenerator.pyx":118
  *         return m
  * 
  *     cdef dict adjacency_list(self, inds=False):             # <<<<<<<<<<<<<<
@@ -1176,7 +1176,7 @@ struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list {
   PyObject *inds;
 };
 
-/* "BioSpecGT/graph/ccgenerator.pyx":192
+/* "BioSpecGT/graph/ccgenerator.pyx":208
  *         return self
  * 
  *     cdef CGraph make_weighted(self, weights=None):             # <<<<<<<<<<<<<<
@@ -1188,7 +1188,7 @@ struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_weighted {
   PyObject *weights;
 };
 
-/* "BioSpecGT/graph/ccgenerator.pyx":14
+/* "BioSpecGT/graph/ccgenerator.pyx":15
  * ctypedef np.int_t DTYPE_t
  * 
  * cdef class CVertex:             # <<<<<<<<<<<<<<
@@ -1203,7 +1203,7 @@ struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex {
 };
 
 
-/* "BioSpecGT/graph/ccgenerator.pyx":38
+/* "BioSpecGT/graph/ccgenerator.pyx":39
  *         return f"A vertex with label {self.label} and following info:\n{self.meta}"
  * 
  * cdef class CEdge:             # <<<<<<<<<<<<<<
@@ -1219,7 +1219,7 @@ struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge {
 };
 
 
-/* "BioSpecGT/graph/ccgenerator.pyx":73
+/* "BioSpecGT/graph/ccgenerator.pyx":80
  *         return f"An edge between {self.in_vertex.label} and {self.out_vertex.label}" + weight_str
  * 
  * cdef class CGraph:             # <<<<<<<<<<<<<<
@@ -1233,10 +1233,11 @@ struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph {
   PyObject *edges;
   int directed;
   int weighted;
+  PyObject *meta;
 };
 
 
-/* "BioSpecGT/graph/ccgenerator.pyx":102
+/* "BioSpecGT/graph/ccgenerator.pyx":118
  *         return m
  * 
  *     cdef dict adjacency_list(self, inds=False):             # <<<<<<<<<<<<<<
@@ -1249,7 +1250,7 @@ struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_l
 };
 
 
-/* "BioSpecGT/graph/ccgenerator.pyx":112
+/* "BioSpecGT/graph/ccgenerator.pyx":128
  * 
  *         if inds:
  *             d = {}.fromkeys((v.index for v in self.vertices), [])             # <<<<<<<<<<<<<<
@@ -1266,7 +1267,7 @@ struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr {
 
 
 
-/* "BioSpecGT/graph/ccgenerator.pyx":73
+/* "BioSpecGT/graph/ccgenerator.pyx":80
  *         return f"An edge between {self.in_vertex.label} and {self.out_vertex.label}" + weight_str
  * 
  * cdef class CGraph:             # <<<<<<<<<<<<<<
@@ -1363,10 +1364,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -1374,6 +1371,10 @@ static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_n
 static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
+
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
 /* ArgTypeTest.proto */
 #define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
@@ -1544,9 +1545,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
-/* PyObjectCall2Args.proto */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
-
 /* PyObjectCallMethO.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
@@ -1557,6 +1555,26 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
+
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
+/* UnpackUnboundCMethod.proto */
+typedef struct {
+    PyObject *type;
+    PyObject **method_name;
+    PyCFunction func;
+    PyObject *method;
+    int flag;
+} __Pyx_CachedCFunction;
+
+/* CallUnboundCMethod1.proto */
+static PyObject* __Pyx__CallUnboundCMethod1(__Pyx_CachedCFunction* cfunc, PyObject* self, PyObject* arg);
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_CallUnboundCMethod1(__Pyx_CachedCFunction* cfunc, PyObject* self, PyObject* arg);
+#else
+#define __Pyx_CallUnboundCMethod1(cfunc, self, arg)  __Pyx__CallUnboundCMethod1(cfunc, self, arg)
+#endif
 
 /* None.proto */
 static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname);
@@ -2174,6 +2192,7 @@ static const char __pyx_k_args[] = "args";
 static const char __pyx_k_bool[] = "bool";
 static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_main[] = "__main__";
+static const char __pyx_k_meta[] = "meta";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_perc[] = "perc";
 static const char __pyx_k_send[] = "send";
@@ -2181,6 +2200,7 @@ static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_CEdge[] = "CEdge";
 static const char __pyx_k_DTYPE[] = "DTYPE";
+static const char __pyx_k_Union[] = "Union";
 static const char __pyx_k_chain[] = "chain";
 static const char __pyx_k_close[] = "close";
 static const char __pyx_k_dtype[] = "dtype";
@@ -2190,6 +2210,7 @@ static const char __pyx_k_label[] = "label";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_throw[] = "throw";
+static const char __pyx_k_union[] = "union";
 static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_CGraph[] = "CGraph";
 static const char __pyx_k_append[] = "append";
@@ -2200,11 +2221,13 @@ static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_remove[] = "remove";
+static const char __pyx_k_typing[] = "typing";
 static const char __pyx_k_update[] = "update";
 static const char __pyx_k_weight[] = "weight";
 static const char __pyx_k_CVertex[] = "CVertex";
 static const char __pyx_k_edges_2[] = " edges.";
 static const char __pyx_k_genexpr[] = "genexpr";
+static const char __pyx_k_Hashable[] = "Hashable";
 static const char __pyx_k_directed[] = "directed";
 static const char __pyx_k_fromkeys[] = "fromkeys";
 static const char __pyx_k_getstate[] = "__getstate__";
@@ -2249,9 +2272,9 @@ static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multia
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_CGraph_adjacency_list_locals_gen[] = "CGraph.adjacency_list.<locals>.genexpr";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
+static const char __pyx_k_Incompatible_checksums_s_vs_0x54[] = "Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xe2[] = "Incompatible checksums (%s vs 0xe20117b = (index, label, meta))";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xf7[] = "Incompatible checksums (%s vs 0xf711427 = (has_weight, in_vertex, out_vertex, weight))";
-static const char __pyx_k_Incompatible_checksums_s_vs_0xf8[] = "Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
@@ -2267,13 +2290,15 @@ static PyObject *__pyx_n_s_CVertex;
 static PyObject *__pyx_n_s_DTYPE;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
+static PyObject *__pyx_n_s_Hashable;
 static PyObject *__pyx_n_s_ImportError;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x54;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xe2;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xf7;
-static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xf8;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_PickleError;
 static PyObject *__pyx_n_s_RuntimeError;
+static PyObject *__pyx_n_s_Union;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_all;
@@ -2310,6 +2335,7 @@ static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_k_regular_graph;
 static PyObject *__pyx_n_s_label;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_meta;
 static PyObject *__pyx_n_s_n;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_new;
@@ -2344,6 +2370,8 @@ static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
+static PyObject *__pyx_n_s_typing;
+static PyObject *__pyx_n_s_union;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_v;
@@ -2369,7 +2397,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5label_4__del__(str
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_4meta___get__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_8__reduce_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_10__setstate_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_out_vertex, struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_in_vertex, PyObject *__pyx_v_weight); /* proto */
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, PyObject *__pyx_v_out_vertex, PyObject *__pyx_v_in_vertex, PyObject *__pyx_v_weight); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, PyObject *__pyx_v_other); /* proto */
 static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_4__hash__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self); /* proto */
@@ -2385,7 +2413,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6weight___get__
 static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6weight_2__set__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_8__reduce_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10__setstate_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_vertices, PyObject *__pyx_v_edges, PyObject *__pyx_v_directed); /* proto */
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_edges, PyObject *__pyx_v_vertices, PyObject *__pyx_v_directed, PyObject *__pyx_v_meta); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_matrix(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_dtype); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_genexpr(PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_index); /* proto */
@@ -2402,6 +2430,9 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8directed___ge
 static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8directed_2__set__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8weighted___get__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self); /* proto */
 static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8weighted_2__set__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta___get__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self); /* proto */
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_2__set__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_4__del__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14__setstate_cython__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHON_UNUSED PyObject *__pyx_self, unsigned int __pyx_v_n, unsigned int __pyx_v_k, int __pyx_v_selfloop); /* proto */
@@ -2414,11 +2445,12 @@ static PyObject *__pyx_tp_new_9BioSpecGT_5graph_11ccgenerator_CEdge(PyTypeObject
 static PyObject *__pyx_tp_new_9BioSpecGT_5graph_11ccgenerator_CGraph(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static __Pyx_CachedCFunction __pyx_umethod_PySet_Type_union = {0, &__pyx_n_s_union, 0, 0, 0};
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_88959827;
 static PyObject *__pyx_int_236982651;
 static PyObject *__pyx_int_259068967;
-static PyObject *__pyx_int_260529644;
 static PyObject *__pyx_k__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__4;
@@ -2437,10 +2469,10 @@ static PyObject *__pyx_codeobj__15;
 static PyObject *__pyx_codeobj__17;
 /* Late includes */
 
-/* "BioSpecGT/graph/ccgenerator.pyx":19
+/* "BioSpecGT/graph/ccgenerator.pyx":20
  *     cdef readonly dict meta
  * 
- *     def __init__(self, label: str, index: int, **meta):             # <<<<<<<<<<<<<<
+ *     def __init__(self, label: str, index: int = 0, **meta):             # <<<<<<<<<<<<<<
  *         self.label = label
  *         self.index = index
  */
@@ -2462,6 +2494,7 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_7CVertex_1__init__(PyObject 
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_label,&__pyx_n_s_index,0};
     PyObject* values[2] = {0,0};
+    values[1] = ((PyObject *)__pyx_int_0);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -2480,33 +2513,36 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_7CVertex_1__init__(PyObject 
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_index)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 19, __pyx_L3_error)
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_index);
+          if (value) { values[1] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_meta, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, __pyx_v_meta, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
     __pyx_v_label = ((PyObject*)values[0]);
     __pyx_v_index = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_DECREF(__pyx_v_meta); __pyx_v_meta = 0;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CVertex.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_label), (&PyString_Type), 1, "label", 1))) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_label), (&PyString_Type), 1, "label", 1))) __PYX_ERR(0, 20, __pyx_L1_error)
   __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex___init__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_v_self), __pyx_v_label, __pyx_v_index, __pyx_v_meta);
 
   /* function exit code */
@@ -2528,9 +2564,9 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex___init__(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":20
+  /* "BioSpecGT/graph/ccgenerator.pyx":21
  * 
- *     def __init__(self, label: str, index: int, **meta):
+ *     def __init__(self, label: str, index: int = 0, **meta):
  *         self.label = label             # <<<<<<<<<<<<<<
  *         self.index = index
  *         self.meta = meta
@@ -2541,17 +2577,17 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex___init__(struct __p
   __Pyx_DECREF(__pyx_v_self->label);
   __pyx_v_self->label = __pyx_v_label;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":21
- *     def __init__(self, label: str, index: int, **meta):
+  /* "BioSpecGT/graph/ccgenerator.pyx":22
+ *     def __init__(self, label: str, index: int = 0, **meta):
  *         self.label = label
  *         self.index = index             # <<<<<<<<<<<<<<
  *         self.meta = meta
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_v_self->index = __pyx_t_1;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":22
+  /* "BioSpecGT/graph/ccgenerator.pyx":23
  *         self.label = label
  *         self.index = index
  *         self.meta = meta             # <<<<<<<<<<<<<<
@@ -2564,10 +2600,10 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex___init__(struct __p
   __Pyx_DECREF(__pyx_v_self->meta);
   __pyx_v_self->meta = __pyx_v_meta;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":19
+  /* "BioSpecGT/graph/ccgenerator.pyx":20
  *     cdef readonly dict meta
  * 
- *     def __init__(self, label: str, index: int, **meta):             # <<<<<<<<<<<<<<
+ *     def __init__(self, label: str, index: int = 0, **meta):             # <<<<<<<<<<<<<<
  *         self.label = label
  *         self.index = index
  */
@@ -2583,7 +2619,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex___init__(struct __p
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":24
+/* "BioSpecGT/graph/ccgenerator.pyx":25
  *         self.meta = meta
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -2618,7 +2654,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__eq__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":30
+  /* "BioSpecGT/graph/ccgenerator.pyx":31
  *         :return:
  *         """
  *         return self.label == other.label             # <<<<<<<<<<<<<<
@@ -2626,15 +2662,15 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__(struc
  *     def __hash__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_label); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_label); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_v_self->label, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_self->label, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":24
+  /* "BioSpecGT/graph/ccgenerator.pyx":25
  *         self.meta = meta
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -2654,7 +2690,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__(struc
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":32
+/* "BioSpecGT/graph/ccgenerator.pyx":33
  *         return self.label == other.label
  * 
  *     def __hash__(self):             # <<<<<<<<<<<<<<
@@ -2685,21 +2721,21 @@ static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_4__hash__(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__hash__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":33
+  /* "BioSpecGT/graph/ccgenerator.pyx":34
  * 
  *     def __hash__(self):
  *         return hash(self.index)             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Hash(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_hash_t)-1))) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Hash(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_hash_t)-1))) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":32
+  /* "BioSpecGT/graph/ccgenerator.pyx":33
  *         return self.label == other.label
  * 
  *     def __hash__(self):             # <<<<<<<<<<<<<<
@@ -2718,7 +2754,7 @@ static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_4__hash__(str
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":35
+/* "BioSpecGT/graph/ccgenerator.pyx":36
  *         return hash(self.index)
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2751,7 +2787,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_6__str__(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":36
+  /* "BioSpecGT/graph/ccgenerator.pyx":37
  * 
  *     def __str__(self):
  *         return f"A vertex with label {self.label} and following info:\n{self.meta}"             # <<<<<<<<<<<<<<
@@ -2759,7 +2795,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_6__str__(stru
  * cdef class CEdge:
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = 0;
   __pyx_t_3 = 127;
@@ -2767,7 +2803,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_6__str__(stru
   __pyx_t_2 += 20;
   __Pyx_GIVEREF(__pyx_kp_u_A_vertex_with_label);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_kp_u_A_vertex_with_label);
-  __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_self->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_self->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_3) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_3;
   __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
@@ -2778,21 +2814,21 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_6__str__(stru
   __pyx_t_2 += 21;
   __Pyx_GIVEREF(__pyx_kp_u_and_following_info);
   PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_and_following_info);
-  __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_self->meta, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_self->meta, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_3 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_3) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_3;
   __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_1, 3, __pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 4, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":35
+  /* "BioSpecGT/graph/ccgenerator.pyx":36
  *         return hash(self.index)
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -2812,7 +2848,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_6__str__(stru
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":15
+/* "BioSpecGT/graph/ccgenerator.pyx":16
  * 
  * cdef class CVertex:
  *     cdef public int index             # <<<<<<<<<<<<<<
@@ -2842,7 +2878,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5index___get_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2880,7 +2916,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5index_2__set__(str
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 16, __pyx_L1_error)
   __pyx_v_self->index = __pyx_t_1;
 
   /* function exit code */
@@ -2894,7 +2930,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5index_2__set__(str
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":16
+/* "BioSpecGT/graph/ccgenerator.pyx":17
  * cdef class CVertex:
  *     cdef public int index
  *     cdef public str label             # <<<<<<<<<<<<<<
@@ -2952,7 +2988,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5label_2__set__(str
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(PyString_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (!(likely(PyString_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 17, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -3002,12 +3038,12 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_5label_4__del__(str
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":17
+/* "BioSpecGT/graph/ccgenerator.pyx":18
  *     cdef public int index
  *     cdef public str label
  *     cdef readonly dict meta             # <<<<<<<<<<<<<<
  * 
- *     def __init__(self, label: str, index: int, **meta):
+ *     def __init__(self, label: str, index: int = 0, **meta):
  */
 
 /* Python wrapper */
@@ -3351,19 +3387,19 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_7CVertex_10__setstate_
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":46
+/* "BioSpecGT/graph/ccgenerator.pyx":47
  *     # __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
  * 
- *     def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):             # <<<<<<<<<<<<<<
- *         self.out_vertex = out_vertex
- *         self.in_vertex = in_vertex
+ *     def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):             # <<<<<<<<<<<<<<
+ *         if type(out_vertex) != CVertex:
+ *             out_vertex = CVertex(out_vertex)
  */
 
 /* Python wrapper */
 static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_5CEdge_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_5CEdge_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_out_vertex = 0;
-  struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_in_vertex = 0;
+  PyObject *__pyx_v_out_vertex = 0;
+  PyObject *__pyx_v_in_vertex = 0;
   PyObject *__pyx_v_weight = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -3397,7 +3433,7 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_5CEdge_1__init__(PyObject *_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_in_vertex)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, 1); __PYX_ERR(0, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, 1); __PYX_ERR(0, 47, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3407,7 +3443,7 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_5CEdge_1__init__(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 46, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 47, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3419,81 +3455,150 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_5CEdge_1__init__(PyObject *_
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_out_vertex = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)values[0]);
-    __pyx_v_in_vertex = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)values[1]);
+    __pyx_v_out_vertex = values[0];
+    __pyx_v_in_vertex = values[1];
     __pyx_v_weight = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 47, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CEdge.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_out_vertex), __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex, 1, "out_vertex", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_in_vertex), __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex, 1, "in_vertex", 0))) __PYX_ERR(0, 46, __pyx_L1_error)
   __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_v_self), __pyx_v_out_vertex, __pyx_v_in_vertex, __pyx_v_weight);
 
   /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = -1;
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_out_vertex, struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *__pyx_v_in_vertex, PyObject *__pyx_v_weight) {
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *__pyx_v_self, PyObject *__pyx_v_out_vertex, PyObject *__pyx_v_in_vertex, PyObject *__pyx_v_weight) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
-  float __pyx_t_3;
+  int __pyx_t_3;
+  float __pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
+  __Pyx_INCREF(__pyx_v_out_vertex);
+  __Pyx_INCREF(__pyx_v_in_vertex);
   __Pyx_INCREF(__pyx_v_weight);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":47
+  /* "BioSpecGT/graph/ccgenerator.pyx":48
  * 
- *     def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):
+ *     def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):
+ *         if type(out_vertex) != CVertex:             # <<<<<<<<<<<<<<
+ *             out_vertex = CVertex(out_vertex)
+ * 
+ */
+  __pyx_t_1 = PyObject_RichCompare(((PyObject *)Py_TYPE(__pyx_v_out_vertex)), ((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":49
+ *     def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):
+ *         if type(out_vertex) != CVertex:
+ *             out_vertex = CVertex(out_vertex)             # <<<<<<<<<<<<<<
+ * 
+ *         if type(in_vertex) != CVertex:
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_v_out_vertex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_out_vertex, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":48
+ * 
+ *     def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):
+ *         if type(out_vertex) != CVertex:             # <<<<<<<<<<<<<<
+ *             out_vertex = CVertex(out_vertex)
+ * 
+ */
+  }
+
+  /* "BioSpecGT/graph/ccgenerator.pyx":51
+ *             out_vertex = CVertex(out_vertex)
+ * 
+ *         if type(in_vertex) != CVertex:             # <<<<<<<<<<<<<<
+ *             in_vertex = CVertex(in_vertex)
+ * 
+ */
+  __pyx_t_1 = PyObject_RichCompare(((PyObject *)Py_TYPE(__pyx_v_in_vertex)), ((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":52
+ * 
+ *         if type(in_vertex) != CVertex:
+ *             in_vertex = CVertex(in_vertex)             # <<<<<<<<<<<<<<
+ * 
+ *         self.out_vertex = out_vertex
+ */
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_v_in_vertex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF_SET(__pyx_v_in_vertex, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":51
+ *             out_vertex = CVertex(out_vertex)
+ * 
+ *         if type(in_vertex) != CVertex:             # <<<<<<<<<<<<<<
+ *             in_vertex = CVertex(in_vertex)
+ * 
+ */
+  }
+
+  /* "BioSpecGT/graph/ccgenerator.pyx":54
+ *             in_vertex = CVertex(in_vertex)
+ * 
  *         self.out_vertex = out_vertex             # <<<<<<<<<<<<<<
  *         self.in_vertex = in_vertex
  *         if weight is None:
  */
-  __Pyx_INCREF(((PyObject *)__pyx_v_out_vertex));
-  __Pyx_GIVEREF(((PyObject *)__pyx_v_out_vertex));
+  if (!(likely(((__pyx_v_out_vertex) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_out_vertex, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_out_vertex;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->out_vertex);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->out_vertex));
-  __pyx_v_self->out_vertex = __pyx_v_out_vertex;
+  __pyx_v_self->out_vertex = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_t_1);
+  __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":48
- *     def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):
+  /* "BioSpecGT/graph/ccgenerator.pyx":55
+ * 
  *         self.out_vertex = out_vertex
  *         self.in_vertex = in_vertex             # <<<<<<<<<<<<<<
  *         if weight is None:
  *             self.has_weight = False
  */
-  __Pyx_INCREF(((PyObject *)__pyx_v_in_vertex));
-  __Pyx_GIVEREF(((PyObject *)__pyx_v_in_vertex));
+  if (!(likely(((__pyx_v_in_vertex) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_in_vertex, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_in_vertex;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->in_vertex);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->in_vertex));
-  __pyx_v_self->in_vertex = __pyx_v_in_vertex;
+  __pyx_v_self->in_vertex = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_t_1);
+  __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":49
+  /* "BioSpecGT/graph/ccgenerator.pyx":56
  *         self.out_vertex = out_vertex
  *         self.in_vertex = in_vertex
  *         if weight is None:             # <<<<<<<<<<<<<<
  *             self.has_weight = False
  *             weight = 1
  */
-  __pyx_t_1 = (__pyx_v_weight == Py_None);
-  __pyx_t_2 = (__pyx_t_1 != 0);
-  if (__pyx_t_2) {
+  __pyx_t_2 = (__pyx_v_weight == Py_None);
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":50
+    /* "BioSpecGT/graph/ccgenerator.pyx":57
  *         self.in_vertex = in_vertex
  *         if weight is None:
  *             self.has_weight = False             # <<<<<<<<<<<<<<
@@ -3502,7 +3607,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx
  */
     __pyx_v_self->has_weight = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":51
+    /* "BioSpecGT/graph/ccgenerator.pyx":58
  *         if weight is None:
  *             self.has_weight = False
  *             weight = 1             # <<<<<<<<<<<<<<
@@ -3512,17 +3617,17 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_DECREF_SET(__pyx_v_weight, __pyx_int_1);
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":49
+    /* "BioSpecGT/graph/ccgenerator.pyx":56
  *         self.out_vertex = out_vertex
  *         self.in_vertex = in_vertex
  *         if weight is None:             # <<<<<<<<<<<<<<
  *             self.has_weight = False
  *             weight = 1
  */
-    goto __pyx_L3;
+    goto __pyx_L5;
   }
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":53
+  /* "BioSpecGT/graph/ccgenerator.pyx":60
  *             weight = 1
  *         else:
  *             self.has_weight = True             # <<<<<<<<<<<<<<
@@ -3532,39 +3637,42 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge___init__(struct __pyx
   /*else*/ {
     __pyx_v_self->has_weight = 1;
   }
-  __pyx_L3:;
+  __pyx_L5:;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":54
+  /* "BioSpecGT/graph/ccgenerator.pyx":61
  *         else:
  *             self.has_weight = True
  *         self.weight = weight             # <<<<<<<<<<<<<<
  * 
  *     def __eq__(self, other):
  */
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_v_weight); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L1_error)
-  __pyx_v_self->weight = __pyx_t_3;
+  __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_v_weight); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_v_self->weight = __pyx_t_4;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":46
+  /* "BioSpecGT/graph/ccgenerator.pyx":47
  *     # __slots__ = ['out_vertex', 'in_vertex', 'has_weight', 'weight']
  * 
- *     def __init__(self, out_vertex: CVertex, in_vertex: CVertex, weight: float = None):             # <<<<<<<<<<<<<<
- *         self.out_vertex = out_vertex
- *         self.in_vertex = in_vertex
+ *     def __init__(self, out_vertex: Hashable, in_vertex: Hashable, weight: float = None):             # <<<<<<<<<<<<<<
+ *         if type(out_vertex) != CVertex:
+ *             out_vertex = CVertex(out_vertex)
  */
 
   /* function exit code */
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CEdge.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_out_vertex);
+  __Pyx_XDECREF(__pyx_v_in_vertex);
   __Pyx_XDECREF(__pyx_v_weight);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":56
+/* "BioSpecGT/graph/ccgenerator.pyx":63
  *         self.weight = weight
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -3598,7 +3706,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__eq__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":57
+  /* "BioSpecGT/graph/ccgenerator.pyx":64
  * 
  *     def __eq__(self, other):
  *         return self.out_vertex == other.out_vertex and self.in_vertex == other.in_vertex and self.weight == other.weight             # <<<<<<<<<<<<<<
@@ -3606,11 +3714,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
  *     def __hash__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_out_vertex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_out_vertex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_RichCompare(((PyObject *)__pyx_v_self->out_vertex), __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(((PyObject *)__pyx_v_self->out_vertex), __pyx_t_2, Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
   if (__pyx_t_4) {
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
@@ -3619,11 +3727,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L3_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_in_vertex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_in_vertex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyObject_RichCompare(((PyObject *)__pyx_v_self->in_vertex), __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(((PyObject *)__pyx_v_self->in_vertex), __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
   if (__pyx_t_4) {
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
@@ -3632,11 +3740,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     goto __pyx_L3_bool_binop_done;
   }
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_weight); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_weight); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_INCREF(__pyx_t_5);
@@ -3647,7 +3755,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":56
+  /* "BioSpecGT/graph/ccgenerator.pyx":63
  *         self.weight = weight
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -3669,7 +3777,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_2__eq__(struct 
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":59
+/* "BioSpecGT/graph/ccgenerator.pyx":66
  *         return self.out_vertex == other.out_vertex and self.in_vertex == other.in_vertex and self.weight == other.weight
  * 
  *     def __hash__(self):             # <<<<<<<<<<<<<<
@@ -3702,18 +3810,18 @@ static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_4__hash__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__hash__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":60
+  /* "BioSpecGT/graph/ccgenerator.pyx":67
  * 
  *     def __hash__(self):
  *         return hash((self.in_vertex.index, self.out_vertex.index))             # <<<<<<<<<<<<<<
  * 
  *     def __str__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->in_vertex->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->in_vertex->index); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->out_vertex->index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->out_vertex->index); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -3721,12 +3829,12 @@ static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_4__hash__(struc
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_4 = PyObject_Hash(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_hash_t)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Hash(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_hash_t)-1))) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_4;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":59
+  /* "BioSpecGT/graph/ccgenerator.pyx":66
  *         return self.out_vertex == other.out_vertex and self.in_vertex == other.in_vertex and self.weight == other.weight
  * 
  *     def __hash__(self):             # <<<<<<<<<<<<<<
@@ -3747,7 +3855,7 @@ static Py_hash_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_4__hash__(struc
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":62
+/* "BioSpecGT/graph/ccgenerator.pyx":69
  *         return hash((self.in_vertex.index, self.out_vertex.index))
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -3784,7 +3892,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":65
+  /* "BioSpecGT/graph/ccgenerator.pyx":72
  *         cdef str weight_str
  * 
  *         if self.has_weight:             # <<<<<<<<<<<<<<
@@ -3794,16 +3902,16 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   __pyx_t_1 = (__pyx_v_self->has_weight != 0);
   if (__pyx_t_1) {
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":68
+    /* "BioSpecGT/graph/ccgenerator.pyx":75
  *             # TODO: compare
  *             # weight_str = f" with weight {self.weight}"
  *             weight_str = " with weight {}".format(self.weight)             # <<<<<<<<<<<<<<
  *         else:
  *             weight_str = "."
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_with_weight, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_with_weight, __pyx_n_s_format); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+    __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3818,14 +3926,14 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
     __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 68, __pyx_L1_error)
+    if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 75, __pyx_L1_error)
     __pyx_v_weight_str = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":65
+    /* "BioSpecGT/graph/ccgenerator.pyx":72
  *         cdef str weight_str
  * 
  *         if self.has_weight:             # <<<<<<<<<<<<<<
@@ -3835,7 +3943,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
     goto __pyx_L3;
   }
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":70
+  /* "BioSpecGT/graph/ccgenerator.pyx":77
  *             weight_str = " with weight {}".format(self.weight)
  *         else:
  *             weight_str = "."             # <<<<<<<<<<<<<<
@@ -3848,7 +3956,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   }
   __pyx_L3:;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":71
+  /* "BioSpecGT/graph/ccgenerator.pyx":78
  *         else:
  *             weight_str = "."
  *         return f"An edge between {self.in_vertex.label} and {self.out_vertex.label}" + weight_str             # <<<<<<<<<<<<<<
@@ -3856,7 +3964,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
  * cdef class CGraph:
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_6 = 0;
   __pyx_t_7 = 127;
@@ -3864,7 +3972,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   __pyx_t_6 += 16;
   __Pyx_GIVEREF(__pyx_kp_u_An_edge_between);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_kp_u_An_edge_between);
-  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->in_vertex->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->in_vertex->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) : __pyx_t_7;
   __pyx_t_6 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_3);
@@ -3875,24 +3983,24 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   __pyx_t_6 += 5;
   __Pyx_GIVEREF(__pyx_kp_u_and);
   PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_kp_u_and);
-  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->out_vertex->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_self->out_vertex->label, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_3) : __pyx_t_7;
   __pyx_t_6 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyUnicode_ConcatSafe(__pyx_t_3, __pyx_v_weight_str); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyUnicode_ConcatSafe(__pyx_t_3, __pyx_v_weight_str); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":62
+  /* "BioSpecGT/graph/ccgenerator.pyx":69
  *         return hash((self.in_vertex.index, self.out_vertex.index))
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -3915,7 +4023,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6__str__(struct
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":39
+/* "BioSpecGT/graph/ccgenerator.pyx":40
  * 
  * cdef class CEdge:
  *     cdef public CVertex in_vertex             # <<<<<<<<<<<<<<
@@ -3973,7 +4081,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_9in_vertex_2__set__(s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 40, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -4023,7 +4131,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_9in_vertex_4__del__(s
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":40
+/* "BioSpecGT/graph/ccgenerator.pyx":41
  * cdef class CEdge:
  *     cdef public CVertex in_vertex
  *     cdef public CVertex out_vertex             # <<<<<<<<<<<<<<
@@ -4081,7 +4189,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10out_vertex_2__set__
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 41, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -4131,7 +4239,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10out_vertex_4__del__
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":41
+/* "BioSpecGT/graph/ccgenerator.pyx":42
  *     cdef public CVertex in_vertex
  *     cdef public CVertex out_vertex
  *     cdef public bint has_weight             # <<<<<<<<<<<<<<
@@ -4161,7 +4269,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10has_weight___
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->has_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->has_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4199,7 +4307,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10has_weight_2__set__
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
   __pyx_v_self->has_weight = __pyx_t_1;
 
   /* function exit code */
@@ -4213,7 +4321,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10has_weight_2__set__
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":42
+/* "BioSpecGT/graph/ccgenerator.pyx":43
  *     cdef public CVertex out_vertex
  *     cdef public bint has_weight
  *     cdef public float weight             # <<<<<<<<<<<<<<
@@ -4243,7 +4351,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6weight___get__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4281,7 +4389,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_6weight_2__set__(stru
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_v_self->weight = __pyx_t_1;
 
   /* function exit code */
@@ -4612,10 +4720,10 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10__setstate_cy
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":81
+/* "BioSpecGT/graph/ccgenerator.pyx":89
  *     # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
  * 
- *     def __init__(self, vertices, edges, directed=False):             # <<<<<<<<<<<<<<
+ *     def __init__(self, edges, vertices=None, directed=False, meta=None):             # <<<<<<<<<<<<<<
  *         self.vertices = vertices
  *         self.edges = edges
  */
@@ -4623,9 +4731,10 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_5CEdge_10__setstate_cy
 /* Python wrapper */
 static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_vertices = 0;
   PyObject *__pyx_v_edges = 0;
+  PyObject *__pyx_v_vertices = 0;
   PyObject *__pyx_v_directed = 0;
+  PyObject *__pyx_v_meta = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4633,13 +4742,17 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_1__init__(PyObject *
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_vertices,&__pyx_n_s_edges,&__pyx_n_s_directed,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_edges,&__pyx_n_s_vertices,&__pyx_n_s_directed,&__pyx_n_s_meta,0};
+    PyObject* values[4] = {0,0,0,0};
+    values[1] = ((PyObject *)Py_None);
     values[2] = ((PyObject *)Py_False);
+    values[3] = ((PyObject *)Py_None);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -4652,13 +4765,13 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_1__init__(PyObject *
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_vertices)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_edges)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_edges)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, 1); __PYX_ERR(0, 81, __pyx_L3_error)
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_vertices);
+          if (value) { values[1] = value; kw_args--; }
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -4666,60 +4779,77 @@ static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_1__init__(PyObject *
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_directed);
           if (value) { values[2] = value; kw_args--; }
         }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_meta);
+          if (value) { values[3] = value; kw_args--; }
+        }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 81, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 89, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
         break;
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_vertices = values[0];
-    __pyx_v_edges = values[1];
+    __pyx_v_edges = values[0];
+    __pyx_v_vertices = values[1];
     __pyx_v_directed = values[2];
+    __pyx_v_meta = values[3];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 81, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 89, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CGraph.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self), __pyx_v_vertices, __pyx_v_edges, __pyx_v_directed);
+  __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self), __pyx_v_edges, __pyx_v_vertices, __pyx_v_directed, __pyx_v_meta);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_vertices, PyObject *__pyx_v_edges, PyObject *__pyx_v_directed) {
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_edges, PyObject *__pyx_v_vertices, PyObject *__pyx_v_directed, PyObject *__pyx_v_meta) {
+  PyObject *__pyx_v_in_vert = NULL;
+  PyObject *__pyx_v_out_vert = NULL;
   int __pyx_v_l;
+  PyObject *__pyx_7genexpr__pyx_v_e = NULL;
+  PyObject *__pyx_8genexpr1__pyx_v_e = NULL;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
-  Py_ssize_t __pyx_t_3;
+  int __pyx_t_3;
   int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":82
+  /* "BioSpecGT/graph/ccgenerator.pyx":90
  * 
- *     def __init__(self, vertices, edges, directed=False):
+ *     def __init__(self, edges, vertices=None, directed=False, meta=None):
  *         self.vertices = vertices             # <<<<<<<<<<<<<<
  *         self.edges = edges
- *         self.directed = directed
+ * 
  */
-  if (!(likely(PyList_CheckExact(__pyx_v_vertices))||((__pyx_v_vertices) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_vertices)->tp_name), 0))) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_vertices))||((__pyx_v_vertices) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_vertices)->tp_name), 0))) __PYX_ERR(0, 90, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_vertices;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -4728,14 +4858,14 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __py
   __pyx_v_self->vertices = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":83
- *     def __init__(self, vertices, edges, directed=False):
+  /* "BioSpecGT/graph/ccgenerator.pyx":91
+ *     def __init__(self, edges, vertices=None, directed=False, meta=None):
  *         self.vertices = vertices
  *         self.edges = edges             # <<<<<<<<<<<<<<
- *         self.directed = directed
  * 
+ *         if self.vertices is None and self.edges is not None:
  */
-  if (!(likely(PyList_CheckExact(__pyx_v_edges))||((__pyx_v_edges) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_edges)->tp_name), 0))) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_edges))||((__pyx_v_edges) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_edges)->tp_name), 0))) __PYX_ERR(0, 91, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_edges;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -4744,62 +4874,207 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __py
   __pyx_v_self->edges = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":84
- *         self.vertices = vertices
+  /* "BioSpecGT/graph/ccgenerator.pyx":93
  *         self.edges = edges
+ * 
+ *         if self.vertices is None and self.edges is not None:             # <<<<<<<<<<<<<<
+ *             in_vert = {e.in_vertex for e in self.edges}
+ *             out_vert = {e.out_vertex for e in self.edges}
+ */
+  __pyx_t_3 = (__pyx_v_self->vertices == ((PyObject*)Py_None));
+  __pyx_t_4 = (__pyx_t_3 != 0);
+  if (__pyx_t_4) {
+  } else {
+    __pyx_t_2 = __pyx_t_4;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_4 = (__pyx_v_self->edges != ((PyObject*)Py_None));
+  __pyx_t_3 = (__pyx_t_4 != 0);
+  __pyx_t_2 = __pyx_t_3;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_2) {
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":94
+ * 
+ *         if self.vertices is None and self.edges is not None:
+ *             in_vert = {e.in_vertex for e in self.edges}             # <<<<<<<<<<<<<<
+ *             out_vert = {e.out_vertex for e in self.edges}
+ * 
+ */
+    { /* enter inner scope */
+      __pyx_t_1 = PySet_New(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L8_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(__pyx_v_self->edges == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+        __PYX_ERR(0, 94, __pyx_L8_error)
+      }
+      __pyx_t_5 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_5); __pyx_t_6 = 0;
+      for (;;) {
+        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_5)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_7); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 94, __pyx_L8_error)
+        #else
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L8_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        #endif
+        __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_e, __pyx_t_7);
+        __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_7genexpr__pyx_v_e, __pyx_n_s_in_vertex); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L8_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        if (unlikely(PySet_Add(__pyx_t_1, (PyObject*)__pyx_t_7))) __PYX_ERR(0, 94, __pyx_L8_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_XDECREF(__pyx_7genexpr__pyx_v_e); __pyx_7genexpr__pyx_v_e = 0;
+      goto __pyx_L11_exit_scope;
+      __pyx_L8_error:;
+      __Pyx_XDECREF(__pyx_7genexpr__pyx_v_e); __pyx_7genexpr__pyx_v_e = 0;
+      goto __pyx_L1_error;
+      __pyx_L11_exit_scope:;
+    } /* exit inner scope */
+    __pyx_v_in_vert = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":95
+ *         if self.vertices is None and self.edges is not None:
+ *             in_vert = {e.in_vertex for e in self.edges}
+ *             out_vert = {e.out_vertex for e in self.edges}             # <<<<<<<<<<<<<<
+ * 
+ *             self.vertices = list(in_vert.union(out_vert))
+ */
+    { /* enter inner scope */
+      __pyx_t_1 = PySet_New(NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L14_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(__pyx_v_self->edges == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+        __PYX_ERR(0, 95, __pyx_L14_error)
+      }
+      __pyx_t_5 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_5); __pyx_t_6 = 0;
+      for (;;) {
+        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_5)) break;
+        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_7); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 95, __pyx_L14_error)
+        #else
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L14_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        #endif
+        __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_e, __pyx_t_7);
+        __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_8genexpr1__pyx_v_e, __pyx_n_s_out_vertex); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L14_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        if (unlikely(PySet_Add(__pyx_t_1, (PyObject*)__pyx_t_7))) __PYX_ERR(0, 95, __pyx_L14_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_XDECREF(__pyx_8genexpr1__pyx_v_e); __pyx_8genexpr1__pyx_v_e = 0;
+      goto __pyx_L17_exit_scope;
+      __pyx_L14_error:;
+      __Pyx_XDECREF(__pyx_8genexpr1__pyx_v_e); __pyx_8genexpr1__pyx_v_e = 0;
+      goto __pyx_L1_error;
+      __pyx_L17_exit_scope:;
+    } /* exit inner scope */
+    __pyx_v_out_vert = ((PyObject*)__pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":97
+ *             out_vert = {e.out_vertex for e in self.edges}
+ * 
+ *             self.vertices = list(in_vert.union(out_vert))             # <<<<<<<<<<<<<<
+ * 
+ *         self.directed = directed
+ */
+    __pyx_t_1 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PySet_Type_union, __pyx_v_in_vert, __pyx_v_out_vert); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_5 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_GIVEREF(__pyx_t_5);
+    __Pyx_GOTREF(__pyx_v_self->vertices);
+    __Pyx_DECREF(__pyx_v_self->vertices);
+    __pyx_v_self->vertices = ((PyObject*)__pyx_t_5);
+    __pyx_t_5 = 0;
+
+    /* "BioSpecGT/graph/ccgenerator.pyx":93
+ *         self.edges = edges
+ * 
+ *         if self.vertices is None and self.edges is not None:             # <<<<<<<<<<<<<<
+ *             in_vert = {e.in_vertex for e in self.edges}
+ *             out_vert = {e.out_vertex for e in self.edges}
+ */
+  }
+
+  /* "BioSpecGT/graph/ccgenerator.pyx":99
+ *             self.vertices = list(in_vert.union(out_vert))
+ * 
  *         self.directed = directed             # <<<<<<<<<<<<<<
+ *         self.meta = meta
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_directed); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_v_self->directed = __pyx_t_2;
+
+  /* "BioSpecGT/graph/ccgenerator.pyx":100
+ * 
+ *         self.directed = directed
+ *         self.meta = meta             # <<<<<<<<<<<<<<
  * 
  *         cdef int l
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_directed); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
-  __pyx_v_self->directed = __pyx_t_2;
+  if (!(likely(PyDict_CheckExact(__pyx_v_meta))||((__pyx_v_meta) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_meta)->tp_name), 0))) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_5 = __pyx_v_meta;
+  __Pyx_INCREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_5);
+  __Pyx_GOTREF(__pyx_v_self->meta);
+  __Pyx_DECREF(__pyx_v_self->meta);
+  __pyx_v_self->meta = ((PyObject*)__pyx_t_5);
+  __pyx_t_5 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":87
+  /* "BioSpecGT/graph/ccgenerator.pyx":103
  * 
  *         cdef int l
  *         l = len(self.edges)             # <<<<<<<<<<<<<<
  *         # take info about weights from the first edge
  *         # empty graphs are unweighted per default
  */
-  __pyx_t_1 = __pyx_v_self->edges;
-  __Pyx_INCREF(__pyx_t_1);
-  if (unlikely(__pyx_t_1 == Py_None)) {
+  __pyx_t_5 = __pyx_v_self->edges;
+  __Pyx_INCREF(__pyx_t_5);
+  if (unlikely(__pyx_t_5 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 87, __pyx_L1_error)
+    __PYX_ERR(0, 103, __pyx_L1_error)
   }
-  __pyx_t_3 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 87, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_l = __pyx_t_3;
+  __pyx_t_6 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_l = __pyx_t_6;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":90
+  /* "BioSpecGT/graph/ccgenerator.pyx":106
  *         # take info about weights from the first edge
  *         # empty graphs are unweighted per default
  *         self.weighted = l and self.edges[0].has_weight             # <<<<<<<<<<<<<<
  * 
  *     def adjacency_matrix(self, dtype=np.bool):
  */
-  __pyx_t_4 = (__pyx_v_l != 0);
-  if (__pyx_t_4) {
+  __pyx_t_3 = (__pyx_v_l != 0);
+  if (__pyx_t_3) {
   } else {
-    __pyx_t_2 = __pyx_t_4;
-    goto __pyx_L3_bool_binop_done;
+    __pyx_t_2 = __pyx_t_3;
+    goto __pyx_L18_bool_binop_done;
   }
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 90, __pyx_L1_error)
+    __PYX_ERR(0, 106, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_self->edges, 0), __pyx_n_s_has_weight); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_2 = __pyx_t_4;
-  __pyx_L3_bool_binop_done:;
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_self->edges, 0), __pyx_n_s_has_weight); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_2 = __pyx_t_3;
+  __pyx_L18_bool_binop_done:;
   __pyx_v_self->weighted = __pyx_t_2;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":81
+  /* "BioSpecGT/graph/ccgenerator.pyx":89
  *     # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
  * 
- *     def __init__(self, vertices, edges, directed=False):             # <<<<<<<<<<<<<<
+ *     def __init__(self, edges, vertices=None, directed=False, meta=None):             # <<<<<<<<<<<<<<
  *         self.vertices = vertices
  *         self.edges = edges
  */
@@ -4809,14 +5084,20 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph___init__(struct __py
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CGraph.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_in_vert);
+  __Pyx_XDECREF(__pyx_v_out_vert);
+  __Pyx_XDECREF(__pyx_7genexpr__pyx_v_e);
+  __Pyx_XDECREF(__pyx_8genexpr1__pyx_v_e);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":92
+/* "BioSpecGT/graph/ccgenerator.pyx":108
  *         self.weighted = l and self.edges[0].has_weight
  * 
  *     def adjacency_matrix(self, dtype=np.bool):             # <<<<<<<<<<<<<<
@@ -4856,7 +5137,7 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_3adjacency_mat
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "adjacency_matrix") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "adjacency_matrix") < 0)) __PYX_ERR(0, 108, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4870,7 +5151,7 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_3adjacency_mat
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("adjacency_matrix", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("adjacency_matrix", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 108, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CGraph.adjacency_matrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4900,7 +5181,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("adjacency_matrix", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":96
+  /* "BioSpecGT/graph/ccgenerator.pyx":112
  *         cdef CEdge e
  * 
  *         v = len(self.vertices)             # <<<<<<<<<<<<<<
@@ -4911,29 +5192,29 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   __Pyx_INCREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 112, __pyx_L1_error)
   }
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_v = __pyx_t_2;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":97
+  /* "BioSpecGT/graph/ccgenerator.pyx":113
  * 
  *         v = len(self.vertices)
  *         m = np.zeros((v, v), dtype=dtype)             # <<<<<<<<<<<<<<
  *         for e in self.edges:
  *             m[e.in_vertex.index, e.out_vertex.index] = e.weight
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
@@ -4941,15 +5222,15 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_1 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_v_dtype) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_v_dtype) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4957,7 +5238,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   __pyx_v_m = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":98
+  /* "BioSpecGT/graph/ccgenerator.pyx":114
  *         v = len(self.vertices)
  *         m = np.zeros((v, v), dtype=dtype)
  *         for e in self.edges:             # <<<<<<<<<<<<<<
@@ -4966,35 +5247,35 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
  */
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 98, __pyx_L1_error)
+    __PYX_ERR(0, 114, __pyx_L1_error)
   }
   __pyx_t_1 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_5); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_5); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
     #else
-    __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 98, __pyx_L1_error)
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_e, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_t_5));
     __pyx_t_5 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":99
+    /* "BioSpecGT/graph/ccgenerator.pyx":115
  *         m = np.zeros((v, v), dtype=dtype)
  *         for e in self.edges:
  *             m[e.in_vertex.index, e.out_vertex.index] = e.weight             # <<<<<<<<<<<<<<
  *         return m
  * 
  */
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_e->weight); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_e->weight); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->in_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->in_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_e->out_vertex->index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_e->out_vertex->index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
@@ -5002,11 +5283,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_3);
     __pyx_t_4 = 0;
     __pyx_t_3 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_m, __pyx_t_6, __pyx_t_5) < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_v_m, __pyx_t_6, __pyx_t_5) < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":98
+    /* "BioSpecGT/graph/ccgenerator.pyx":114
  *         v = len(self.vertices)
  *         m = np.zeros((v, v), dtype=dtype)
  *         for e in self.edges:             # <<<<<<<<<<<<<<
@@ -5016,7 +5297,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":100
+  /* "BioSpecGT/graph/ccgenerator.pyx":116
  *         for e in self.edges:
  *             m[e.in_vertex.index, e.out_vertex.index] = e.weight
  *         return m             # <<<<<<<<<<<<<<
@@ -5028,7 +5309,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
   __pyx_r = __pyx_v_m;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":92
+  /* "BioSpecGT/graph/ccgenerator.pyx":108
  *         self.weighted = l and self.edges[0].has_weight
  * 
  *     def adjacency_matrix(self, dtype=np.bool):             # <<<<<<<<<<<<<<
@@ -5054,7 +5335,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_2adjacency_mat
 }
 static PyObject *__pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_2generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "BioSpecGT/graph/ccgenerator.pyx":112
+/* "BioSpecGT/graph/ccgenerator.pyx":128
  * 
  *         if inds:
  *             d = {}.fromkeys((v.index for v in self.vertices), [])             # <<<<<<<<<<<<<<
@@ -5074,7 +5355,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_li
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 112, __pyx_L1_error)
+    __PYX_ERR(0, 128, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -5082,7 +5363,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_li
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_CGraph_adjacency_list_locals_gen, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!gen)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_CGraph_adjacency_list_locals_gen, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!gen)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -5118,26 +5399,26 @@ static PyObject *__pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_li
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 112, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 112, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 128, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 128, __pyx_L1_error) }
   if (unlikely(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->vertices == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 112, __pyx_L1_error)
+    __PYX_ERR(0, 128, __pyx_L1_error)
   }
   __pyx_t_1 = __pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->vertices; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_v);
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_v, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_v, __pyx_n_s_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_v, __pyx_n_s_index); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
@@ -5155,7 +5436,7 @@ static PyObject *__pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_li
     __pyx_cur_scope->__pyx_t_0 = 0;
     __Pyx_XGOTREF(__pyx_t_1);
     __pyx_t_2 = __pyx_cur_scope->__pyx_t_1;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 112, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 128, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -5178,7 +5459,7 @@ static PyObject *__pyx_gb_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_li
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":102
+/* "BioSpecGT/graph/ccgenerator.pyx":118
  *         return m
  * 
  *     cdef dict adjacency_list(self, inds=False):             # <<<<<<<<<<<<<<
@@ -5211,7 +5492,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 102, __pyx_L1_error)
+    __PYX_ERR(0, 118, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -5224,31 +5505,31 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":111
+  /* "BioSpecGT/graph/ccgenerator.pyx":127
  *         cdef CEdge e
  * 
  *         if inds:             # <<<<<<<<<<<<<<
  *             d = {}.fromkeys((v.index for v in self.vertices), [])
  *             for e in self.edges:
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_inds); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_inds); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":112
+    /* "BioSpecGT/graph/ccgenerator.pyx":128
  * 
  *         if inds:
  *             d = {}.fromkeys((v.index for v in self.vertices), [])             # <<<<<<<<<<<<<<
  *             for e in self.edges:
  *                 d[e.out_vertex.index].append(e.in_vertex.index)
  */
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_3 = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14adjacency_list_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     __pyx_t_7 = 0;
@@ -5265,7 +5546,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_5};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5275,7 +5556,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_5};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5283,7 +5564,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 128, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       if (__pyx_t_6) {
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -5294,16 +5575,16 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
       PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_5);
       __pyx_t_3 = 0;
       __pyx_t_5 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 112, __pyx_L1_error)
+    if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 128, __pyx_L1_error)
     __pyx_v_d = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":113
+    /* "BioSpecGT/graph/ccgenerator.pyx":129
  *         if inds:
  *             d = {}.fromkeys((v.index for v in self.vertices), [])
  *             for e in self.edges:             # <<<<<<<<<<<<<<
@@ -5312,22 +5593,22 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
  */
     if (unlikely(__pyx_cur_scope->__pyx_v_self->edges == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 113, __pyx_L1_error)
+      __PYX_ERR(0, 129, __pyx_L1_error)
     }
     __pyx_t_2 = __pyx_cur_scope->__pyx_v_self->edges; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
     for (;;) {
       if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_2)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
       #else
-      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
-      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 113, __pyx_L1_error)
+      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 129, __pyx_L1_error)
       __Pyx_XDECREF_SET(__pyx_v_e, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_t_4));
       __pyx_t_4 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":114
+      /* "BioSpecGT/graph/ccgenerator.pyx":130
  *             d = {}.fromkeys((v.index for v in self.vertices), [])
  *             for e in self.edges:
  *                 d[e.out_vertex.index].append(e.in_vertex.index)             # <<<<<<<<<<<<<<
@@ -5336,20 +5617,20 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
  */
       if (unlikely(__pyx_v_d == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 114, __pyx_L1_error)
+        __PYX_ERR(0, 130, __pyx_L1_error)
       }
-      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->out_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->out_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_8 = __Pyx_PyDict_GetItem(__pyx_v_d, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 114, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyDict_GetItem(__pyx_v_d, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 130, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->in_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_e->in_vertex->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 130, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_10 = __Pyx_PyObject_Append(__pyx_t_8, __pyx_t_4); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 114, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Append(__pyx_t_8, __pyx_t_4); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 130, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":113
+      /* "BioSpecGT/graph/ccgenerator.pyx":129
  *         if inds:
  *             d = {}.fromkeys((v.index for v in self.vertices), [])
  *             for e in self.edges:             # <<<<<<<<<<<<<<
@@ -5359,7 +5640,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":111
+    /* "BioSpecGT/graph/ccgenerator.pyx":127
  *         cdef CEdge e
  * 
  *         if inds:             # <<<<<<<<<<<<<<
@@ -5369,7 +5650,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     goto __pyx_L3;
   }
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":116
+  /* "BioSpecGT/graph/ccgenerator.pyx":132
  *                 d[e.out_vertex.index].append(e.in_vertex.index)
  *         else:
  *             d = {}.fromkeys(self.vertices, [])             # <<<<<<<<<<<<<<
@@ -5377,12 +5658,12 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
  *                 d[e.out_vertex].append(e.in_vertex)
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_fromkeys); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     __pyx_t_7 = 0;
@@ -5399,7 +5680,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_8)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_cur_scope->__pyx_v_self->vertices, __pyx_t_4};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5408,14 +5689,14 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_cur_scope->__pyx_v_self->vertices, __pyx_t_4};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_5) {
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -5426,16 +5707,16 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_7, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 116, __pyx_L1_error)
+    if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 132, __pyx_L1_error)
     __pyx_v_d = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":117
+    /* "BioSpecGT/graph/ccgenerator.pyx":133
  *         else:
  *             d = {}.fromkeys(self.vertices, [])
  *             for e in self.edges:             # <<<<<<<<<<<<<<
@@ -5444,22 +5725,22 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
  */
     if (unlikely(__pyx_cur_scope->__pyx_v_self->edges == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 117, __pyx_L1_error)
+      __PYX_ERR(0, 133, __pyx_L1_error)
     }
     __pyx_t_2 = __pyx_cur_scope->__pyx_v_self->edges; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
     for (;;) {
       if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_2)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_8 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_8); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
+      __pyx_t_8 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_8); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
       #else
-      __pyx_t_8 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 117, __pyx_L1_error)
+      __pyx_t_8 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 133, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       #endif
-      if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 117, __pyx_L1_error)
+      if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 133, __pyx_L1_error)
       __Pyx_XDECREF_SET(__pyx_v_e, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_t_8));
       __pyx_t_8 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":118
+      /* "BioSpecGT/graph/ccgenerator.pyx":134
  *             d = {}.fromkeys(self.vertices, [])
  *             for e in self.edges:
  *                 d[e.out_vertex].append(e.in_vertex)             # <<<<<<<<<<<<<<
@@ -5468,14 +5749,14 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
  */
       if (unlikely(__pyx_v_d == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 118, __pyx_L1_error)
+        __PYX_ERR(0, 134, __pyx_L1_error)
       }
-      __pyx_t_8 = __Pyx_PyDict_GetItem(__pyx_v_d, ((PyObject *)__pyx_v_e->out_vertex)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 118, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyDict_GetItem(__pyx_v_d, ((PyObject *)__pyx_v_e->out_vertex)); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_10 = __Pyx_PyObject_Append(__pyx_t_8, ((PyObject *)__pyx_v_e->in_vertex)); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 118, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Append(__pyx_t_8, ((PyObject *)__pyx_v_e->in_vertex)); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":117
+      /* "BioSpecGT/graph/ccgenerator.pyx":133
  *         else:
  *             d = {}.fromkeys(self.vertices, [])
  *             for e in self.edges:             # <<<<<<<<<<<<<<
@@ -5487,7 +5768,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
   }
   __pyx_L3:;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":119
+  /* "BioSpecGT/graph/ccgenerator.pyx":135
  *             for e in self.edges:
  *                 d[e.out_vertex].append(e.in_vertex)
  *         return d             # <<<<<<<<<<<<<<
@@ -5499,7 +5780,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
   __pyx_r = __pyx_v_d;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":102
+  /* "BioSpecGT/graph/ccgenerator.pyx":118
  *         return m
  * 
  *     cdef dict adjacency_list(self, inds=False):             # <<<<<<<<<<<<<<
@@ -5526,7 +5807,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list(
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":121
+/* "BioSpecGT/graph/ccgenerator.pyx":137
  *         return d
  * 
  *     cdef list get_neighbours(self, v):             # <<<<<<<<<<<<<<
@@ -5548,7 +5829,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_neighbours(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_neighbours", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":123
+  /* "BioSpecGT/graph/ccgenerator.pyx":139
  *     cdef list get_neighbours(self, v):
  *         cdef CEdge e
  *         return [e.in_vertex for e in self.edges if e.out_vertex == v]             # <<<<<<<<<<<<<<
@@ -5556,29 +5837,29 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_neighbours(
  *     cdef int get_degree(self, CVertex v):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 123, __pyx_L1_error)
+    __PYX_ERR(0, 139, __pyx_L1_error)
   }
   __pyx_t_2 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
   for (;;) {
     if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
     #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 123, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_e, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_t_4));
     __pyx_t_4 = 0;
-    __pyx_t_4 = PyObject_RichCompare(((PyObject *)__pyx_v_e->out_vertex), __pyx_v_v, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __pyx_t_4 = PyObject_RichCompare(((PyObject *)__pyx_v_e->out_vertex), __pyx_v_v, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_5) {
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_e->in_vertex))) __PYX_ERR(0, 123, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_e->in_vertex))) __PYX_ERR(0, 139, __pyx_L1_error)
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5586,7 +5867,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_neighbours(
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":121
+  /* "BioSpecGT/graph/ccgenerator.pyx":137
  *         return d
  * 
  *     cdef list get_neighbours(self, v):             # <<<<<<<<<<<<<<
@@ -5608,7 +5889,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_neighbours(
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":125
+/* "BioSpecGT/graph/ccgenerator.pyx":141
  *         return [e.in_vertex for e in self.edges if e.out_vertex == v]
  * 
  *     cdef int get_degree(self, CVertex v):             # <<<<<<<<<<<<<<
@@ -5626,25 +5907,25 @@ static int __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_degree(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_degree", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":126
+  /* "BioSpecGT/graph/ccgenerator.pyx":142
  * 
  *     cdef int get_degree(self, CVertex v):
  *         return len(self.get_neighbours(v))             # <<<<<<<<<<<<<<
  * 
  *     cdef void add_egdes(self, edges):
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self->__pyx_vtab)->get_neighbours(__pyx_v_self, ((PyObject *)__pyx_v_v)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self->__pyx_vtab)->get_neighbours(__pyx_v_self, ((PyObject *)__pyx_v_v)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 126, __pyx_L1_error)
+    __PYX_ERR(0, 142, __pyx_L1_error)
   }
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":125
+  /* "BioSpecGT/graph/ccgenerator.pyx":141
  *         return [e.in_vertex for e in self.edges if e.out_vertex == v]
  * 
  *     cdef int get_degree(self, CVertex v):             # <<<<<<<<<<<<<<
@@ -5662,7 +5943,7 @@ static int __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_get_degree(struct __p
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":128
+/* "BioSpecGT/graph/ccgenerator.pyx":144
  *         return len(self.get_neighbours(v))
  * 
  *     cdef void add_egdes(self, edges):             # <<<<<<<<<<<<<<
@@ -5678,23 +5959,23 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_egdes(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add_egdes", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":129
+  /* "BioSpecGT/graph/ccgenerator.pyx":145
  * 
  *     cdef void add_egdes(self, edges):
  *         self.edges += edges             # <<<<<<<<<<<<<<
  * 
  *     cdef void remove_egdes(self, edges):
  */
-  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_self->edges, __pyx_v_edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_self->edges, __pyx_v_edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 129, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->edges);
   __Pyx_DECREF(__pyx_v_self->edges);
   __pyx_v_self->edges = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":128
+  /* "BioSpecGT/graph/ccgenerator.pyx":144
  *         return len(self.get_neighbours(v))
  * 
  *     cdef void add_egdes(self, edges):             # <<<<<<<<<<<<<<
@@ -5711,7 +5992,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_egdes(struct __p
   __Pyx_RefNannyFinishContext();
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":131
+/* "BioSpecGT/graph/ccgenerator.pyx":147
  *         self.edges += edges
  * 
  *     cdef void remove_egdes(self, edges):             # <<<<<<<<<<<<<<
@@ -5733,7 +6014,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("remove_egdes", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":133
+  /* "BioSpecGT/graph/ccgenerator.pyx":149
  *     cdef void remove_egdes(self, edges):
  *         cdef CEdge e
  *         for e in edges:             # <<<<<<<<<<<<<<
@@ -5744,26 +6025,26 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
     __pyx_t_1 = __pyx_v_edges; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -5773,24 +6054,24 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 133, __pyx_L1_error)
+          else __PYX_ERR(0, 149, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 133, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge))))) __PYX_ERR(0, 149, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_e, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CEdge *)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":134
+    /* "BioSpecGT/graph/ccgenerator.pyx":150
  *         cdef CEdge e
  *         for e in edges:
  *             self.edges.remove(e)             # <<<<<<<<<<<<<<
  * 
  *     cdef void add_vertex(self, vertex):
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->edges, __pyx_n_s_remove); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->edges, __pyx_n_s_remove); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -5804,12 +6085,12 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
     }
     __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, ((PyObject *)__pyx_v_e)) : __Pyx_PyObject_CallOneArg(__pyx_t_5, ((PyObject *)__pyx_v_e));
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":133
+    /* "BioSpecGT/graph/ccgenerator.pyx":149
  *     cdef void remove_egdes(self, edges):
  *         cdef CEdge e
  *         for e in edges:             # <<<<<<<<<<<<<<
@@ -5819,7 +6100,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":131
+  /* "BioSpecGT/graph/ccgenerator.pyx":147
  *         self.edges += edges
  * 
  *     cdef void remove_egdes(self, edges):             # <<<<<<<<<<<<<<
@@ -5840,7 +6121,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_remove_egdes(struct 
   __Pyx_RefNannyFinishContext();
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":136
+/* "BioSpecGT/graph/ccgenerator.pyx":152
  *             self.edges.remove(e)
  * 
  *     cdef void add_vertex(self, vertex):             # <<<<<<<<<<<<<<
@@ -5858,7 +6139,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertex(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add_vertex", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":137
+  /* "BioSpecGT/graph/ccgenerator.pyx":153
  * 
  *     cdef void add_vertex(self, vertex):
  *         vertex.index = len(self.vertices)             # <<<<<<<<<<<<<<
@@ -5869,16 +6150,16 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertex(struct __
   __Pyx_INCREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 153, __pyx_L1_error)
   }
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_vertex, __pyx_n_s_index, __pyx_t_1) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_vertex, __pyx_n_s_index, __pyx_t_1) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":138
+  /* "BioSpecGT/graph/ccgenerator.pyx":154
  *     cdef void add_vertex(self, vertex):
  *         vertex.index = len(self.vertices)
  *         self.vertices.append(vertex)             # <<<<<<<<<<<<<<
@@ -5887,11 +6168,11 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertex(struct __
  */
   if (unlikely(__pyx_v_self->vertices == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "append");
-    __PYX_ERR(0, 138, __pyx_L1_error)
+    __PYX_ERR(0, 154, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_PyList_Append(__pyx_v_self->vertices, __pyx_v_vertex); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyList_Append(__pyx_v_self->vertices, __pyx_v_vertex); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 154, __pyx_L1_error)
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":136
+  /* "BioSpecGT/graph/ccgenerator.pyx":152
  *             self.edges.remove(e)
  * 
  *     cdef void add_vertex(self, vertex):             # <<<<<<<<<<<<<<
@@ -5908,7 +6189,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertex(struct __
   __Pyx_RefNannyFinishContext();
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":140
+/* "BioSpecGT/graph/ccgenerator.pyx":156
  *         self.vertices.append(vertex)
  * 
  *     cdef void add_vertices(self, vertices):             # <<<<<<<<<<<<<<
@@ -5930,7 +6211,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add_vertices", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":149
+  /* "BioSpecGT/graph/ccgenerator.pyx":165
  *         cdef CVertex v
  * 
  *         i = len(self.vertices)             # <<<<<<<<<<<<<<
@@ -5941,13 +6222,13 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
   __Pyx_INCREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 149, __pyx_L1_error)
+    __PYX_ERR(0, 165, __pyx_L1_error)
   }
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_i = __pyx_t_2;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":150
+  /* "BioSpecGT/graph/ccgenerator.pyx":166
  * 
  *         i = len(self.vertices)
  *         for v in vertices:             # <<<<<<<<<<<<<<
@@ -5958,26 +6239,26 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
     __pyx_t_1 = __pyx_v_vertices; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -5987,17 +6268,17 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 150, __pyx_L1_error)
+          else __PYX_ERR(0, 166, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 150, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_v, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":151
+    /* "BioSpecGT/graph/ccgenerator.pyx":167
  *         i = len(self.vertices)
  *         for v in vertices:
  *             v.index = i             # <<<<<<<<<<<<<<
@@ -6006,7 +6287,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
  */
     __pyx_v_v->index = __pyx_v_i;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":152
+    /* "BioSpecGT/graph/ccgenerator.pyx":168
  *         for v in vertices:
  *             v.index = i
  *             i += 1             # <<<<<<<<<<<<<<
@@ -6015,7 +6296,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
  */
     __pyx_v_i = (__pyx_v_i + 1);
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":150
+    /* "BioSpecGT/graph/ccgenerator.pyx":166
  * 
  *         i = len(self.vertices)
  *         for v in vertices:             # <<<<<<<<<<<<<<
@@ -6025,7 +6306,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":153
+  /* "BioSpecGT/graph/ccgenerator.pyx":169
  *             v.index = i
  *             i += 1
  *         self.vertices.extend(vertices)             # <<<<<<<<<<<<<<
@@ -6034,11 +6315,11 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
  */
   if (unlikely(__pyx_v_self->vertices == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "extend");
-    __PYX_ERR(0, 153, __pyx_L1_error)
+    __PYX_ERR(0, 169, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyList_Extend(__pyx_v_self->vertices, __pyx_v_vertices); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyList_Extend(__pyx_v_self->vertices, __pyx_v_vertices); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 169, __pyx_L1_error)
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":140
+  /* "BioSpecGT/graph/ccgenerator.pyx":156
  *         self.vertices.append(vertex)
  * 
  *     cdef void add_vertices(self, vertices):             # <<<<<<<<<<<<<<
@@ -6057,7 +6338,7 @@ static void __pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_add_vertices(struct 
   __Pyx_RefNannyFinishContext();
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":155
+/* "BioSpecGT/graph/ccgenerator.pyx":171
  *         self.vertices.extend(vertices)
  * 
  *     def find_by_index(self, index: int):             # <<<<<<<<<<<<<<
@@ -6094,7 +6375,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("find_by_index", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":162
+  /* "BioSpecGT/graph/ccgenerator.pyx":178
  *         """
  *         cdef CVertex v
  *         return [v for v in self.vertices if v.index == index]             # <<<<<<<<<<<<<<
@@ -6102,32 +6383,32 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index
  *     cdef CGraph copy(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->vertices == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 162, __pyx_L1_error)
+    __PYX_ERR(0, 178, __pyx_L1_error)
   }
   __pyx_t_2 = __pyx_v_self->vertices; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
   for (;;) {
     if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 178, __pyx_L1_error)
     #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 162, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_v, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_t_4));
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_v->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_v->index); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_v_index, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_v_index, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_6) {
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_v))) __PYX_ERR(0, 162, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_v_v))) __PYX_ERR(0, 178, __pyx_L1_error)
     }
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -6135,7 +6416,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":155
+  /* "BioSpecGT/graph/ccgenerator.pyx":171
  *         self.vertices.extend(vertices)
  * 
  *     def find_by_index(self, index: int):             # <<<<<<<<<<<<<<
@@ -6158,7 +6439,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":164
+/* "BioSpecGT/graph/ccgenerator.pyx":180
  *         return [v for v in self.vertices if v.index == index]
  * 
  *     cdef CGraph copy(self):             # <<<<<<<<<<<<<<
@@ -6176,7 +6457,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("copy", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":169
+  /* "BioSpecGT/graph/ccgenerator.pyx":185
  *         :return:
  *         """
  *         return CGraph(self.vertices, self.edges)             # <<<<<<<<<<<<<<
@@ -6184,7 +6465,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
  *     cdef CGraph make_undirected(self):
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_self->vertices);
   __Pyx_GIVEREF(__pyx_v_self->vertices);
@@ -6192,14 +6473,14 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __Pyx_INCREF(__pyx_v_self->edges);
   __Pyx_GIVEREF(__pyx_v_self->edges);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_self->edges);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":164
+  /* "BioSpecGT/graph/ccgenerator.pyx":180
  *         return [v for v in self.vertices if v.index == index]
  * 
  *     cdef CGraph copy(self):             # <<<<<<<<<<<<<<
@@ -6219,7 +6500,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":171
+/* "BioSpecGT/graph/ccgenerator.pyx":187
  *         return CGraph(self.vertices, self.edges)
  * 
  *     cdef CGraph make_undirected(self):             # <<<<<<<<<<<<<<
@@ -6242,35 +6523,35 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("make_undirected", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":177
+  /* "BioSpecGT/graph/ccgenerator.pyx":193
  *         """
  *         self.add_egdes(
  *             [CEdge(e.in_vertex, e.out_vertex) for e in self.edges])             # <<<<<<<<<<<<<<
  *         self.edges = list(set(self.edges))
  *         self.directed = False
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 177, __pyx_L1_error)
+    __PYX_ERR(0, 193, __pyx_L1_error)
   }
   __pyx_t_2 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
   for (;;) {
     if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
     #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_e, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_e, __pyx_n_s_in_vertex); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_e, __pyx_n_s_in_vertex); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_e, __pyx_n_s_out_vertex); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_e, __pyx_n_s_out_vertex); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
@@ -6278,15 +6559,15 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 177, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 193, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":176
+  /* "BioSpecGT/graph/ccgenerator.pyx":192
  *         :return:
  *         """
  *         self.add_egdes(             # <<<<<<<<<<<<<<
@@ -6296,16 +6577,16 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   ((struct __pyx_vtabstruct_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self->__pyx_vtab)->add_egdes(__pyx_v_self, __pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":178
+  /* "BioSpecGT/graph/ccgenerator.pyx":194
  *         self.add_egdes(
  *             [CEdge(e.in_vertex, e.out_vertex) for e in self.edges])
  *         self.edges = list(set(self.edges))             # <<<<<<<<<<<<<<
  *         self.directed = False
  *         return self
  */
-  __pyx_t_1 = PySet_New(__pyx_v_self->edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = PySet_New(__pyx_v_self->edges); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_GIVEREF(__pyx_t_2);
@@ -6314,7 +6595,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __pyx_v_self->edges = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":179
+  /* "BioSpecGT/graph/ccgenerator.pyx":195
  *             [CEdge(e.in_vertex, e.out_vertex) for e in self.edges])
  *         self.edges = list(set(self.edges))
  *         self.directed = False             # <<<<<<<<<<<<<<
@@ -6323,7 +6604,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
  */
   __pyx_v_self->directed = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":180
+  /* "BioSpecGT/graph/ccgenerator.pyx":196
  *         self.edges = list(set(self.edges))
  *         self.directed = False
  *         return self             # <<<<<<<<<<<<<<
@@ -6335,7 +6616,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":171
+  /* "BioSpecGT/graph/ccgenerator.pyx":187
  *         return CGraph(self.vertices, self.edges)
  * 
  *     cdef CGraph make_undirected(self):             # <<<<<<<<<<<<<<
@@ -6359,7 +6640,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":182
+/* "BioSpecGT/graph/ccgenerator.pyx":198
  *         return self
  * 
  *     cdef CGraph make_unweighted(self):             # <<<<<<<<<<<<<<
@@ -6379,7 +6660,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("make_unweighted", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":187
+  /* "BioSpecGT/graph/ccgenerator.pyx":203
  *         :return:
  *         """
  *         for e in self.edges:             # <<<<<<<<<<<<<<
@@ -6388,39 +6669,39 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
  */
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 187, __pyx_L1_error)
+    __PYX_ERR(0, 203, __pyx_L1_error)
   }
   __pyx_t_1 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 203, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_e, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":188
+    /* "BioSpecGT/graph/ccgenerator.pyx":204
  *         """
  *         for e in self.edges:
  *             e.has_weight = False             # <<<<<<<<<<<<<<
  *             e.weight = 1
  *         return self
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_has_weight, Py_False) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_has_weight, Py_False) < 0) __PYX_ERR(0, 204, __pyx_L1_error)
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":189
+    /* "BioSpecGT/graph/ccgenerator.pyx":205
  *         for e in self.edges:
  *             e.has_weight = False
  *             e.weight = 1             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_weight, __pyx_int_1) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_weight, __pyx_int_1) < 0) __PYX_ERR(0, 205, __pyx_L1_error)
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":187
+    /* "BioSpecGT/graph/ccgenerator.pyx":203
  *         :return:
  *         """
  *         for e in self.edges:             # <<<<<<<<<<<<<<
@@ -6430,7 +6711,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":190
+  /* "BioSpecGT/graph/ccgenerator.pyx":206
  *             e.has_weight = False
  *             e.weight = 1
  *         return self             # <<<<<<<<<<<<<<
@@ -6442,7 +6723,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":182
+  /* "BioSpecGT/graph/ccgenerator.pyx":198
  *         return self
  * 
  *     cdef CGraph make_unweighted(self):             # <<<<<<<<<<<<<<
@@ -6463,7 +6744,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":192
+/* "BioSpecGT/graph/ccgenerator.pyx":208
  *         return self
  * 
  *     cdef CGraph make_weighted(self, weights=None):             # <<<<<<<<<<<<<<
@@ -6496,7 +6777,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
     }
   }
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":197
+  /* "BioSpecGT/graph/ccgenerator.pyx":213
  *         :return:
  *         """
  *         for ind, e in enumerate(self.edges):             # <<<<<<<<<<<<<<
@@ -6509,31 +6790,31 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   for (;;) {
     if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
     #else
-    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 213, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_e, __pyx_t_4);
     __pyx_t_4 = 0;
     __Pyx_INCREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_ind, __pyx_t_1);
-    __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_1, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 213, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1);
     __pyx_t_1 = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":198
+    /* "BioSpecGT/graph/ccgenerator.pyx":214
  *         """
  *         for ind, e in enumerate(self.edges):
  *             e.has_weight = True             # <<<<<<<<<<<<<<
  *             # default weight for unweighted graphs is 1
  *             if weights is not None and len(weights) > ind:
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_has_weight, Py_True) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_has_weight, Py_True) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":200
+    /* "BioSpecGT/graph/ccgenerator.pyx":216
  *             e.has_weight = True
  *             # default weight for unweighted graphs is 1
  *             if weights is not None and len(weights) > ind:             # <<<<<<<<<<<<<<
@@ -6547,30 +6828,30 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
       __pyx_t_5 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_8 = PyObject_Length(__pyx_v_weights); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 200, __pyx_L1_error)
-    __pyx_t_4 = PyInt_FromSsize_t(__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_8 = PyObject_Length(__pyx_v_weights); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 216, __pyx_L1_error)
+    __pyx_t_4 = PyInt_FromSsize_t(__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_9 = PyObject_RichCompare(__pyx_t_4, __pyx_v_ind, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_9 = PyObject_RichCompare(__pyx_t_4, __pyx_v_ind, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_t_5 = __pyx_t_7;
     __pyx_L6_bool_binop_done:;
     if (__pyx_t_5) {
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":201
+      /* "BioSpecGT/graph/ccgenerator.pyx":217
  *             # default weight for unweighted graphs is 1
  *             if weights is not None and len(weights) > ind:
  *                 e.weight = weights[ind]             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-      __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_v_weights, __pyx_v_ind); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 201, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_v_weights, __pyx_v_ind); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 217, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_weight, __pyx_t_9) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+      if (__Pyx_PyObject_SetAttrStr(__pyx_v_e, __pyx_n_s_weight, __pyx_t_9) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":200
+      /* "BioSpecGT/graph/ccgenerator.pyx":216
  *             e.has_weight = True
  *             # default weight for unweighted graphs is 1
  *             if weights is not None and len(weights) > ind:             # <<<<<<<<<<<<<<
@@ -6579,7 +6860,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
  */
     }
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":197
+    /* "BioSpecGT/graph/ccgenerator.pyx":213
  *         :return:
  *         """
  *         for ind, e in enumerate(self.edges):             # <<<<<<<<<<<<<<
@@ -6590,7 +6871,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":202
+  /* "BioSpecGT/graph/ccgenerator.pyx":218
  *             if weights is not None and len(weights) > ind:
  *                 e.weight = weights[ind]
  *         return self             # <<<<<<<<<<<<<<
@@ -6602,7 +6883,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   __pyx_r = __pyx_v_self;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":192
+  /* "BioSpecGT/graph/ccgenerator.pyx":208
  *         return self
  * 
  *     cdef CGraph make_weighted(self, weights=None):             # <<<<<<<<<<<<<<
@@ -6626,7 +6907,7 @@ static struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_f_9BioSpec
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":204
+/* "BioSpecGT/graph/ccgenerator.pyx":220
  *         return self
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -6664,7 +6945,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__str__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":209
+  /* "BioSpecGT/graph/ccgenerator.pyx":225
  *         :return:
  *         """
  *         return f"A graph with {len(self.vertices)} vertices and {len(self.edges)} edges."             # <<<<<<<<<<<<<<
@@ -6672,7 +6953,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
  *     def __len__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = 0;
   __pyx_t_3 = 127;
@@ -6684,11 +6965,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
   __Pyx_INCREF(__pyx_t_4);
   if (unlikely(__pyx_t_4 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 209, __pyx_L1_error)
+    __PYX_ERR(0, 225, __pyx_L1_error)
   }
-  __pyx_t_5 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_5 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_5, 0, ' ', 'd'); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_5, 0, ' ', 'd'); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
@@ -6702,11 +6983,11 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
   __Pyx_INCREF(__pyx_t_4);
   if (unlikely(__pyx_t_4 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 209, __pyx_L1_error)
+    __PYX_ERR(0, 225, __pyx_L1_error)
   }
-  __pyx_t_5 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_5 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_5, 0, ' ', 'd'); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_5, 0, ' ', 'd'); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
@@ -6716,14 +6997,14 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
   __pyx_t_2 += 7;
   __Pyx_GIVEREF(__pyx_kp_u_edges_2);
   PyTuple_SET_ITEM(__pyx_t_1, 4, __pyx_kp_u_edges_2);
-  __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 5, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 5, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":204
+  /* "BioSpecGT/graph/ccgenerator.pyx":220
  *         return self
  * 
  *     def __str__(self):             # <<<<<<<<<<<<<<
@@ -6743,7 +7024,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__(struc
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":211
+/* "BioSpecGT/graph/ccgenerator.pyx":227
  *         return f"A graph with {len(self.vertices)} vertices and {len(self.edges)} edges."
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -6778,7 +7059,7 @@ static Py_ssize_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__len__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":216
+  /* "BioSpecGT/graph/ccgenerator.pyx":232
  *         :return:
  *         """
  *         return len(self.vertices)             # <<<<<<<<<<<<<<
@@ -6789,14 +7070,14 @@ static Py_ssize_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__(stru
   __Pyx_INCREF(__pyx_t_1);
   if (unlikely(__pyx_t_1 == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 216, __pyx_L1_error)
+    __PYX_ERR(0, 232, __pyx_L1_error)
   }
-  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 216, __pyx_L1_error)
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 232, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":211
+  /* "BioSpecGT/graph/ccgenerator.pyx":227
  *         return f"A graph with {len(self.vertices)} vertices and {len(self.edges)} edges."
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -6814,7 +7095,7 @@ static Py_ssize_t __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__(stru
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":218
+/* "BioSpecGT/graph/ccgenerator.pyx":234
  *         return len(self.vertices)
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -6854,7 +7135,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__eq__", 0);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":224
+  /* "BioSpecGT/graph/ccgenerator.pyx":240
  *         :return:
  *         """
  *         return all([v in other.vertices for v in self.vertices]) and all([v in other.edges for v in self.edges])             # <<<<<<<<<<<<<<
@@ -6862,37 +7143,37 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__(struc
  * def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (unlikely(__pyx_v_self->vertices == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 224, __pyx_L1_error)
+    __PYX_ERR(0, 240, __pyx_L1_error)
   }
   __pyx_t_3 = __pyx_v_self->vertices; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
   for (;;) {
     if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
     #else
-    __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_vertices); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_vertices); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_v_v, __pyx_t_5, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_v_v, __pyx_t_5, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 224, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_all, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_all, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
   if (__pyx_t_6) {
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
@@ -6901,34 +7182,34 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__(struc
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L3_bool_binop_done;
   }
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (unlikely(__pyx_v_self->edges == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 224, __pyx_L1_error)
+    __PYX_ERR(0, 240, __pyx_L1_error)
   }
   __pyx_t_2 = __pyx_v_self->edges; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
   for (;;) {
     if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_5); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
     #else
-    __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_edges); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_other, __pyx_n_s_edges); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_v_v, __pyx_t_5, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_v_v, __pyx_t_5, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyBool_FromLong(__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 224, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_all, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_all, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_INCREF(__pyx_t_2);
@@ -6939,7 +7220,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__(struc
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":218
+  /* "BioSpecGT/graph/ccgenerator.pyx":234
  *         return len(self.vertices)
  * 
  *     def __eq__(self, other):             # <<<<<<<<<<<<<<
@@ -6962,7 +7243,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__(struc
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":74
+/* "BioSpecGT/graph/ccgenerator.pyx":81
  * 
  * cdef class CGraph:
  *     cdef public list vertices             # <<<<<<<<<<<<<<
@@ -7020,7 +7301,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8vertices_2__set__(s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 74, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 81, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -7070,7 +7351,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8vertices_4__del__(s
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":75
+/* "BioSpecGT/graph/ccgenerator.pyx":82
  * cdef class CGraph:
  *     cdef public list vertices
  *     cdef public list edges             # <<<<<<<<<<<<<<
@@ -7128,7 +7409,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_5edges_2__set__(stru
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 82, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -7178,12 +7459,12 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_5edges_4__del__(stru
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":76
+/* "BioSpecGT/graph/ccgenerator.pyx":83
  *     cdef public list vertices
  *     cdef public list edges
  *     cdef public bint directed             # <<<<<<<<<<<<<<
  *     cdef public bint weighted
- * 
+ *     cdef public dict meta
  */
 
 /* Python wrapper */
@@ -7208,7 +7489,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8directed___ge
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->directed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->directed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 83, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7246,7 +7527,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8directed_2__set__(s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)
   __pyx_v_self->directed = __pyx_t_1;
 
   /* function exit code */
@@ -7260,12 +7541,12 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8directed_2__set__(s
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":77
+/* "BioSpecGT/graph/ccgenerator.pyx":84
  *     cdef public list edges
  *     cdef public bint directed
  *     cdef public bint weighted             # <<<<<<<<<<<<<<
+ *     cdef public dict meta
  * 
- *     # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
  */
 
 /* Python wrapper */
@@ -7290,7 +7571,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8weighted___ge
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->weighted); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->weighted); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7328,7 +7609,7 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8weighted_2__set__(s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
   __pyx_v_self->weighted = __pyx_t_1;
 
   /* function exit code */
@@ -7338,6 +7619,114 @@ static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_8weighted_2__set__(s
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CGraph.weighted.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "BioSpecGT/graph/ccgenerator.pyx":85
+ *     cdef public bint directed
+ *     cdef public bint weighted
+ *     cdef public dict meta             # <<<<<<<<<<<<<<
+ * 
+ *     # __slots__ = ['vertices', 'edges', 'directed', 'weighted']
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta___get__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta___get__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->meta);
+  __pyx_r = __pyx_v_self->meta;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_2__set__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_2__set__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->meta);
+  __Pyx_DECREF(__pyx_v_self->meta);
+  __pyx_v_self->meta = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator.CGraph.meta.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_4__del__(((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_4__del__(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->meta);
+  __Pyx_DECREF(__pyx_v_self->meta);
+  __pyx_v_self->meta = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -7381,7 +7770,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
   /* "(tree fragment)":5
  *     cdef object _dict
  *     cdef bint use_setstate
- *     state = (self.directed, self.edges, self.vertices, self.weighted)             # <<<<<<<<<<<<<<
+ *     state = (self.directed, self.edges, self.meta, self.vertices, self.weighted)             # <<<<<<<<<<<<<<
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:
  */
@@ -7389,18 +7778,21 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_self->weighted); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_INCREF(__pyx_v_self->edges);
   __Pyx_GIVEREF(__pyx_v_self->edges);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_self->edges);
+  __Pyx_INCREF(__pyx_v_self->meta);
+  __Pyx_GIVEREF(__pyx_v_self->meta);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_self->meta);
   __Pyx_INCREF(__pyx_v_self->vertices);
   __Pyx_GIVEREF(__pyx_v_self->vertices);
-  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_self->vertices);
+  PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_v_self->vertices);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 4, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_v_state = ((PyObject*)__pyx_t_3);
@@ -7408,7 +7800,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
 
   /* "(tree fragment)":6
  *     cdef bint use_setstate
- *     state = (self.directed, self.edges, self.vertices, self.weighted)
+ *     state = (self.directed, self.edges, self.meta, self.vertices, self.weighted)
  *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
  *     if _dict is not None:
  *         state += (_dict,)
@@ -7419,7 +7811,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
   __pyx_t_3 = 0;
 
   /* "(tree fragment)":7
- *     state = (self.directed, self.edges, self.vertices, self.weighted)
+ *     state = (self.directed, self.edges, self.meta, self.vertices, self.weighted)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -7452,12 +7844,12 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
  *         state += (_dict,)
  *         use_setstate = True             # <<<<<<<<<<<<<<
  *     else:
- *         use_setstate = self.edges is not None or self.vertices is not None
+ *         use_setstate = self.edges is not None or self.meta is not None or self.vertices is not None
  */
     __pyx_v_use_setstate = 1;
 
     /* "(tree fragment)":7
- *     state = (self.directed, self.edges, self.vertices, self.weighted)
+ *     state = (self.directed, self.edges, self.meta, self.vertices, self.weighted)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -7469,9 +7861,9 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
   /* "(tree fragment)":11
  *         use_setstate = True
  *     else:
- *         use_setstate = self.edges is not None or self.vertices is not None             # <<<<<<<<<<<<<<
+ *         use_setstate = self.edges is not None or self.meta is not None or self.vertices is not None             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, None), state
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, None), state
  */
   /*else*/ {
     __pyx_t_4 = (__pyx_v_self->edges != ((PyObject*)Py_None));
@@ -7481,9 +7873,16 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
       __pyx_t_5 = __pyx_t_6;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_6 = (__pyx_v_self->vertices != ((PyObject*)Py_None));
+    __pyx_t_6 = (__pyx_v_self->meta != ((PyObject*)Py_None));
     __pyx_t_4 = (__pyx_t_6 != 0);
-    __pyx_t_5 = __pyx_t_4;
+    if (!__pyx_t_4) {
+    } else {
+      __pyx_t_5 = __pyx_t_4;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_4 = (__pyx_v_self->vertices != ((PyObject*)Py_None));
+    __pyx_t_6 = (__pyx_t_4 != 0);
+    __pyx_t_5 = __pyx_t_6;
     __pyx_L4_bool_binop_done:;
     __pyx_v_use_setstate = __pyx_t_5;
   }
@@ -7491,20 +7890,20 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
 
   /* "(tree fragment)":12
  *     else:
- *         use_setstate = self.edges is not None or self.vertices is not None
+ *         use_setstate = self.edges is not None or self.meta is not None or self.vertices is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, None), state
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, None), state
  *     else:
  */
   __pyx_t_5 = (__pyx_v_use_setstate != 0);
   if (__pyx_t_5) {
 
     /* "(tree fragment)":13
- *         use_setstate = self.edges is not None or self.vertices is not None
+ *         use_setstate = self.edges is not None or self.meta is not None or self.vertices is not None
  *     if use_setstate:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, state)
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, state)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pyx_unpickle_CGraph); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 13, __pyx_L1_error)
@@ -7514,9 +7913,9 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_260529644);
-    __Pyx_GIVEREF(__pyx_int_260529644);
-    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_260529644);
+    __Pyx_INCREF(__pyx_int_88959827);
+    __Pyx_GIVEREF(__pyx_int_88959827);
+    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_88959827);
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
     PyTuple_SET_ITEM(__pyx_t_3, 2, Py_None);
@@ -7537,17 +7936,17 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
 
     /* "(tree fragment)":12
  *     else:
- *         use_setstate = self.edges is not None or self.vertices is not None
+ *         use_setstate = self.edges is not None or self.meta is not None or self.vertices is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, None), state
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, None), state
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, None), state
  *     else:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_CGraph__set_state(self, __pyx_state)
  */
@@ -7560,9 +7959,9 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_260529644);
-    __Pyx_GIVEREF(__pyx_int_260529644);
-    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_260529644);
+    __Pyx_INCREF(__pyx_int_88959827);
+    __Pyx_GIVEREF(__pyx_int_88959827);
+    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_88959827);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
     PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_state);
@@ -7602,7 +8001,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_12__reduce_cyt
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, state)
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_CGraph__set_state(self, __pyx_state)
  */
@@ -7630,7 +8029,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14__setstate_c
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, state)
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, state)
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_CGraph__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
@@ -7641,7 +8040,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14__setstate_c
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CGraph, (type(self), 0xf875dec, state)
+ *         return __pyx_unpickle_CGraph, (type(self), 0x54d6b53, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_CGraph__set_state(self, __pyx_state)
  */
@@ -7659,7 +8058,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_6CGraph_14__setstate_c
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":226
+/* "BioSpecGT/graph/ccgenerator.pyx":242
  *         return all([v in other.vertices for v in self.vertices]) and all([v in other.edges for v in self.edges])
  * 
  * def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):             # <<<<<<<<<<<<<<
@@ -7706,17 +8105,17 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_1_k_regular_graph(PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_k)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, 1); __PYX_ERR(0, 226, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, 1); __PYX_ERR(0, 242, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_selfloop)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, 2); __PYX_ERR(0, 226, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, 2); __PYX_ERR(0, 242, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_k_regular_graph") < 0)) __PYX_ERR(0, 226, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_k_regular_graph") < 0)) __PYX_ERR(0, 242, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -7725,13 +8124,13 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_1_k_regular_graph(PyOb
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_n = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_n == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L3_error)
-    __pyx_v_k = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_k == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L3_error)
-    __pyx_v_selfloop = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_selfloop == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_n == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 242, __pyx_L3_error)
+    __pyx_v_k = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_k == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 242, __pyx_L3_error)
+    __pyx_v_selfloop = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_selfloop == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 242, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 226, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_k_regular_graph", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 242, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator._k_regular_graph", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7785,51 +8184,51 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
   __pyx_pybuffernd_rand_vert.data = NULL;
   __pyx_pybuffernd_rand_vert.rcbuffer = &__pyx_pybuffer_rand_vert;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":240
+  /* "BioSpecGT/graph/ccgenerator.pyx":256
  *     cdef CVertex v_i
  * 
  *     vertices = [CVertex(label=f'{vt}', index=vt) for vt in range(n)]             # <<<<<<<<<<<<<<
  *     edges = []
  *     for i in range(n):
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_n;
   __pyx_t_3 = __pyx_t_2;
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_vt = __pyx_t_4;
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyUnicode_From_int(__pyx_v_vt, 0, ' ', 'd'); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyUnicode_From_int(__pyx_v_vt, 0, ' ', 'd'); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_label, __pyx_t_6) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_label, __pyx_t_6) < 0) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_vt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_vt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_index, __pyx_t_6) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_index, __pyx_t_6) < 0) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 240, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 256, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __pyx_v_vertices = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":241
+  /* "BioSpecGT/graph/ccgenerator.pyx":257
  * 
  *     vertices = [CVertex(label=f'{vt}', index=vt) for vt in range(n)]
  *     edges = []             # <<<<<<<<<<<<<<
  *     for i in range(n):
  *         v_i = vertices[i]
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_edges = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":242
+  /* "BioSpecGT/graph/ccgenerator.pyx":258
  *     vertices = [CVertex(label=f'{vt}', index=vt) for vt in range(n)]
  *     edges = []
  *     for i in range(n):             # <<<<<<<<<<<<<<
@@ -7841,20 +8240,20 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_3; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":243
+    /* "BioSpecGT/graph/ccgenerator.pyx":259
  *     edges = []
  *     for i in range(n):
  *         v_i = vertices[i]             # <<<<<<<<<<<<<<
  *         if selfloop:
  *             rand_vert = np.random.choice(a=range(n), size=k)
  */
-    if (!(likely(((PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i)) == Py_None) || likely(__Pyx_TypeTest(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i), __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 243, __pyx_L1_error)
+    if (!(likely(((PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i)) == Py_None) || likely(__Pyx_TypeTest(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i), __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex))))) __PYX_ERR(0, 259, __pyx_L1_error)
     __pyx_t_1 = PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i);
     __Pyx_INCREF(__pyx_t_1);
     __Pyx_XDECREF_SET(__pyx_v_v_i, ((struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CVertex *)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":244
+    /* "BioSpecGT/graph/ccgenerator.pyx":260
  *     for i in range(n):
  *         v_i = vertices[i]
  *         if selfloop:             # <<<<<<<<<<<<<<
@@ -7864,39 +8263,39 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
     __pyx_t_8 = (__pyx_v_selfloop != 0);
     if (__pyx_t_8) {
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":245
+      /* "BioSpecGT/graph/ccgenerator.pyx":261
  *         v_i = vertices[i]
  *         if selfloop:
  *             rand_vert = np.random.choice(a=range(n), size=k)             # <<<<<<<<<<<<<<
  *         else:
  *             rand_vert = np.random.choice(a=chain(range(i), range(i + 1, n)), size=k)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_9) < 0) __PYX_ERR(0, 245, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_9) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyInt_From_unsigned_int(__pyx_v_k); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_From_unsigned_int(__pyx_v_k); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_size, __pyx_t_9) < 0) __PYX_ERR(0, 245, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_size, __pyx_t_9) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 245, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (!(likely(((__pyx_t_9) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_9, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 245, __pyx_L1_error)
+      if (!(likely(((__pyx_t_9) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_9, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 261, __pyx_L1_error)
       __pyx_t_10 = ((PyArrayObject *)__pyx_t_9);
       {
         __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7913,13 +8312,13 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
           __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
         }
         __pyx_pybuffernd_rand_vert.diminfo[0].strides = __pyx_pybuffernd_rand_vert.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rand_vert.diminfo[0].shape = __pyx_pybuffernd_rand_vert.rcbuffer->pybuffer.shape[0];
-        if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 245, __pyx_L1_error)
+        if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
       }
       __pyx_t_10 = 0;
       __Pyx_XDECREF_SET(__pyx_v_rand_vert, ((PyArrayObject *)__pyx_t_9));
       __pyx_t_9 = 0;
 
-      /* "BioSpecGT/graph/ccgenerator.pyx":244
+      /* "BioSpecGT/graph/ccgenerator.pyx":260
  *     for i in range(n):
  *         v_i = vertices[i]
  *         if selfloop:             # <<<<<<<<<<<<<<
@@ -7929,7 +8328,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       goto __pyx_L7;
     }
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":247
+    /* "BioSpecGT/graph/ccgenerator.pyx":263
  *             rand_vert = np.random.choice(a=range(n), size=k)
  *         else:
  *             rand_vert = np.random.choice(a=chain(range(i), range(i + 1, n)), size=k)             # <<<<<<<<<<<<<<
@@ -7937,28 +8336,28 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
  * 
  */
     /*else*/ {
-      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_chain); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_chain); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_14 = PyInt_FromSsize_t(__pyx_v_i); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_14 = PyInt_FromSsize_t(__pyx_v_i); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_15 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_14); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_14); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = PyInt_FromSsize_t((__pyx_v_i + 1)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_14 = PyInt_FromSsize_t((__pyx_v_i + 1)); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_16 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
-      __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_17 = PyTuple_New(2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __Pyx_GIVEREF(__pyx_t_14);
       PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_14);
@@ -7966,7 +8365,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_16);
       __pyx_t_14 = 0;
       __pyx_t_16 = 0;
-      __pyx_t_16 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_17, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       __pyx_t_17 = NULL;
@@ -7984,7 +8383,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[3] = {__pyx_t_17, __pyx_t_15, __pyx_t_16};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -7994,7 +8393,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[3] = {__pyx_t_17, __pyx_t_15, __pyx_t_16};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_4, 2+__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
@@ -8002,7 +8401,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       } else
       #endif
       {
-        __pyx_t_14 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_14 = PyTuple_New(2+__pyx_t_4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         if (__pyx_t_17) {
           __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_17); __pyx_t_17 = NULL;
@@ -8013,22 +8412,22 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
         PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_4, __pyx_t_16);
         __pyx_t_15 = 0;
         __pyx_t_16 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_1) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_1) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_size, __pyx_t_1) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_size, __pyx_t_1) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 247, __pyx_L1_error)
+      if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 263, __pyx_L1_error)
       __pyx_t_10 = ((PyArrayObject *)__pyx_t_1);
       {
         __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8045,7 +8444,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
           __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
         }
         __pyx_pybuffernd_rand_vert.diminfo[0].strides = __pyx_pybuffernd_rand_vert.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rand_vert.diminfo[0].shape = __pyx_pybuffernd_rand_vert.rcbuffer->pybuffer.shape[0];
-        if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
+        if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
       }
       __pyx_t_10 = 0;
       __Pyx_XDECREF_SET(__pyx_v_rand_vert, ((PyArrayObject *)__pyx_t_1));
@@ -8053,39 +8452,39 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
     }
     __pyx_L7:;
 
-    /* "BioSpecGT/graph/ccgenerator.pyx":248
+    /* "BioSpecGT/graph/ccgenerator.pyx":264
  *         else:
  *             rand_vert = np.random.choice(a=chain(range(i), range(i + 1, n)), size=k)
  *         edges += [CEdge(vertices[i], vertices[j]) for j in rand_vert]             # <<<<<<<<<<<<<<
  * 
  *     return CGraph(vertices=vertices, edges=edges)
  */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (likely(PyList_CheckExact(((PyObject *)__pyx_v_rand_vert))) || PyTuple_CheckExact(((PyObject *)__pyx_v_rand_vert))) {
       __pyx_t_6 = ((PyObject *)__pyx_v_rand_vert); __Pyx_INCREF(__pyx_t_6); __pyx_t_18 = 0;
       __pyx_t_19 = NULL;
     } else {
-      __pyx_t_18 = -1; __pyx_t_6 = PyObject_GetIter(((PyObject *)__pyx_v_rand_vert)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+      __pyx_t_18 = -1; __pyx_t_6 = PyObject_GetIter(((PyObject *)__pyx_v_rand_vert)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 264, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_19 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 248, __pyx_L1_error)
+      __pyx_t_19 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 264, __pyx_L1_error)
     }
     for (;;) {
       if (likely(!__pyx_t_19)) {
         if (likely(PyList_CheckExact(__pyx_t_6))) {
           if (__pyx_t_18 >= PyList_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_9 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_18); __Pyx_INCREF(__pyx_t_9); __pyx_t_18++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+          __pyx_t_9 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_18); __Pyx_INCREF(__pyx_t_9); __pyx_t_18++; if (unlikely(0 < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
           #else
-          __pyx_t_9 = PySequence_ITEM(__pyx_t_6, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 248, __pyx_L1_error)
+          __pyx_t_9 = PySequence_ITEM(__pyx_t_6, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 264, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           #endif
         } else {
           if (__pyx_t_18 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_18); __Pyx_INCREF(__pyx_t_9); __pyx_t_18++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+          __pyx_t_9 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_18); __Pyx_INCREF(__pyx_t_9); __pyx_t_18++; if (unlikely(0 < 0)) __PYX_ERR(0, 264, __pyx_L1_error)
           #else
-          __pyx_t_9 = PySequence_ITEM(__pyx_t_6, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 248, __pyx_L1_error)
+          __pyx_t_9 = PySequence_ITEM(__pyx_t_6, __pyx_t_18); __pyx_t_18++; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 264, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           #endif
         }
@@ -8095,16 +8494,16 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 248, __pyx_L1_error)
+            else __PYX_ERR(0, 264, __pyx_L1_error)
           }
           break;
         }
         __Pyx_GOTREF(__pyx_t_9);
       }
-      __pyx_t_20 = __Pyx_PyIndex_AsSsize_t(__pyx_t_9); if (unlikely((__pyx_t_20 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 248, __pyx_L1_error)
+      __pyx_t_20 = __Pyx_PyIndex_AsSsize_t(__pyx_t_9); if (unlikely((__pyx_t_20 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 264, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __pyx_v_j = __pyx_t_20;
-      __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 248, __pyx_L1_error)
+      __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 264, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i));
       __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i));
@@ -8112,21 +8511,21 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
       __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_j));
       __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_j));
       PyTuple_SET_ITEM(__pyx_t_9, 1, PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_j));
-      __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 248, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 264, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 248, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_5))) __PYX_ERR(0, 264, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_edges, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_InPlaceAdd(__pyx_v_edges, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 264, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF_SET(__pyx_v_edges, ((PyObject*)__pyx_t_6));
     __pyx_t_6 = 0;
   }
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":250
+  /* "BioSpecGT/graph/ccgenerator.pyx":266
  *         edges += [CEdge(vertices[i], vertices[j]) for j in rand_vert]
  * 
  *     return CGraph(vertices=vertices, edges=edges)             # <<<<<<<<<<<<<<
@@ -8134,18 +8533,18 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
  * def _cgraph_perc(unsigned int n, double perc):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 250, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_vertices, __pyx_v_vertices) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_edges, __pyx_v_edges) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_vertices, __pyx_v_vertices) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_edges, __pyx_v_edges) < 0) __PYX_ERR(0, 266, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 266, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":226
+  /* "BioSpecGT/graph/ccgenerator.pyx":242
  *         return all([v in other.vertices for v in self.vertices]) and all([v in other.edges for v in self.edges])
  * 
  * def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):             # <<<<<<<<<<<<<<
@@ -8184,7 +8583,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator__k_regular_graph(CYTHO
   return __pyx_r;
 }
 
-/* "BioSpecGT/graph/ccgenerator.pyx":252
+/* "BioSpecGT/graph/ccgenerator.pyx":268
  *     return CGraph(vertices=vertices, edges=edges)
  * 
  * def _cgraph_perc(unsigned int n, double perc):             # <<<<<<<<<<<<<<
@@ -8227,11 +8626,11 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_3_cgraph_perc(PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_perc)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cgraph_perc", 1, 2, 2, 1); __PYX_ERR(0, 252, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("_cgraph_perc", 1, 2, 2, 1); __PYX_ERR(0, 268, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_cgraph_perc") < 0)) __PYX_ERR(0, 252, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_cgraph_perc") < 0)) __PYX_ERR(0, 268, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -8239,12 +8638,12 @@ static PyObject *__pyx_pw_9BioSpecGT_5graph_11ccgenerator_3_cgraph_perc(PyObject
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_n = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_n == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
-    __pyx_v_perc = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_perc == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_unsigned_int(values[0]); if (unlikely((__pyx_v_n == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(0, 268, __pyx_L3_error)
+    __pyx_v_perc = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_perc == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 268, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_cgraph_perc", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 252, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("_cgraph_perc", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 268, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("BioSpecGT.graph.ccgenerator._cgraph_perc", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8300,71 +8699,71 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
   __pyx_pybuffernd_v2.data = NULL;
   __pyx_pybuffernd_v2.rcbuffer = &__pyx_pybuffer_v2;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":257
+  /* "BioSpecGT/graph/ccgenerator.pyx":273
  *     cdef int v, i
  * 
  *     vertices = [CVertex(label=f'{i}', index=i) for i in range(n)]             # <<<<<<<<<<<<<<
  * 
  *     v1 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_v_n;
   __pyx_t_3 = __pyx_t_2;
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyUnicode_From_int(__pyx_v_i, 0, ' ', 'd'); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyUnicode_From_int(__pyx_v_i, 0, ' ', 'd'); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_label, __pyx_t_6) < 0) __PYX_ERR(0, 257, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_label, __pyx_t_6) < 0) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_index, __pyx_t_6) < 0) __PYX_ERR(0, 257, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_index, __pyx_t_6) < 0) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex), __pyx_empty_tuple, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 257, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 273, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __pyx_v_vertices = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":259
+  /* "BioSpecGT/graph/ccgenerator.pyx":275
  *     vertices = [CVertex(label=f'{i}', index=i) for i in range(n)]
  * 
  *     v1 = np.random.choice(a=range(n), k=int(perc * n ** 2))             # <<<<<<<<<<<<<<
  *     v2 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  *     edges = [CEdge(vertices[v], vertices[i]) for v, i in zip(v1, v2)]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_7) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_7) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_FromDouble((__pyx_v_perc * __Pyx_pow_long(((long)__pyx_v_n), 2))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_FromDouble((__pyx_v_perc * __Pyx_pow_long(((long)__pyx_v_n), 2))); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_k, __pyx_t_7) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 259, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 275, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8381,45 +8780,45 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       __pyx_t_9 = __pyx_t_10 = __pyx_t_11 = 0;
     }
     __pyx_pybuffernd_v1.diminfo[0].strides = __pyx_pybuffernd_v1.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_v1.diminfo[0].shape = __pyx_pybuffernd_v1.rcbuffer->pybuffer.shape[0];
-    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 275, __pyx_L1_error)
   }
   __pyx_t_8 = 0;
   __pyx_v_v1 = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":260
+  /* "BioSpecGT/graph/ccgenerator.pyx":276
  * 
  *     v1 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  *     v2 = np.random.choice(a=range(n), k=int(perc * n ** 2))             # <<<<<<<<<<<<<<
  *     edges = [CEdge(vertices[v], vertices[i]) for v, i in zip(v1, v2)]
  *     return CGraph(vertices, edges)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_choice); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_5) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_a, __pyx_t_5) < 0) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_FromDouble((__pyx_v_perc * __Pyx_pow_long(((long)__pyx_v_n), 2))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_FromDouble((__pyx_v_perc * __Pyx_pow_long(((long)__pyx_v_n), 2))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_k, __pyx_t_5) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_k, __pyx_t_5) < 0) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 260, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 276, __pyx_L1_error)
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8436,21 +8835,21 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       __pyx_t_11 = __pyx_t_10 = __pyx_t_9 = 0;
     }
     __pyx_pybuffernd_v2.diminfo[0].strides = __pyx_pybuffernd_v2.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_v2.diminfo[0].shape = __pyx_pybuffernd_v2.rcbuffer->pybuffer.shape[0];
-    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+    if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 276, __pyx_L1_error)
   }
   __pyx_t_8 = 0;
   __pyx_v_v2 = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":261
+  /* "BioSpecGT/graph/ccgenerator.pyx":277
  *     v1 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  *     v2 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  *     edges = [CEdge(vertices[v], vertices[i]) for v, i in zip(v1, v2)]             # <<<<<<<<<<<<<<
  *     return CGraph(vertices, edges)
  */
-  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(((PyObject *)__pyx_v_v1));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_v1));
@@ -8458,16 +8857,16 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
   __Pyx_INCREF(((PyObject *)__pyx_v_v2));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_v2));
   PyTuple_SET_ITEM(__pyx_t_6, 1, ((PyObject *)__pyx_v_v2));
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
     __pyx_t_6 = __pyx_t_7; __Pyx_INCREF(__pyx_t_6); __pyx_t_12 = 0;
     __pyx_t_13 = NULL;
   } else {
-    __pyx_t_12 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_12 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_13 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_13 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 277, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
@@ -8475,17 +8874,17 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       if (likely(PyList_CheckExact(__pyx_t_6))) {
         if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_7); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_7); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 277, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 261, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
         if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_7); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_7); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 277, __pyx_L1_error)
         #else
-        __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 261, __pyx_L1_error)
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
@@ -8495,7 +8894,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 261, __pyx_L1_error)
+          else __PYX_ERR(0, 277, __pyx_L1_error)
         }
         break;
       }
@@ -8507,7 +8906,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 261, __pyx_L1_error)
+        __PYX_ERR(0, 277, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -8520,15 +8919,15 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_14);
       #else
-      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_14 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 277, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       #endif
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_15 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 261, __pyx_L1_error)
+      __pyx_t_15 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 277, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_16 = Py_TYPE(__pyx_t_15)->tp_iternext;
@@ -8536,7 +8935,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       __Pyx_GOTREF(__pyx_t_1);
       index = 1; __pyx_t_14 = __pyx_t_16(__pyx_t_15); if (unlikely(!__pyx_t_14)) goto __pyx_L7_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_14);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_16(__pyx_t_15), 2) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
       __pyx_t_16 = NULL;
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
       goto __pyx_L8_unpacking_done;
@@ -8544,16 +8943,16 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
       __pyx_t_16 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 261, __pyx_L1_error)
+      __PYX_ERR(0, 277, __pyx_L1_error)
       __pyx_L8_unpacking_done:;
     }
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_14); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_14); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_v_v = __pyx_t_4;
     __pyx_v_i = __pyx_t_17;
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_v));
     __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_v));
@@ -8561,23 +8960,23 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
     __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i));
     __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i));
     PyTuple_SET_ITEM(__pyx_t_7, 1, PyList_GET_ITEM(__pyx_v_vertices, __pyx_v_i));
-    __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_7, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 261, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge), __pyx_t_7, NULL); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 261, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_v_edges = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":262
+  /* "BioSpecGT/graph/ccgenerator.pyx":278
  *     v2 = np.random.choice(a=range(n), k=int(perc * n ** 2))
  *     edges = [CEdge(vertices[v], vertices[i]) for v, i in zip(v1, v2)]
  *     return CGraph(vertices, edges)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_vertices);
   __Pyx_GIVEREF(__pyx_v_vertices);
@@ -8585,14 +8984,14 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_2_cgraph_perc(CYTHON_U
   __Pyx_INCREF(__pyx_v_edges);
   __Pyx_GIVEREF(__pyx_v_edges);
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_edges);
-  __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph), __pyx_t_5, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 278, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_r = __pyx_t_6;
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":252
+  /* "BioSpecGT/graph/ccgenerator.pyx":268
  *     return CGraph(vertices=vertices, edges=edges)
  * 
  * def _cgraph_perc(unsigned int n, double perc):             # <<<<<<<<<<<<<<
@@ -9562,18 +9961,18 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xf875dec:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x54d6b53:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  */
-  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xf875dec) != 0);
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x54d6b53) != 0);
   if (__pyx_t_1) {
 
     /* "(tree fragment)":5
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xf875dec:
+ *     if __pyx_checksum != 0x54d6b53:
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  *     __pyx_result = CGraph.__new__(__pyx_type)
  */
     __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
@@ -9592,15 +9991,15 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":6
- *     if __pyx_checksum != 0xf875dec:
+ *     if __pyx_checksum != 0x54d6b53:
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)             # <<<<<<<<<<<<<<
  *     __pyx_result = CGraph.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
     __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xf8, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x54, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_v___pyx_PickleError);
@@ -9627,15 +10026,15 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
     /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xf875dec:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x54d6b53:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  */
   }
 
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  *     __pyx_result = CGraph.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
@@ -9661,7 +10060,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
   __pyx_t_3 = 0;
 
   /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  *     __pyx_result = CGraph.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
@@ -9684,7 +10083,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xf875dec = (directed, edges, vertices, weighted))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x54d6b53 = (directed, edges, meta, vertices, weighted))" % __pyx_checksum)
  *     __pyx_result = CGraph.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
@@ -9697,7 +10096,7 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v___pyx_result);
@@ -9730,8 +10129,8 @@ static PyObject *__pyx_pf_9BioSpecGT_5graph_11ccgenerator_8__pyx_unpickle_CGraph
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):
  */
 
 static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__set_state(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
@@ -9752,9 +10151,9 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
   /* "(tree fragment)":12
  *     return __pyx_result
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]             # <<<<<<<<<<<<<<
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[4])
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[5])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -9778,8 +10177,20 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  if (!(likely(PyList_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  if (!(likely(PyDict_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
   __pyx_t_2 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 2);
+  __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v___pyx_result->meta);
+  __Pyx_DECREF(__pyx_v___pyx_result->meta);
+  __pyx_v___pyx_result->meta = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  if (!(likely(PyList_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 3)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 3)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 3))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 3);
   __Pyx_INCREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v___pyx_result->vertices);
@@ -9790,21 +10201,21 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(PyTuple_GET_ITEM(__pyx_v___pyx_state, 3)); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(PyTuple_GET_ITEM(__pyx_v___pyx_state, 4)); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __pyx_v___pyx_result->weighted = __pyx_t_1;
 
   /* "(tree fragment)":13
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[4])
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[5])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     __PYX_ERR(1, 13, __pyx_L1_error)
   }
   __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
-  __pyx_t_4 = ((__pyx_t_3 > 4) != 0);
+  __pyx_t_4 = ((__pyx_t_3 > 5) != 0);
   if (__pyx_t_4) {
   } else {
     __pyx_t_1 = __pyx_t_4;
@@ -9817,9 +10228,9 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
   if (__pyx_t_1) {
 
     /* "(tree fragment)":14
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[4])             # <<<<<<<<<<<<<<
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[5])             # <<<<<<<<<<<<<<
  */
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
@@ -9840,7 +10251,7 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
         __Pyx_DECREF_SET(__pyx_t_7, function);
       }
     }
-    __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_6, PyTuple_GET_ITEM(__pyx_v___pyx_state, 4)) : __Pyx_PyObject_CallOneArg(__pyx_t_7, PyTuple_GET_ITEM(__pyx_v___pyx_state, 4));
+    __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_6, PyTuple_GET_ITEM(__pyx_v___pyx_state, 5)) : __Pyx_PyObject_CallOneArg(__pyx_t_7, PyTuple_GET_ITEM(__pyx_v___pyx_state, 5));
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
@@ -9849,9 +10260,9 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
 
     /* "(tree fragment)":13
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[4])
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[5])
  */
   }
 
@@ -9859,8 +10270,8 @@ static PyObject *__pyx_f_9BioSpecGT_5graph_11ccgenerator___pyx_unpickle_CGraph__
  *         __pyx_unpickle_CGraph__set_state(<CGraph> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_CGraph__set_state(CGraph __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.vertices = __pyx_state[2]; __pyx_result.weighted = __pyx_state[3]
- *     if len(__pyx_state) > 4 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.directed = __pyx_state[0]; __pyx_result.edges = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]; __pyx_result.vertices = __pyx_state[3]; __pyx_result.weighted = __pyx_state[4]
+ *     if len(__pyx_state) > 5 and hasattr(__pyx_result, '__dict__'):
  */
 
   /* function exit code */
@@ -11876,6 +12287,7 @@ static PyObject *__pyx_tp_new_9BioSpecGT_5graph_11ccgenerator_CGraph(PyTypeObjec
   p->__pyx_vtab = __pyx_vtabptr_9BioSpecGT_5graph_11ccgenerator_CGraph;
   p->vertices = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->edges = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->meta = ((PyObject*)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
@@ -11889,6 +12301,7 @@ static void __pyx_tp_dealloc_9BioSpecGT_5graph_11ccgenerator_CGraph(PyObject *o)
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->vertices);
   Py_CLEAR(p->edges);
+  Py_CLEAR(p->meta);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
@@ -11901,6 +12314,9 @@ static int __pyx_tp_traverse_9BioSpecGT_5graph_11ccgenerator_CGraph(PyObject *o,
   if (p->edges) {
     e = (*v)(p->edges, a); if (e) return e;
   }
+  if (p->meta) {
+    e = (*v)(p->meta, a); if (e) return e;
+  }
   return 0;
 }
 
@@ -11912,6 +12328,9 @@ static int __pyx_tp_clear_9BioSpecGT_5graph_11ccgenerator_CGraph(PyObject *o) {
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->edges);
   p->edges = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->meta);
+  p->meta = ((PyObject*)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -11992,6 +12411,19 @@ static int __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_weighted(PyObje
   }
 }
 
+static PyObject *__pyx_getprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_meta(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_1__get__(o);
+}
+
+static int __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_meta(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_4meta_5__del__(o);
+  }
+}
+
 static PyMethodDef __pyx_methods_9BioSpecGT_5graph_11ccgenerator_CGraph[] = {
   {"adjacency_matrix", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_3adjacency_matrix, METH_VARARGS|METH_KEYWORDS, 0},
   {"find_by_index", (PyCFunction)__pyx_pw_9BioSpecGT_5graph_11ccgenerator_6CGraph_5find_by_index, METH_O, __pyx_doc_9BioSpecGT_5graph_11ccgenerator_6CGraph_4find_by_index},
@@ -12005,6 +12437,7 @@ static struct PyGetSetDef __pyx_getsets_9BioSpecGT_5graph_11ccgenerator_CGraph[]
   {(char *)"edges", __pyx_getprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_edges, __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_edges, (char *)0, 0},
   {(char *)"directed", __pyx_getprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_directed, __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_directed, (char *)0, 0},
   {(char *)"weighted", __pyx_getprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_weighted, __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_weighted, (char *)0, 0},
+  {(char *)"meta", __pyx_getprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_meta, __pyx_setprop_9BioSpecGT_5graph_11ccgenerator_6CGraph_meta, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
@@ -12383,13 +12816,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_DTYPE, __pyx_k_DTYPE, sizeof(__pyx_k_DTYPE), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
+  {&__pyx_n_s_Hashable, __pyx_k_Hashable, sizeof(__pyx_k_Hashable), 0, 0, 1, 1},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x54, __pyx_k_Incompatible_checksums_s_vs_0x54, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x54), 0, 0, 1, 0},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xe2, __pyx_k_Incompatible_checksums_s_vs_0xe2, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xe2), 0, 0, 1, 0},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xf7, __pyx_k_Incompatible_checksums_s_vs_0xf7, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xf7), 0, 0, 1, 0},
-  {&__pyx_kp_s_Incompatible_checksums_s_vs_0xf8, __pyx_k_Incompatible_checksums_s_vs_0xf8, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xf8), 0, 0, 1, 0},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
+  {&__pyx_n_s_Union, __pyx_k_Union, sizeof(__pyx_k_Union), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_all, __pyx_k_all, sizeof(__pyx_k_all), 0, 0, 1, 1},
@@ -12426,6 +12861,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_k_regular_graph, __pyx_k_k_regular_graph, sizeof(__pyx_k_k_regular_graph), 0, 0, 1, 1},
   {&__pyx_n_s_label, __pyx_k_label, sizeof(__pyx_k_label), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_meta, __pyx_k_meta, sizeof(__pyx_k_meta), 0, 0, 1, 1},
   {&__pyx_n_s_n, __pyx_k_n, sizeof(__pyx_k_n), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
@@ -12460,6 +12896,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
+  {&__pyx_n_s_typing, __pyx_k_typing, sizeof(__pyx_k_typing), 0, 0, 1, 1},
+  {&__pyx_n_s_union, __pyx_k_union, sizeof(__pyx_k_union), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {&__pyx_n_s_v, __pyx_k_v, sizeof(__pyx_k_v), 0, 0, 1, 1},
@@ -12476,10 +12914,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 197, __pyx_L1_error)
-  __pyx_builtin_all = __Pyx_GetBuiltinName(__pyx_n_s_all); if (!__pyx_builtin_all) __PYX_ERR(0, 224, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 240, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_builtin_all = __Pyx_GetBuiltinName(__pyx_n_s_all); if (!__pyx_builtin_all) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 277, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 777, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 781, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 959, __pyx_L1_error)
@@ -12547,29 +12985,29 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":226
+  /* "BioSpecGT/graph/ccgenerator.pyx":242
  *         return all([v in other.vertices for v in self.vertices]) and all([v in other.edges for v in self.edges])
  * 
  * def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):             # <<<<<<<<<<<<<<
  *     """
  *     Generate a random k-regular graph (each vertex has degree k).
  */
-  __pyx_tuple__8 = PyTuple_Pack(10, __pyx_n_s_n, __pyx_n_s_k, __pyx_n_s_selfloop, __pyx_n_s_vertices, __pyx_n_s_edges, __pyx_n_s_rand_vert, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_vt, __pyx_n_s_v_i); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(10, __pyx_n_s_n, __pyx_n_s_k, __pyx_n_s_selfloop, __pyx_n_s_vertices, __pyx_n_s_edges, __pyx_n_s_rand_vert, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_vt, __pyx_n_s_v_i); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 242, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(3, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccgenerator_pyx, __pyx_n_s_k_regular_graph, 226, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(3, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccgenerator_pyx, __pyx_n_s_k_regular_graph, 242, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 242, __pyx_L1_error)
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":252
+  /* "BioSpecGT/graph/ccgenerator.pyx":268
  *     return CGraph(vertices=vertices, edges=edges)
  * 
  * def _cgraph_perc(unsigned int n, double perc):             # <<<<<<<<<<<<<<
  *     cdef list vertices, edges
  *     cdef np.ndarray[DTYPE_t] v1, v2
  */
-  __pyx_tuple__10 = PyTuple_Pack(8, __pyx_n_s_n, __pyx_n_s_perc, __pyx_n_s_vertices, __pyx_n_s_edges, __pyx_n_s_v1, __pyx_n_s_v2, __pyx_n_s_v, __pyx_n_s_i); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(8, __pyx_n_s_n, __pyx_n_s_perc, __pyx_n_s_vertices, __pyx_n_s_edges, __pyx_n_s_v1, __pyx_n_s_v2, __pyx_n_s_v, __pyx_n_s_i); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 268, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccgenerator_pyx, __pyx_n_s_cgraph_perc, 252, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 252, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ccgenerator_pyx, __pyx_n_s_cgraph_perc, 268, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 268, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_CVertex(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
@@ -12596,12 +13034,13 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
+  __pyx_umethod_PySet_Type_union.type = (PyObject*)&PySet_Type;
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_88959827 = PyInt_FromLong(88959827L); if (unlikely(!__pyx_int_88959827)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_236982651 = PyInt_FromLong(236982651L); if (unlikely(!__pyx_int_236982651)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_259068967 = PyInt_FromLong(259068967L); if (unlikely(!__pyx_int_259068967)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_260529644 = PyInt_FromLong(260529644L); if (unlikely(!__pyx_int_260529644)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -12646,7 +13085,7 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex.tp_print = 0;
   #endif
@@ -12655,7 +13094,7 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex, "__eq__"); if (unlikely(!wrapper)) __PYX_ERR(0, 14, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex, "__eq__"); if (unlikely(!wrapper)) __PYX_ERR(0, 15, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__.doc = __pyx_doc_9BioSpecGT_5graph_11ccgenerator_7CVertex_2__eq__;
@@ -12663,18 +13102,18 @@ static int __Pyx_modinit_type_init_code(void) {
     }
   }
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CVertex, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CVertex, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CVertex = &__pyx_type_9BioSpecGT_5graph_11ccgenerator_CVertex;
-  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge.tp_dictoffset && __pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CEdge, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CEdge, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
   __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CEdge = &__pyx_type_9BioSpecGT_5graph_11ccgenerator_CEdge;
   __pyx_vtabptr_9BioSpecGT_5graph_11ccgenerator_CGraph = &__pyx_vtable_9BioSpecGT_5graph_11ccgenerator_CGraph;
   __pyx_vtable_9BioSpecGT_5graph_11ccgenerator_CGraph.adjacency_list = (PyObject *(*)(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *, struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list *__pyx_optional_args))__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_adjacency_list;
@@ -12688,7 +13127,7 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_9BioSpecGT_5graph_11ccgenerator_CGraph.make_undirected = (struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *(*)(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *))__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_undirected;
   __pyx_vtable_9BioSpecGT_5graph_11ccgenerator_CGraph.make_unweighted = (struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *(*)(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *))__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_unweighted;
   __pyx_vtable_9BioSpecGT_5graph_11ccgenerator_CGraph.make_weighted = (struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *(*)(struct __pyx_obj_9BioSpecGT_5graph_11ccgenerator_CGraph *, struct __pyx_opt_args_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_weighted *__pyx_optional_args))__pyx_f_9BioSpecGT_5graph_11ccgenerator_6CGraph_make_weighted;
-  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph.tp_print = 0;
   #endif
@@ -12697,7 +13136,7 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__str__"); if (unlikely(!wrapper)) __PYX_ERR(0, 73, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__str__"); if (unlikely(!wrapper)) __PYX_ERR(0, 80, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__.doc = __pyx_doc_9BioSpecGT_5graph_11ccgenerator_6CGraph_6__str__;
@@ -12707,7 +13146,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__len__"); if (unlikely(!wrapper)) __PYX_ERR(0, 73, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__len__"); if (unlikely(!wrapper)) __PYX_ERR(0, 80, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__.doc = __pyx_doc_9BioSpecGT_5graph_11ccgenerator_6CGraph_8__len__;
@@ -12717,7 +13156,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__eq__"); if (unlikely(!wrapper)) __PYX_ERR(0, 73, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph, "__eq__"); if (unlikely(!wrapper)) __PYX_ERR(0, 80, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__.doc = __pyx_doc_9BioSpecGT_5graph_11ccgenerator_6CGraph_10__eq__;
@@ -12725,11 +13164,11 @@ static int __Pyx_modinit_type_init_code(void) {
     }
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph.tp_dict, __pyx_vtabptr_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CGraph, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph.tp_dict, __pyx_vtabptr_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CGraph, (PyObject *)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __pyx_ptype_9BioSpecGT_5graph_11ccgenerator_CGraph = &__pyx_type_9BioSpecGT_5graph_11ccgenerator_CGraph;
-  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list.tp_print = 0;
   #endif
@@ -12737,7 +13176,7 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list = &__pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct__adjacency_list;
-  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_9BioSpecGT_5graph_11ccgenerator___pyx_scope_struct_1_genexpr.tp_print = 0;
   #endif
@@ -13012,112 +13451,140 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":4
+  /* "BioSpecGT/graph/ccgenerator.pyx":3
+ * # cython: boundscheck=False
  * # cython: wraparound=False
+ * from typing import Union, Hashable             # <<<<<<<<<<<<<<
+ * 
+ * import numpy as np
+ */
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_n_s_Union);
+  __Pyx_GIVEREF(__pyx_n_s_Union);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_Union);
+  __Pyx_INCREF(__pyx_n_s_Hashable);
+  __Pyx_GIVEREF(__pyx_n_s_Hashable);
+  PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_Hashable);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Union); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Hashable); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Hashable, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "BioSpecGT/graph/ccgenerator.pyx":5
+ * from typing import Union, Hashable
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * cimport cython
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":7
+  /* "BioSpecGT/graph/ccgenerator.pyx":8
  * cimport numpy as np
  * cimport cython
  * from itertools import chain             # <<<<<<<<<<<<<<
  * 
  * np.import_array()
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_chain);
   __Pyx_GIVEREF(__pyx_n_s_chain);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_chain);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_itertools, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_chain); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_chain);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_itertools, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_chain, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_chain); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_chain, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":9
+  /* "BioSpecGT/graph/ccgenerator.pyx":10
  * from itertools import chain
  * 
  * np.import_array()             # <<<<<<<<<<<<<<
  * 
  * DTYPE = np.int
  */
-  __pyx_t_3 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_3 == ((int)-1))) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":11
+  /* "BioSpecGT/graph/ccgenerator.pyx":12
  * np.import_array()
  * 
  * DTYPE = np.int             # <<<<<<<<<<<<<<
  * ctypedef np.int_t DTYPE_t
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_int); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_int); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE, __pyx_t_2) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":92
+  /* "BioSpecGT/graph/ccgenerator.pyx":108
  *         self.weighted = l and self.edges[0].has_weight
  * 
  *     def adjacency_matrix(self, dtype=np.bool):             # <<<<<<<<<<<<<<
  *         cdef int v
  *         cdef CEdge e
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_bool); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_k__2 = __pyx_t_2;
-  __Pyx_GIVEREF(__pyx_t_2);
-  __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_bool); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_k__2 = __pyx_t_1;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":226
+  /* "BioSpecGT/graph/ccgenerator.pyx":242
  *         return all([v in other.vertices for v in self.vertices]) and all([v in other.edges for v in self.edges])
  * 
  * def _k_regular_graph(unsigned int n, unsigned int k, bint selfloop):             # <<<<<<<<<<<<<<
  *     """
  *     Generate a random k-regular graph (each vertex has degree k).
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_1_k_regular_graph, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_k_regular_graph, __pyx_t_2) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_1_k_regular_graph, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_k_regular_graph, __pyx_t_1) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "BioSpecGT/graph/ccgenerator.pyx":252
+  /* "BioSpecGT/graph/ccgenerator.pyx":268
  *     return CGraph(vertices=vertices, edges=edges)
  * 
  * def _cgraph_perc(unsigned int n, double perc):             # <<<<<<<<<<<<<<
  *     cdef list vertices, edges
  *     cdef np.ndarray[DTYPE_t] v1, v2
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_3_cgraph_perc, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cgraph_perc, __pyx_t_2) < 0) __PYX_ERR(0, 252, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_3_cgraph_perc, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 268, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cgraph_perc, __pyx_t_1) < 0) __PYX_ERR(0, 268, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_CVertex(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_5__pyx_unpickle_CVertex, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CVertex, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_5__pyx_unpickle_CVertex, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CVertex, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":11
  *         __pyx_unpickle_CVertex__set_state(<CVertex> __pyx_result, __pyx_state)
@@ -13126,30 +13593,30 @@ if (!__Pyx_RefNanny) {
  *     __pyx_result.index = __pyx_state[0]; __pyx_result.label = __pyx_state[1]; __pyx_result.meta = __pyx_state[2]
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_7__pyx_unpickle_CEdge, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CEdge, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_7__pyx_unpickle_CEdge, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CEdge, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_CGraph(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_9__pyx_unpickle_CGraph, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CGraph, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9BioSpecGT_5graph_11ccgenerator_9__pyx_unpickle_CGraph, NULL, __pyx_n_s_BioSpecGT_graph_ccgenerator); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CGraph, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "BioSpecGT/graph/ccgenerator.pyx":1
  * # cython: boundscheck=False             # <<<<<<<<<<<<<<
  * # cython: wraparound=False
- * 
+ * from typing import Union, Hashable
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "../../venv/lib/site-packages/numpy/__init__.pxd":967
  *         raise ImportError("numpy.core.umath failed to import")
@@ -13228,32 +13695,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
 #endif
     }
     return result;
-}
-
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
 }
 
 /* RaiseDoubleKeywords */
@@ -13370,6 +13811,32 @@ invalid_keyword:
     #endif
 bad:
     return -1;
+}
+
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
 }
 
 /* ArgTypeTest */
@@ -13755,35 +14222,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
-/* PyObjectCall2Args */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
-    PyObject *args, *result = NULL;
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyFunction_FastCall(function, args, 2);
-    }
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(function)) {
-        PyObject *args[2] = {arg1, arg2};
-        return __Pyx_PyCFunction_FastCall(function, args, 2);
-    }
-    #endif
-    args = PyTuple_New(2);
-    if (unlikely(!args)) goto done;
-    Py_INCREF(arg1);
-    PyTuple_SET_ITEM(args, 0, arg1);
-    Py_INCREF(arg2);
-    PyTuple_SET_ITEM(args, 1, arg2);
-    Py_INCREF(function);
-    result = __Pyx_PyObject_Call(function, args, NULL);
-    Py_DECREF(args);
-    Py_DECREF(function);
-done:
-    return result;
-}
-
 /* PyObjectCallMethO */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
@@ -13855,6 +14293,107 @@ static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
     PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
                  Py_TYPE(obj)->tp_name, type->tp_name);
     return 0;
+}
+
+/* PyObjectCall2Args */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+    PyObject *args, *result = NULL;
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyFunction_FastCall(function, args, 2);
+    }
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyCFunction_FastCall(function, args, 2);
+    }
+    #endif
+    args = PyTuple_New(2);
+    if (unlikely(!args)) goto done;
+    Py_INCREF(arg1);
+    PyTuple_SET_ITEM(args, 0, arg1);
+    Py_INCREF(arg2);
+    PyTuple_SET_ITEM(args, 1, arg2);
+    Py_INCREF(function);
+    result = __Pyx_PyObject_Call(function, args, NULL);
+    Py_DECREF(args);
+    Py_DECREF(function);
+done:
+    return result;
+}
+
+/* UnpackUnboundCMethod */
+static int __Pyx_TryUnpackUnboundCMethod(__Pyx_CachedCFunction* target) {
+    PyObject *method;
+    method = __Pyx_PyObject_GetAttrStr(target->type, *target->method_name);
+    if (unlikely(!method))
+        return -1;
+    target->method = method;
+#if CYTHON_COMPILING_IN_CPYTHON
+    #if PY_MAJOR_VERSION >= 3
+    if (likely(__Pyx_TypeCheck(method, &PyMethodDescr_Type)))
+    #endif
+    {
+        PyMethodDescrObject *descr = (PyMethodDescrObject*) method;
+        target->func = descr->d_method->ml_meth;
+        target->flag = descr->d_method->ml_flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_STACKLESS);
+    }
+#endif
+    return 0;
+}
+
+/* CallUnboundCMethod1 */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_CallUnboundCMethod1(__Pyx_CachedCFunction* cfunc, PyObject* self, PyObject* arg) {
+    if (likely(cfunc->func)) {
+        int flag = cfunc->flag;
+        if (flag == METH_O) {
+            return (*(cfunc->func))(self, arg);
+        } else if (PY_VERSION_HEX >= 0x030600B1 && flag == METH_FASTCALL) {
+            if (PY_VERSION_HEX >= 0x030700A0) {
+                return (*(__Pyx_PyCFunctionFast)(void*)(PyCFunction)cfunc->func)(self, &arg, 1);
+            } else {
+                return (*(__Pyx_PyCFunctionFastWithKeywords)(void*)(PyCFunction)cfunc->func)(self, &arg, 1, NULL);
+            }
+        } else if (PY_VERSION_HEX >= 0x030700A0 && flag == (METH_FASTCALL | METH_KEYWORDS)) {
+            return (*(__Pyx_PyCFunctionFastWithKeywords)(void*)(PyCFunction)cfunc->func)(self, &arg, 1, NULL);
+        }
+    }
+    return __Pyx__CallUnboundCMethod1(cfunc, self, arg);
+}
+#endif
+static PyObject* __Pyx__CallUnboundCMethod1(__Pyx_CachedCFunction* cfunc, PyObject* self, PyObject* arg){
+    PyObject *args, *result = NULL;
+    if (unlikely(!cfunc->func && !cfunc->method) && unlikely(__Pyx_TryUnpackUnboundCMethod(cfunc) < 0)) return NULL;
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (cfunc->func && (cfunc->flag & METH_VARARGS)) {
+        args = PyTuple_New(1);
+        if (unlikely(!args)) goto bad;
+        Py_INCREF(arg);
+        PyTuple_SET_ITEM(args, 0, arg);
+        if (cfunc->flag & METH_KEYWORDS)
+            result = (*(PyCFunctionWithKeywords)(void*)(PyCFunction)cfunc->func)(self, args, NULL);
+        else
+            result = (*cfunc->func)(self, args);
+    } else {
+        args = PyTuple_New(2);
+        if (unlikely(!args)) goto bad;
+        Py_INCREF(self);
+        PyTuple_SET_ITEM(args, 0, self);
+        Py_INCREF(arg);
+        PyTuple_SET_ITEM(args, 1, arg);
+        result = __Pyx_PyObject_Call(cfunc->method, args, NULL);
+    }
+#else
+    args = PyTuple_Pack(2, self, arg);
+    if (unlikely(!args)) goto bad;
+    result = __Pyx_PyObject_Call(cfunc->method, args, NULL);
+#endif
+bad:
+    Py_XDECREF(args);
+    return result;
 }
 
 /* None */

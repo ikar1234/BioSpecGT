@@ -3,6 +3,7 @@ from typing import Union
 # TODO: test
 
 from BioSpecGT.graph.base import Graph, Edge
+from warnings import warn
 
 __all__ = [
     "write_edgelist",
@@ -139,29 +140,45 @@ def read_edgelist(path: str, sep: str = '\t', comments: list = None, mark_comm: 
                 meta += _parse_meta(line.strip())
 
 
-def _parse_edge(e: str, default_weight=None) -> Edge:
+def _parse_edge(e: str, sep: str = None, default_weight: Union[int, float] = None, edge_type=None) -> Edge:
     """
     Parse a string into an edge.
     Parameters
     ----------
     e: str
-        String
+        Input string
+    sep: str
+        Separator
     default_weight
         Default weight value for the missing weights.
+    edge_type
 
     Returns
     -------
 
     """
-    v1, v2, *weight = e.split(' ')
-    if default_weight is not None:
+    if type(edge_type) == str:
+        edge_type = eval(edge_type)
+
+    v1, v2, *weight = e.split(sep=sep)
+    if default_weight is not None and (weight == [] or weight[0] == ''):
+        if edge_type != type(default_weight):
+            warn(message=f'The edge type provided is {edge_type} but the default weight is {type(default_weight)}.'
+                         f' The default weight will be converted to the edge type.')
+
         weight = default_weight
-    elif weight == []:
-        weight = None
-    return Edge(v1, v2, weight)
+    if type(weight) == list:
+        weight = weight[0]
+
+    try:
+        weight = edge_type(weight)
+    except ValueError:
+        raise ValueError('You have specified int as an edge weight type but one of your edge weights if of type float.')
+    return Edge(v1, v2, edge_type(weight))
 
 
-def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **meta):
+def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, edge_type=None,
+                          **meta):
     """
     Parse a list of edges into a graph.
     Parameters
@@ -172,6 +189,8 @@ def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **m
         Separator in case that edges are given by strings.
     default_weight: int or float
         If only some edges are weighted, use this value as default for the others.
+    edge_type: str or type
+        The type of the edges of the graph.
     meta: dict
         Meta data of the graph
 
@@ -181,10 +200,15 @@ def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **m
 
     Examples
     -------
+    With string input
     l1 = ['v1 v2 2', 'v1 v3 1']
     g = parse_edges_from_list(l1)
 
+    With default weight:
+    l1 = ['v1 v2 2', 'v1 v3 1']
+    g = parse_edges_from_list(l1)
 
+    With tuple input:
     l2 = [('v1','v2', 2), ('v1','v3', 1)]
     g = parse_edges_from_list(l2)
 
@@ -194,7 +218,7 @@ def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **m
     l_type = type(l[0])
 
     if l_type == str:
-        edges = [_parse_edge(e, default_weight=default_weight) for e in l]
+        edges = [_parse_edge(e, default_weight=default_weight, edge_type=edge_type) for e in l]
     elif l_type == tuple or l_type == list:
         # weighted graph with default edges
         if default_weight is not None:
@@ -213,5 +237,6 @@ def parse_edges_from_list(l: list, default_weight: Union[int, float] = None, **m
             edges = [Edge(e[0], e[1]) for e in l]
     else:
         raise ValueError('An edge must be represented either by a string or by a tuple or list.')
-
-    return Graph(edges=edges)
+    g = Graph(edges=edges)
+    g.meta = meta
+    return g
