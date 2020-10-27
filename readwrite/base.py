@@ -2,6 +2,7 @@ from typing import Union
 
 from BioSpecGT.graph.base import Graph, Edge
 from warnings import warn
+import gzip
 
 __all__ = [
     "write_edgelist",
@@ -111,32 +112,44 @@ def _parse_meta(meta: str, key_type: str = 'str', val_type: str = 'str') -> dict
 
 # TODO
 def read_edgelist(path: str, sep: str = '\t', comments: list = None, mark_comm: str = '#', parse_meta=False,
-                  meta_types: list = None):
+                  meta_types: list = None, open_gzip=False):
     """
     Parse an edge list in tsv format.
-    :param path: path to write the graph
-    :param sep: separator
-    :param comments: list of comments to be written at top to the file
-    :param mark_comm: comment marker
-    :param parse_meta: whether to parse the provided meta data. meta data is distinguished
-            from comments by having the marker written twice
-            Example meta data line: ##source:kaggle
-    :param meta_types: the types of the input meta data.
-            Encoding is as follows:
-            string type - str,string
-            int type - int, integer
-            float type - float, decimal
-            Example: [('str','int')]
-    :return:
-    """
-    G = Graph()
 
-    with open(path, 'r+') as f:
-        meta = dict()
-        meta_marker = mark_comm + mark_comm
-        for line in f:
-            if parse_meta and line.startswith(meta_marker):
-                meta += _parse_meta(line.strip())
+    Parameters
+    ----------
+    path: str
+        Path to read the graph from
+    sep: str
+        Separator
+    comments: list
+        A list of comments to be written at top to the file
+    mark_comm: str
+        Comment marker
+    parse_meta: bool
+        Whether to parse the provided meta data.
+        Meta data is distinguished from comments by having the marker written twice.
+        Example meta data line: ##source:kaggle
+    meta_types: list
+        The types of the input meta data.
+    open_gzip: bool
+        Whether to open a zip file.
+
+    Returns
+    -------
+    """
+
+    G = Graph()
+    if open_gzip:
+        f = gzip.open(path, 'r+')
+    else:
+        f = open(path, 'r+')
+    meta = dict()
+    meta_marker = mark_comm + mark_comm
+    for line in f:
+        if parse_meta and line.startswith(meta_marker):
+            meta += _parse_meta(line.strip())
+    f.close()
 
 
 def _parse_edge(e: str, sep: str = None, default_weight: Union[int, float] = None, edge_type=None) -> Edge:

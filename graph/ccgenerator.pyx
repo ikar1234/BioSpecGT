@@ -88,7 +88,7 @@ cdef class CGraph:
     cdef public bint weighted
     cdef public dict meta
 
-    def __init__(self, edges, vertices=None, directed=False, meta=None):
+    def __init__(self, edges=None, vertices=None, directed=False, meta=None):
         self.vertices = vertices
         self.edges = edges
 
