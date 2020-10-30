@@ -1,2 +1,2 @@
-from BioSpecGT.viz.eigen_plots import *
-from BioSpecGT.viz.graph_props import *
+from BioSpecGT.biospecgt.viz.eigen_plots import *
+from BioSpecGT.biospecgt.viz.graph_props import *
